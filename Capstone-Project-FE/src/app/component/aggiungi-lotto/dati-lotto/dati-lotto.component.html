@@ -1,0 +1,35 @@
+<div class="p-5">
+  <form #formDati="ngForm">
+    <div class="form-group mb-3">
+      <label for="tipo">Tipo di oggetto</label>
+      <select class="form-select" aria-label="Tipo Lotto" name="tipo" [(ngModel)]="tipoSelezionato" required>
+        <option *ngFor="let tipo of tipiLotto" [value]="tipo">{{tipo}}</option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label for="titolo">Titolo dell'opera</label>
+      <input name="titolo" type="text" class="form-control" id="titolo" placeholder="Titolo" required ngModel>
+    </div>
+    <div class="form-group mb-3">
+      <label for="descrizione">Descrizione</label>
+      <textarea class="form-control" placeholder="Descrivi la tua opera" id="descrizione" name="descrizione" required ngModel></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label for="anno">Anno</label>
+      <input name="anno" type="number" class="form-control" id="anno" placeholder="Anno" required ngModel>
+    </div>
+    <div class="form-group mb-3">
+      <label for="tecnica">Tecnica utilizzata</label>
+      <select class="form-select" aria-label="Tecnica" name="tecnica" [(ngModel)]="tecnicaSelezionata" required>
+        <option *ngFor="let tecnica of tecnicheOpera" [value]="tecnica">{{tecnica}}</option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label for="condizioni">Condizioni</label>
+      <select class="form-select" aria-label="Condizioni" name="condizioni" [(ngModel)]="condizioniSelezionate" required>
+        <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni}}</option>
+      </select>
+    </div>
+    <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-danger rounded-5 px-5">Continua</button>
+  </form>
+</div>

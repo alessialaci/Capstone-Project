@@ -82,7 +82,13 @@ public class OperaController {
 		opera.setAutore(_opera.getAutore());
 		opera.setAnno(_opera.getAnno());
 		opera.setAltezza(_opera.getAltezza());
+		opera.setLunghezza(_opera.getLunghezza());
 		opera.setLarghezza(_opera.getLarghezza());
+		opera.setPeso(_opera.getPeso());
+		opera.setStimaPrezzo(_opera.getStimaPrezzo());
+		opera.setPrezzoMinimo(_opera.getPrezzoMinimo());
+		opera.setOfferta(_opera.getOfferta());
+		opera.setStatoLotto(_opera.getStatoLotto());
 		
 		os.save(opera);
 		

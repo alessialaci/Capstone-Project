@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.storageService.getUser().roles;
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
         }
       })
     } catch (error) {

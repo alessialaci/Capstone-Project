@@ -4,9 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import it.epicode.alessialacitignola.app.entities.FotoOpera;
 import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.entities.Ruolo;
 import it.epicode.alessialacitignola.app.entities.Utente;
+import it.epicode.alessialacitignola.app.entities.enums.CondizioniOpera;
+import it.epicode.alessialacitignola.app.entities.enums.StatoLotto;
+import it.epicode.alessialacitignola.app.entities.enums.TecnicaOpera;
+import it.epicode.alessialacitignola.app.entities.enums.TipoOpera;
 import it.epicode.alessialacitignola.app.entities.enums.TipoRuolo;
 
 @Configuration
@@ -14,14 +19,32 @@ public class Beans {
 	
 	@Bean
 	@Scope("prototype")
-	public Opera opera(String titolo, String descrizione, Utente autore, int anno, int altezza, int larghezza) {
+	public Opera opera(TipoOpera tipo, String titolo, String descrizione, Utente autore, TecnicaOpera tecnica, CondizioniOpera condizioni, int anno, int altezza, int lunghezza, int larghezza, double peso, double stimaPrezzo, double prezzoMinimo) {
 		return Opera.builder()
+				.tipo(tipo)
 				.titolo(titolo)
 				.descrizione(descrizione)
 				.autore(autore)
+				.tecnica(tecnica)
+				.condizioni(condizioni)
 				.anno(anno)
 				.altezza(altezza)
+				.lunghezza(lunghezza)
 				.larghezza(larghezza)
+				.peso(peso)
+				.stimaPrezzo(stimaPrezzo)
+				.prezzoMinimo(prezzoMinimo)
+				.offerta(1)
+				.statoLotto(StatoLotto.IN_ATTESA)
+				.build();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public FotoOpera foto(String url, Opera opera) {
+		return FotoOpera.builder()
+				.urlFoto(url)
+				.opera(opera)
 				.build();
 	}
 	

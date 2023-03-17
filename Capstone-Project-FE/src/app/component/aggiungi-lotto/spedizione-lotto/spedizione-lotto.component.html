@@ -1,0 +1,28 @@
+<div class="p-5">
+  <form #formSpedizione="ngForm">
+    <div class="form-group mb-3">
+      <label for="tipo">Spese di spedizione</label>
+      <select class="form-select" aria-label="Spese Spedizione">
+        <option value="Poste Italiane">Poste Italiane</option>
+        <option value="Altro spedizioniere">Altro spedizioniere</option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label for="dimensioni">Dimensioni</label>
+      <div class="d-flex align-items-baseline">
+        <input name="altezza" type="number" class="form-control me-2" id="altezza" placeholder="Altezza" required ngModel>
+        <input name="lunghezza" type="number" class="form-control mx-2" id="lunghezza" placeholder="Lunghezza" required ngModel>
+        <input name="larghezza" type="number" class="form-control mx-2" id="larghezza" placeholder="Larghezza" required ngModel>
+        <p>cm</p>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label for="peso">Peso</label>
+      <div class="d-flex align-items-baseline">
+        <input name="peso" type="number" class="form-control me-2" id="peso" placeholder="Peso" required ngModel>
+        <p>kg</p>
+      </div>
+    </div>
+    <button type="submit" (click)="aggiornaDatiLotto(formSpedizione)" [disabled]="formSpedizione.invalid" class="btn btn-danger rounded-5 px-5">Conferma</button>
+  </form>
+</div>

@@ -23,7 +23,7 @@ export class AuthService {
 
   register(data: {nome: string, cognome: string, username: string, email: string, password: string }): Observable<any> {
     return this.http.post(
-      'http://localhost:8080/registrazione',
+      'http://localhost:8080/app/utenti',
       data,
       this.httpOptions
     );

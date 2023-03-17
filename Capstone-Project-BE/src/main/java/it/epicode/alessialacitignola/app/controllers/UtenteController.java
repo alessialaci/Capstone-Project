@@ -34,8 +34,8 @@ public class UtenteController {
 	@Autowired
 	private RuoloService rs;
 	
-//	@Autowired
-//	private PasswordEncoder pwEncoder;
+	@Autowired
+	private PasswordEncoder pwEncoder;
 	
 	@GetMapping("utenti")
 	public ResponseEntity<Object> getUtenti() {
@@ -72,7 +72,7 @@ public class UtenteController {
 	
 	@PostMapping("utenti")
 	public ResponseEntity<Object> createUtente(@RequestBody Utente u) {
-//		String password = u.getPassword();
+		String password = u.getPassword();
 		Optional<Ruolo> userObj = rs.getById(2);
 		Ruolo ruoloUser = userObj.get();
 		
@@ -80,7 +80,7 @@ public class UtenteController {
 			add(ruoloUser);
 		}});
 		
-//		u.setPassword(pwEncoder.encode(password));
+		u.setPassword(pwEncoder.encode(password));
 		Utente utente = us.save(u);
 		
 		return new ResponseEntity<Object>(utente, HttpStatus.CREATED);

@@ -1,0 +1,19 @@
+<div class="p-5">
+  <form #formValore="ngForm">
+    <div class="form-group mb-3">
+      <label for="stimaPrezzo">Valore Stimato</label>
+      <div class="d-flex align-items-baseline">
+        <input name="stimaPrezzo" type="number" class="form-control me-2" id="stimaPrezzo" placeholder="Valore" required ngModel>
+        <p>€</p>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label for="minimo">Prezzo di riserva</label>
+      <div class="d-flex align-items-baseline">
+        <input name="minimo" type="number" class="form-control me-2" id="minimo" placeholder="Minimo" ngModel>
+        <p>€</p>
+      </div>
+    </div>
+    <button type="submit" (click)="aggiornaDatiLotto(formValore)" [disabled]="formValore.invalid" class="btn btn-danger rounded-5 px-5">Continua</button>
+  </form>
+</div>

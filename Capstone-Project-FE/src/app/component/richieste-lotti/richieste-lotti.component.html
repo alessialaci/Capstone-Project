@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+
+<div *ngFor="let lotto of listaOpere">
+  <div class="card" [routerLink]="['/dettagli-lotto', lotto.id]">
+    <p>Titolo: {{lotto?.titolo}}</p>
+    <p>Descrizione: {{lotto?.descrizione}}</p>
+    <p>Autore: {{lotto?.autore?.nome}} {{lotto?.autore?.cognome}}</p>
+    <p>Anno: {{lotto?.anno}}</p>
+    <p>Altezza: {{lotto?.altezza}}</p>
+    <p>Larghezza: {{lotto?.larghezza}}</p>
+    <p>Stato: {{lotto?.statoLotto}}</p>
+  </div>
+
+  <button type="submit" (click)="confermaLotto(lotto!.id)" class="btn btn-danger rounded-5 px-5">Conferma</button>
+  <button type="submit" (click)="rifiutaLotto(lotto!.id)" class="btn btn-danger rounded-5 px-5">Rifiuta</button>
+</div>

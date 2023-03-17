@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+
+<p>lista-lotti</p>
+
+<hr>
+
+<div *ngFor="let lotto of listaOpere">
+  <div class="card" [routerLink]="['/dettagli-lotto', lotto.id]">
+    <p>Titolo: {{lotto?.titolo}}</p>
+    <p>Descrizione: {{lotto?.descrizione}}</p>
+    <p>Autore: {{lotto?.autore?.nome}} {{lotto?.autore?.cognome}}</p>
+    <p>Anno: {{lotto?.anno}}</p>
+    <p>Altezza: {{lotto?.altezza}}</p>
+    <p>Larghezza: {{lotto?.larghezza}}</p>
+  </div>
+</div>
+
+<app-footer></app-footer>

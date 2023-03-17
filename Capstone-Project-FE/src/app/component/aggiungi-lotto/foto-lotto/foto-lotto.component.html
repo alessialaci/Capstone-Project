@@ -1,0 +1,6 @@
+<div class="dropzone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+  <p>Trascina qui le immagini</p>
+  <img *ngFor="let image of images" [src]="image" />
+</div>
+
+<button type="submit" (click)="aggiornaDatiLotto()" class="btn btn-danger rounded-5 px-5">Continua</button>
