@@ -13,20 +13,15 @@ export class RiepilogoComponent implements OnInit {
 
   utente: Utente | undefined;
   opera: Opera | undefined;
+  confermato = false;
 
   constructor(private us: UtentiService, private ss: StorageService) { }
 
   ngOnInit(): void {
-    let u = this.ss.getUser();
+    let utenteId = this.ss.getUser().id;
 
-    this.us.getUtenti().subscribe((utenti: Utente[]) => {
-      this.utente = utenti.find((utenteTrovato) => {
-        if (u.id == utenteTrovato.id) {
-          return true;
-        } else {
-          return false;
-        }
-      })
+    this.us.getUtenteById(utenteId).subscribe(ut => {
+      this.utente = ut;
     })
 
     this.opera = this.ss.getOpera();
@@ -34,8 +29,8 @@ export class RiepilogoComponent implements OnInit {
 
   inviaDati() {
     console.log("Dati inviati");
-    // Dovrebbe inviare i dati all'admin che deve accettarli e caricarli sul sito
-    // Se riesco a farlo biogna inserire all'opera un boolean in modo tale che carica sul sito solo quelli accettati (true)
+    this.confermato = true;
+    this.ss.removeOperaSS();
   }
 
 }

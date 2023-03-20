@@ -1,15 +1,27 @@
-<h3>Riepilogo Dati</h3>
+<div class="px-5">
+  <div *ngIf="!confermato">
+    <h3>Riepilogo Dati</h3>
 
-<p>tipo: {{opera?.tipo}}</p>
-<p>descrizione: {{opera?.descrizione}}</p>
-<p>autore: {{opera?.autore?.nome}} {{opera?.autore?.cognome}}</p>
-<p>tecnica: {{opera?.tecnica}}</p>
-<p>condizioni: {{opera?.condizioni}}</p>
-<p>anno: {{opera?.anno}}</p>
-<p>altezza: {{opera?.altezza}}</p>
-<p>lunghezza: {{opera?.lunghezza}}</p>
-<p>larghezza: {{opera?.larghezza}}</p>
-<p>peso: {{opera?.peso}}</p>
-<p>stimaPrezzo: {{opera?.stimaPrezzo}}</p>
+    <p>Tipo: {{opera?.tipo | capitalcase}}</p>
+    <p>Descrizione: {{opera?.descrizione}}</p>
+    <p>Autore: {{utente?.nome}} {{utente?.cognome}}</p>
+    <p>Tecnica: {{opera?.tecnica | capitalcase}}</p>
+    <p>Condizioni: {{opera?.condizioni | capitalcase}}</p>
+    <p>Anno: {{opera?.anno}}</p>
+    <p>Altezza: {{opera?.altezza}} cm</p>
+    <p>Lunghezza: {{opera?.lunghezza}} cm</p>
+    <p>Larghezza: {{opera?.larghezza}} cm</p>
+    <p>Peso: {{opera?.peso}} kg</p>
+    <p>Stima Prezzo: €{{opera?.stimaPrezzo}}</p>
 
-<button type="submit" (click)="inviaDati()" class="btn btn-danger rounded-5 px-5">Conferma</button>
+    <button type="submit" (click)="inviaDati()" class="btn btn-warning rounded-5 px-5">Conferma</button>
+  </div>
+
+  <div *ngIf="confermato">
+    <p>Dati inviati con successo! Un esperto controllerà la tua opera prima di caricarla sul sito.</p>
+
+    <p>Torna alla <a [routerLink]="['/lista-lotti']" title="Lista lotti">lista lotti</a></p>
+  </div>
+</div>
+
+

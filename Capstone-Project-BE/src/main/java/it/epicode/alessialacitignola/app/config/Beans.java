@@ -1,10 +1,14 @@
 package it.epicode.alessialacitignola.app.config;
 
+import java.io.File;
+import java.time.LocalDate;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import it.epicode.alessialacitignola.app.entities.FotoOpera;
+import it.epicode.alessialacitignola.app.entities.Offerta;
 import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.entities.Ruolo;
 import it.epicode.alessialacitignola.app.entities.Utente;
@@ -34,16 +38,15 @@ public class Beans {
 				.peso(peso)
 				.stimaPrezzo(stimaPrezzo)
 				.prezzoMinimo(prezzoMinimo)
-				.offerta(1)
 				.statoLotto(StatoLotto.IN_ATTESA)
 				.build();
 	}
 	
 	@Bean
 	@Scope("prototype")
-	public FotoOpera foto(String url, Opera opera) {
+	public FotoOpera foto(String file, Opera opera) {
 		return FotoOpera.builder()
-				.urlFoto(url)
+				.file("src/assets/img/opere/" + file)
 				.opera(opera)
 				.build();
 	}
@@ -66,6 +69,16 @@ public class Beans {
 				.email(email)
 				.password(password)
 				.attivo(true)
+				.build();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public Offerta offerta(LocalDate data, Opera opera, Utente utente) {
+		return Offerta.builder()
+				.data(data)
+				.opera(opera)
+				.utente(utente)
 				.build();
 	}
 

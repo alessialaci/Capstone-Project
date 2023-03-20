@@ -1,4 +1,4 @@
-<div class="p-5">
+<div class="px-5">
   <form #formDati="ngForm">
     <div class="form-group mb-3">
       <label for="tipo">Tipo di oggetto</label>
@@ -30,6 +30,6 @@
         <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni}}</option>
       </select>
     </div>
-    <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-danger rounded-5 px-5">Continua</button>
+    <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-warning rounded-5 px-5">Continua</button>
   </form>
 </div>

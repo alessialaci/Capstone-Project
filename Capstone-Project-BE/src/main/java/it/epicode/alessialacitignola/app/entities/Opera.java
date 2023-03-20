@@ -1,5 +1,6 @@
 package it.epicode.alessialacitignola.app.entities;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -50,7 +52,7 @@ public class Opera {
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "opera")
-    private Set<FotoOpera> urlFoto;
+    private Set<FotoOpera> foto;
 	
 	@Enumerated(EnumType.STRING)
 	private TecnicaOpera tecnica;
@@ -65,9 +67,21 @@ public class Opera {
 	private double peso;
 	private double stimaPrezzo;
 	private double prezzoMinimo;
-	private double offerta = 1;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "opera")
+	private Set<Offerta> offerta;
 	
 	@Enumerated(EnumType.STRING)
 	private StatoLotto statoLotto = StatoLotto.IN_ATTESA;
+	
+	private LocalDate scadenzaTimer;
+	
+//    @Transient
+//    public String getPhotosImagePath() {
+//        if (photos == null || id == null) return null;
+//         
+//        return "/user-photos/" + id + "/" + photos;
+//    }
 
 }

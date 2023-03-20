@@ -1,10 +1,8 @@
 <app-navbar></app-navbar>
 
-<p>generale works!</p>
-
-<div class="container">
-  <div class="sidebar">
-    <ul>
+<div class="container d-flex my-5">
+  <div class="sidebar rounded h-100 bg-warning p-3">
+    <ul class="list-unstyled">
       <li><a class="btn" [routerLink]="['dati']">Dettagli</a></li>
       <li><a class="btn" [routerLink]="['foto']">Foto</a></li>
       <li><a class="btn" [routerLink]="['valore']">Valore Stimato</a></li>
@@ -12,7 +10,7 @@
       <li><a class="btn" [routerLink]="['riepilogo']">Riepilogo</a></li>
     </ul>
   </div>
-  <div class="view">
+  <div>
     <router-outlet></router-outlet>
   </div>
 </div>

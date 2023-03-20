@@ -1,6 +1,29 @@
-<div class="dropzone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-  <p>Trascina qui le immagini</p>
-  <img *ngFor="let image of images" [src]="image" />
-</div>
+<div class="px-5">
+  <!-- <div class="dropzone mb-3" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+    <p>Trascina qui le immagini</p>
+    <img *ngFor="let image of images" [src]="image" />
+  </div> -->
 
-<button type="submit" (click)="aggiornaDatiLotto()" class="btn btn-danger rounded-5 px-5">Continua</button>
+
+  <!-- funzionava -->
+  <!--   <div class="p-5 border mb-3" (click)="fileInput.click()" appDragdrop (onFileDropped)="onDrag($event)">
+    <p>Trascina qui i tuoi file</p>
+    <p>oppure</p>
+    <input hidden type="file" #fileInput (change)="onDrag($event)" accept="image/png, image/jpeg, image/jpg">
+  </div> -->
+
+  <div class="p-5 border mb-3">
+    <form enctype="multipart/form-data">
+      <input type="file" name="image" #fileInput multiple accept="image/png, image/jpeg, image/jpg" (change)="onFileSelected($event)" >
+    </form>
+  </div>
+  <p>{{error}}</p>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let image of urlFoto">
+      <img [src]="image" class="m-2" width="200px" />
+      <!-- <button class="btn" (click)="images.splice(images.indexOf(image), 1)">X</button> -->
+    </div>
+  </div>
+
+  <button type="submit" (click)="aggiornaDatiLotto()" class="btn btn-warning rounded-5 px-5">Continua</button>
+</div>

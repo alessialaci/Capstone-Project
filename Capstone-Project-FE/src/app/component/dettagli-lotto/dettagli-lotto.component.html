@@ -1,13 +1,40 @@
 <app-navbar></app-navbar>
 
-<p>tipo: {{opera?.tipo}}</p>
-<p>descrizione: {{opera?.descrizione}}</p>
-<p>autore: {{opera?.autore?.nome}} {{opera?.autore?.cognome}}</p>
-<p>tecnica: {{opera?.tecnica}}</p>
-<p>condizioni: {{opera?.condizioni}}</p>
-<p>anno: {{opera?.anno}}</p>
-<p>altezza: {{opera?.altezza}}</p>
-<p>lunghezza: {{opera?.lunghezza}}</p>
-<p>larghezza: {{opera?.larghezza}}</p>
-<p>peso: {{opera?.peso}}</p>
-<p>stimaPrezzo: {{opera?.stimaPrezzo}}</p>
+<div class="container my-5">
+  <div class="row">
+    <div class="col">
+      <img src="https://cdn.shopify.com/s/files/1/0608/0194/1757/products/20220507_170948_5ceab8dd-c390-4b15-aa22-6eafad3d306b.jpg?v=1659132817" class="card-img-top" alt="Immagine lotto">
+      <button class="btn" (click)="aggiungiAiPreferiti()"><i class="bi bi-heart"></i></button>
+    </div>
+    <div class="col">
+      <div class="text-center fw-bold border p-3">
+        <p class="m-0">Si chiude in: </p>
+        <app-timer [opera]="opera"></app-timer>
+      </div>
+
+      <div class="my-3">
+        <h3>{{opera?.titolo}}</h3>
+        <p>Descrizione: {{opera?.descrizione}}</p>
+        <p>Autore: {{opera?.autore?.nome}} {{opera?.autore?.cognome}}</p>
+        <p>Anno: {{opera?.anno}}</p>
+        <p>Tipo: {{opera?.tipo | capitalcase}}</p>
+        <p>Tecnica: {{opera?.tecnica | capitalcase}}</p>
+        <p>Condizioni: {{opera?.condizioni | capitalcase}}</p>
+        <p>Altezza: {{opera?.altezza}} cm</p>
+        <p>Lunghezza: {{opera?.lunghezza}} cm</p>
+        <p>Larghezza: {{opera?.larghezza}} cm</p>
+        <p>Peso: {{opera?.peso}} kg</p>
+      </div>
+
+      <form #formOfferta="ngForm">
+        <div class="form-group mb-3">
+          <label for="offerta">Fai un'offerta</label>
+          <input name="offerta" type="text" class="form-control" id="offerta" placeholder="€" required ngModel>
+        </div>
+        <button type="submit" (click)="confermaOfferta(formOfferta)" [disabled]="formOfferta.invalid" class="btn btn-warning rounded-5 px-5">Conferma</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

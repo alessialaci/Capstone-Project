@@ -76,4 +76,8 @@ export class StorageService {
     return {};
   }
 
+  public removeOperaSS() {
+    window.sessionStorage.removeItem('nuova-opera');
+  }
+
 }

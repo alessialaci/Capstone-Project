@@ -5,11 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CapitalcasePipe implements PipeTransform {
 
-  transform(value: string): string {
+  transform(value: any): string {
     if (!value) return '';
 
-    const words = value.split(' ');
-    const capitalizedWords = words.map(word =>
+    const words = value.split('_');
+    const capitalizedWords = words.map((word: any) =>
       word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     );
 

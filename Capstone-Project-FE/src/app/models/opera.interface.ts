@@ -1,3 +1,4 @@
+import { TimerComponent } from "../component/timer/timer.component";
 import { CondizioniOpera } from "../enums/condizioni-opera.enum";
 import { StatoLotto } from "../enums/stato-lotto.enum";
 import { TecnicaOpera } from "../enums/tecnica-opera.enum";
@@ -20,5 +21,7 @@ export interface Opera {
   stimaPrezzo: number,
   prezzoMinimo: number,
   offerta: number,
-  statoLotto: StatoLotto
+  statoLotto: StatoLotto,
+  timer: TimerComponent,
+  scadenzaTimer: Date
 }

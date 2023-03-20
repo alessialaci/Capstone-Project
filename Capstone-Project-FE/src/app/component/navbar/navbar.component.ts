@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/auth/storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   userId: number | undefined;
 
-  constructor() { }
+  constructor(private ss: StorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.getUserId();
@@ -17,8 +19,21 @@ export class NavbarComponent implements OnInit {
 
   getUserId() {
     let authUser: any = window.sessionStorage.getItem('auth-user');
-    let parseUser = JSON.parse(authUser);
-    this.userId = parseUser.id;
+    if(authUser) {
+      let parseUser = JSON.parse(authUser);
+      this.userId = parseUser.id;
+    } else {
+      console.log("utente non loggato");
+    }
+  }
+
+  logout() {
+    this.ss.clean();
+    this.router.navigate(['/']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.ss.isLoggedIn();
   }
 
 }

@@ -12,7 +12,6 @@ import { FotoLottoComponent } from './component/aggiungi-lotto/foto-lotto/foto-l
 import { ValoreLottoComponent } from './component/aggiungi-lotto/valore-lotto/valore-lotto.component';
 import { SpedizioneLottoComponent } from './component/aggiungi-lotto/spedizione-lotto/spedizione-lotto.component';
 import { RiepilogoComponent } from './component/aggiungi-lotto/riepilogo/riepilogo.component';
-import { RichiesteLottiComponent } from './component/richieste-lotti/richieste-lotti.component';
 import { NotificheComponent } from './component/notifiche/notifiche.component';
 
 const routes: Routes = [
@@ -60,11 +59,6 @@ const routes: Routes = [
   {
     path: 'lista-lotti',
     component: ListaLottiComponent,
-    // canActivate: [AuthGuard]
-  },
-  {
-    path: 'richieste-lotti',
-    component: RichiesteLottiComponent,
     // canActivate: [AuthGuard]
   },
   {

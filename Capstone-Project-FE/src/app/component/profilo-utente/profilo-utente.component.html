@@ -1,9 +1,40 @@
 <app-navbar></app-navbar>
 
-<h1>Profilo Utente</h1>
+<div class="p-5">
+  <div>
+    <h1>Profilo Utente</h1>
 
-<p>Nome: {{utente?.nome}}</p>
-<p>Cognome: {{utente?.cognome}}</p>
-<p>Username: {{utente?.username}}</p>
-<p>Email: {{utente?.email}}</p>
+    <p>Nome: {{utente?.nome}}</p>
+    <p>Cognome: {{utente?.cognome}}</p>
+    <p>Username: {{utente?.username}}</p>
+    <p>Email: {{utente?.email}}</p>
 
+    <form (ngSubmit)="aggiornaUtente(formUtente)" #formUtente="ngForm" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">Foto: </label>
+        <input class="form-control" type="file" name="foto" accept="image/png, image/jpeg" ngModel />
+      </div>
+      <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Preferiti</h2>
+
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-4 col-lg-3 card m-3" *ngFor="let preferito of preferiti" [routerLink]="['/dettagli-lotto', preferito.id]">
+          <img src="https://cdn.shopify.com/s/files/1/0608/0194/1757/products/20220507_170948_5ceab8dd-c390-4b15-aa22-6eafad3d306b.jpg?v=1659132817" class="card-img-top" alt="Immagine lotto">
+          <div class="card-body">
+            <h5 class="card-title">{{preferito?.titolo}}</h5>
+            <p class="card-text">Autore: {{preferito?.autore?.nome}} {{preferito?.autore?.cognome}}</p>
+            <p class="card-text">Anno: {{preferito?.anno}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

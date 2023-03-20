@@ -1,13 +1,23 @@
 <app-navbar></app-navbar>
 
-<div *ngFor="let lotto of listaOpere">
-  <div class="card">
+<div class="container my-5">
+  <div *ngFor="let lotto of listaOpere" class="card p-3 mb-3">
+    <p *ngIf="isAdmin">L'utente {{lotto?.autore?.nome}} {{lotto?.autore?.cognome}} ha inviato una richiesta di conferma per il lotto n. {{lotto?.id}}</p>
+
+    <p *ngIf="!isAdmin">Ti informiamo che il tuo lotto è stato {{lotto.statoLotto | capitalcase}}.</p>
+    <hr>
     <p>Titolo: {{lotto?.titolo}}</p>
     <p>Descrizione: {{lotto?.descrizione}}</p>
     <p>Autore: {{lotto?.autore?.nome}} {{lotto?.autore?.cognome}}</p>
     <p>Anno: {{lotto?.anno}}</p>
-    <p>Altezza: {{lotto?.altezza}}</p>
-    <p>Larghezza: {{lotto?.larghezza}}</p>
-    <p>Stato: {{lotto?.statoLotto}}</p>
+    <p>Altezza: {{lotto?.altezza}} cm</p>
+    <p>Lunghezza: {{lotto?.lunghezza}} cm</p>
+    <p>Larghezza: {{lotto?.larghezza}} cm</p>
+    <p>Peso: {{lotto?.peso}} kg</p>
+
+    <div class="btn-group" *ngIf="isAdmin">
+      <button type="submit" (click)="confermaLotto(lotto!.id)" class="btn btn-warning rounded-5 px-5 me-3">Conferma</button>
+      <button type="submit" (click)="rifiutaLotto(lotto!.id)" class="btn btn-warning rounded-5 px-5">Rifiuta</button>
+    </div>
   </div>
 </div>

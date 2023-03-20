@@ -1,7 +1,12 @@
 package it.epicode.alessialacitignola.app.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.epicode.alessialacitignola.app.entities.FotoOpera;
 import it.epicode.alessialacitignola.app.services.FotoOperaService;
@@ -67,6 +73,23 @@ public class FotoController {
 		return new ResponseEntity<Object>(foto, HttpStatus.CREATED);
 	}
 	
+//	@PostMapping("foto")
+//	  public void createFoto(@RequestBody MultipartFile file) throws IOException {
+//	    // Generate a unique filename for the uploaded file
+//	    String filename = UUID.randomUUID().toString() + ".jpeg";
+//
+//	    // Save the file in the src/assets/img/opere folder
+//	    Path filepath = Paths.get("src", "assets", "img", "opere", filename);
+//	    Files.createDirectories(filepath.getParent());
+//	    Files.write(filepath, file.getBytes());
+//
+//	    // Create a new FotoOpera object and insert it into the foto_opere table in PostgreSQL
+//	    FotoOpera foto = FotoOpera.builder()
+//	        .urlFoto("/assets/img/opere/" + filename)
+//	        .build();
+//	    fs.save(foto);
+//	  }
+	
 	@PutMapping("foto/{id}")
 	public ResponseEntity<Object> updateFoto(@PathVariable int id, @RequestBody FotoOpera _foto) {
 		Optional<FotoOpera> fotoObj = fs.getById(id);
@@ -77,7 +100,7 @@ public class FotoController {
 		
 		FotoOpera foto = fotoObj.get();
 		
-		foto.setUrlFoto(_foto.getUrlFoto());
+		foto.setFile(_foto.getFile());
 		
 		fs.save(foto);
 		

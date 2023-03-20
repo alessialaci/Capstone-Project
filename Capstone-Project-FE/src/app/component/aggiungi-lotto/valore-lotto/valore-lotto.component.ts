@@ -21,7 +21,7 @@ export class ValoreLottoComponent implements OnInit {
 
     const operaAggiornata = {
       ...operaSS,
-      stimaPrezzo: Number.parseFloat(form.value.stimaPrezzo),
+      stimaPrezzo: form.value.stimaPrezzo,
       prezzoMinimo: form.value.minimo
     };
 

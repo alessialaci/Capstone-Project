@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +42,7 @@ public class Utente {
 	private String username;
 	private String email;
 	private String password;
+	private String foto;
 	private boolean attivo = true;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -47,5 +52,20 @@ public class Utente {
 		inverseJoinColumns = @JoinColumn(name = "ruolo_id")
 	)
 	private Set<Ruolo> ruoli;
+	
+//	@ManyToMany
+//	@JoinTable(
+//		name = "preferiti_utenti",
+//		joinColumns = @JoinColumn(name = "utente_id"),
+//		inverseJoinColumns = @JoinColumn(name = "preferito_id")
+//	)
+//	private Set<Opera> preferiti;
+	
+//    @Transient
+//    public String getPhotosImagePath() {
+//        if (foto == null) return null;
+//         
+//        return "/foto-utenti/" + id + "/" + foto;
+//    }
 
 }

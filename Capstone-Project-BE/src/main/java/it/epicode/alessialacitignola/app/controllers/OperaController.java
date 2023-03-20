@@ -1,13 +1,18 @@
 package it.epicode.alessialacitignola.app.controllers;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.epicode.alessialacitignola.app.config.FileUploadUtil;
+import it.epicode.alessialacitignola.app.entities.FotoOpera;
 import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.services.OperaService;
 
@@ -67,7 +76,7 @@ public class OperaController {
 		return new ResponseEntity<Object>(opera, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("opere/{id}")
+	@PutMapping("opere/{id}") //value = "opere/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE
 	public ResponseEntity<Object> updateOpera(@PathVariable int id, @RequestBody Opera _opera) {
 		Optional<Opera> operaObj = os.getById(id);
 		
@@ -77,10 +86,13 @@ public class OperaController {
 		
 		Opera opera = operaObj.get();
 		
+		opera.setTipo(_opera.getTipo());
 		opera.setTitolo(_opera.getTitolo());
 		opera.setDescrizione(_opera.getDescrizione());
 		opera.setAutore(_opera.getAutore());
 		opera.setAnno(_opera.getAnno());
+		opera.setTecnica(_opera.getTecnica());
+		opera.setCondizioni(_opera.getCondizioni());
 		opera.setAltezza(_opera.getAltezza());
 		opera.setLunghezza(_opera.getLunghezza());
 		opera.setLarghezza(_opera.getLarghezza());
@@ -89,6 +101,19 @@ public class OperaController {
 		opera.setPrezzoMinimo(_opera.getPrezzoMinimo());
 		opera.setOfferta(_opera.getOfferta());
 		opera.setStatoLotto(_opera.getStatoLotto());
+		opera.setScadenzaTimer(_opera.getScadenzaTimer());
+		
+//		Set<FotoOpera> fotoOpere = new HashSet<>();
+//	    for (MultipartFile multipartFile : multipartFiles) {
+//	        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//	        FotoOpera fotoOpera = FotoOpera.builder()
+//	                .file(fileName)
+//	                .opera(opera)
+//	                .build();
+//	            fotoOpere.add(fotoOpera);
+//	        FileUploadUtil.saveFile("foto-opere/" + opera.getId(), fileName, multipartFile);
+//	    }
+//	    opera.setFoto(fotoOpere); 
 		
 		os.save(opera);
 		

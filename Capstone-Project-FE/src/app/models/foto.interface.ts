@@ -2,6 +2,6 @@ import { Opera } from "./opera.interface";
 
 export interface Foto {
   id: number,
-  url: string,
+  foto: File,
   opera: Opera
 }

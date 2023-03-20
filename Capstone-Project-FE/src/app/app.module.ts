@@ -23,8 +23,9 @@ import { ValoreLottoComponent } from './component/aggiungi-lotto/valore-lotto/va
 import { SpedizioneLottoComponent } from './component/aggiungi-lotto/spedizione-lotto/spedizione-lotto.component';
 import { CapitalcasePipe } from './pipes/capitalcase.pipe';
 import { RiepilogoComponent } from './component/aggiungi-lotto/riepilogo/riepilogo.component';
-import { RichiesteLottiComponent } from './component/richieste-lotti/richieste-lotti.component';
 import { NotificheComponent } from './component/notifiche/notifiche.component';
+import { TimerComponent } from './component/timer/timer.component';
+import { DragdropDirective } from './directives/dragdrop.directive';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,9 @@ import { NotificheComponent } from './component/notifiche/notifiche.component';
     SpedizioneLottoComponent,
     CapitalcasePipe,
     RiepilogoComponent,
-    RichiesteLottiComponent,
-    NotificheComponent
+    NotificheComponent,
+    TimerComponent,
+    DragdropDirective
   ],
   imports: [
     BrowserModule,

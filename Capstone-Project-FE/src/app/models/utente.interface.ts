@@ -1,3 +1,5 @@
+import { Opera } from "./opera.interface";
+
 export interface Utente {
   id: number;
   nome: string;
@@ -5,5 +7,7 @@ export interface Utente {
   username: string;
   email: string;
   password: string;
+  foto: string;
   attivo: boolean;
+  preferiti: Opera[];
 }
