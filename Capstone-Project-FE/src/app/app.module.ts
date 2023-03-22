@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { NgxDropzoneModule } from 'ngx-dropzone';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -55,6 +57,7 @@ import { DragdropDirective } from './directives/dragdrop.directive';
     HttpClientModule,
     FormsModule,
     AuthRoutingModule,
+    NgxDropzoneModule
   ],
   providers: [
     {

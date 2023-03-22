@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Offerta } from '../models/offerta.interface';
+import { Opera } from '../models/opera.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,12 @@ export class OfferteService {
     return this.http.get<Offerta>(`http://localhost:8080/app/offerte/${id}`);
   }
 
-  deletOfferta(id: number): Observable<Object> {
+  getOfferteByOperaId(opera: Opera): Observable<Offerta[]> {
+    const params = new HttpParams().set('opera', opera.id.toString());
+    return this.http.get<Offerta[]>(`http://localhost:8080/app/offerte/cerca`, { params });
+  }
+
+  deleteOfferta(id: number): Observable<Object> {
     return this.http.delete(`http://localhost:8080/app/offerte/${id}`);
   }
 

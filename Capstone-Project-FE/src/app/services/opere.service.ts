@@ -19,7 +19,7 @@ export class OpereService {
     return this.http.get<Opera>(`http://localhost:8080/app/opere/${id}`);
   }
 
-  deletOpera(id: number): Observable<Object> {
+  deleteOpera(id: number): Observable<Object> {
     return this.http.delete(`http://localhost:8080/app/opere/${id}`);
   }
 

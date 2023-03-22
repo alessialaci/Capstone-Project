@@ -4,6 +4,7 @@ public enum StatoLotto {
 
 	IN_ATTESA,
 	APPROVATO,
-	RIFIUTATO
+	RIFIUTATO,
+	SCADUTO
 	
 }

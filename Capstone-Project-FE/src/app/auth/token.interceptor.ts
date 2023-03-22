@@ -16,6 +16,12 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const authUser: any = window.sessionStorage.getItem('auth-user');
 
+    if(request.headers.has('Access-Control-Allow-Origin'))  {
+      if (request.headers.get('Access-Control-Allow-Origin') === '*') {
+        return next.handle(request.clone({ headers: request.headers.delete('Authorization') && request.headers.delete('Access-Control-Allow-Origin') }));
+      }
+    }
+
     if(authUser) {
       const  parseAuthUser = JSON.parse(authUser);
       const token = parseAuthUser.token;
@@ -25,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
           setHeaders: {
             Authorization: `Bearer ${token}`
           },
-          withCredentials: true,
+          withCredentials: false,
         });
       } else {
         console.log("errore1");

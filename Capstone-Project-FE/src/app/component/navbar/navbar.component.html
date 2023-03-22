@@ -21,9 +21,8 @@
         <li class="nav-item" *ngIf="isLoggedIn()">
           <a class="nav-link position-relative" [routerLink]="['/notifiche']" routerLinkActive="active">
             <i class="bi bi-bell"></i>
-            <span class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
-              3
-              <!-- <span class="visually-hidden">unread messages</span> -->
+            <span *ngIf="notifiche != 0" class="position-absolute top-25 start-75 translate-middle badge rounded-pill bg-danger">
+              {{notifiche}}
             </span>
           </a>
         </li>

@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Opera } from 'src/app/models/opera.interface';
 import { Utente } from 'src/app/models/utente.interface';
+import { FotoService } from 'src/app/services/foto.service';
 import { UtentiService } from 'src/app/services/utenti.service';
 
 @Component({
@@ -14,9 +15,11 @@ import { UtentiService } from 'src/app/services/utenti.service';
 export class ProfiloUtenteComponent implements OnInit {
 
   utente: any;
+  files: File[] = [];
   preferiti: Opera[] | undefined;
+  fotoUtente = '';
 
-  constructor(private us: UtentiService, private ar: ActivatedRoute) { }
+  constructor(private us: UtentiService, private fs: FotoService, private ar: ActivatedRoute) { }
 
   ngOnInit(): void {
     let id = this.ar.snapshot.params["id"];
@@ -32,14 +35,39 @@ export class ProfiloUtenteComponent implements OnInit {
     })
   }
 
-  aggiornaUtente(form: NgForm) {
+  onSelect(event: any) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event: any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  aggiornaUtente() {
+    const data = new FormData();
+    data.append('file', this.files[0]);
+    data.append('upload_preset', 'artia_cloudinary2');
+    data.append('cloud_name', 'dwe3fc2iq');
+
+    this.fs.uploadImage(data).subscribe(response => {
+      if (response) {
+        this.fotoUtente = response;
+
+
+      }
+    });
+
+    this.aggiornaFoto(this.fotoUtente);
+  }
+
+  aggiornaFoto(url: string) {
+    console.log("foto", url);
     const utenteAggiornato = {
       ...this.utente,
-      foto: form.value.foto
+      foto: url
     }
-
-    console.log(form.value.foto);
-
 
     this.us.updateUtente(utenteAggiornato).subscribe((response) => {
       console.log('Utente aggiornato con successo', response);

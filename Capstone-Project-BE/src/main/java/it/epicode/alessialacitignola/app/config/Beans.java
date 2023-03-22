@@ -1,6 +1,5 @@
 package it.epicode.alessialacitignola.app.config;
 
-import java.io.File;
 import java.time.LocalDate;
 
 import org.springframework.context.annotation.Bean;
@@ -8,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import it.epicode.alessialacitignola.app.entities.FotoOpera;
+import it.epicode.alessialacitignola.app.entities.Notifica;
 import it.epicode.alessialacitignola.app.entities.Offerta;
 import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.entities.Ruolo;
@@ -79,6 +79,17 @@ public class Beans {
 				.data(data)
 				.opera(opera)
 				.utente(utente)
+				.build();
+	}
+	
+	@Bean
+	@Scope("prototype")
+	public Notifica notifica(Utente utente, Opera opera, String messaggio) {
+		return Notifica.builder()
+				.utente(utente)
+				.opera(opera)
+				.messaggio(messaggio)
+				.visualizzato(false)
 				.build();
 	}
 

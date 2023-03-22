@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.epicode.alessialacitignola.app.entities.Offerta;
+import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.repositories.OffertaRepository;
 
 @Service
@@ -25,6 +26,10 @@ public class OffertaService {
 		return or.findAll(pageable);
 	}
 	
+	public List<Offerta> getAllByOpera(Opera opera) {
+		return or.findByOpera(opera);
+	}
+	
 	public Optional<Offerta> getById(int id) {
 		return or.findById(id);
 	}
@@ -36,5 +41,5 @@ public class OffertaService {
 	public void delete(Offerta o) {
 		or.delete(o);
 	}
-
+	
 }

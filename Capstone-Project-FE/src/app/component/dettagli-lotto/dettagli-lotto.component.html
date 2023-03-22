@@ -2,8 +2,8 @@
 
 <div class="container my-5">
   <div class="row">
-    <div class="col">
-      <img src="https://cdn.shopify.com/s/files/1/0608/0194/1757/products/20220507_170948_5ceab8dd-c390-4b15-aa22-6eafad3d306b.jpg?v=1659132817" class="card-img-top" alt="Immagine lotto">
+    <div class="col"> <!--*ngFor="let foto of listaFoto"-->
+      <img src="https://res.cloudinary.com/dwe3fc2iq/image/upload/v1679505177/foto_opere/bgxswbghoyin5ogtanlk.jpg" class="card-img-top" alt="Immagine lotto">
       <button class="btn" (click)="aggiungiAiPreferiti()"><i class="bi bi-heart"></i></button>
     </div>
     <div class="col">
@@ -12,27 +12,35 @@
         <app-timer [opera]="opera"></app-timer>
       </div>
 
-      <div class="my-3">
-        <h3>{{opera?.titolo}}</h3>
-        <p>Descrizione: {{opera?.descrizione}}</p>
-        <p>Autore: {{opera?.autore?.nome}} {{opera?.autore?.cognome}}</p>
-        <p>Anno: {{opera?.anno}}</p>
-        <p>Tipo: {{opera?.tipo | capitalcase}}</p>
-        <p>Tecnica: {{opera?.tecnica | capitalcase}}</p>
-        <p>Condizioni: {{opera?.condizioni | capitalcase}}</p>
-        <p>Altezza: {{opera?.altezza}} cm</p>
-        <p>Lunghezza: {{opera?.lunghezza}} cm</p>
-        <p>Larghezza: {{opera?.larghezza}} cm</p>
-        <p>Peso: {{opera?.peso}} kg</p>
+      <div class="my-3" *ngIf="opera">
+        <h3>{{opera.titolo}}</h3>
+        <p>Descrizione: {{opera.descrizione}}</p>
+        <p>Autore: {{opera.autore.nome}} {{opera.autore.cognome}}</p>
+        <p>Anno: {{opera.anno}}</p>
+        <p>Tipo: {{opera.tipo | capitalcase}}</p>
+        <p>Tecnica: {{opera.tecnica | capitalcase}}</p>
+        <p>Condizioni: {{opera.condizioni | capitalcase}}</p>
+        <p>Altezza: {{opera.altezza}} cm</p>
+        <p>Lunghezza: {{opera.lunghezza}} cm</p>
+        <p>Larghezza: {{opera.larghezza}} cm</p>
+        <p>Peso: {{opera.peso}} kg</p>
       </div>
-
-      <form #formOfferta="ngForm">
+    </div>
+    <div>
+      <form #formOfferta="ngForm" *ngIf="this.utente?.id != this.opera?.autore?.id">
         <div class="form-group mb-3">
           <label for="offerta">Fai un'offerta</label>
           <input name="offerta" type="text" class="form-control" id="offerta" placeholder="€" required ngModel>
         </div>
+        <p>{{errore}}</p>
         <button type="submit" (click)="confermaOfferta(formOfferta)" [disabled]="formOfferta.invalid" class="btn btn-warning rounded-5 px-5">Conferma</button>
       </form>
+    </div>
+    <div>
+      <h3>Lista offerte</h3>
+      <div *ngFor="let offerta of listaOfferte">
+        <p>{{offerta.data}} - {{offerta.utente.nome}} {{offerta.utente.cognome}} - €{{offerta.offerta}}</p>
+      </div>
     </div>
   </div>
 </div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/auth/storage.service';
+import { Notifica } from 'src/app/models/notifica.interface';
 import { Opera } from 'src/app/models/opera.interface';
+import { Utente } from 'src/app/models/utente.interface';
+import { NotificheService } from 'src/app/services/notifiche.service';
 import { OpereService } from 'src/app/services/opere.service';
 import { UtentiService } from 'src/app/services/utenti.service';
 import { TimerComponent } from '../timer/timer.component';
@@ -12,45 +15,54 @@ import { TimerComponent } from '../timer/timer.component';
 })
 export class NotificheComponent implements OnInit {
 
+  utente: Utente | undefined;
+  utenteSS: any;
   listaOpere: Opera[] | undefined;
+  listaNotifiche: Notifica[] | undefined;
+  notificheVisualizzate: Notifica[] = [];
   utenteId!: number;
-  oggi = new Date();
   isAdmin = false;
 
-  constructor(private ss: StorageService, private os: OpereService, private us: UtentiService) { }
+  constructor(private ss: StorageService, private os: OpereService, private us: UtentiService, private ns: NotificheService) { }
 
   ngOnInit(): void {
-    const utente = this.ss.getUser();
-    this.utenteId = utente.id;
+    this.utenteSS = this.ss.getUser();
+    this.utenteId = this.utenteSS.id;
 
-    if(utente.roles[0] == 'ROLE_ADMIN') {
-      this.isAdmin = true;
-      this.getLottiAdmin()
-    } else if(utente.roles[0] == 'ROLE_USER') {
-      this.isAdmin = false;
-      this.getLottiUser();
-    } else {
-      console.log("Errore nel caricamento delle notifiche");
-    }
-  }
+    this.us.getUtenteById(this.utenteId).subscribe(ut => {
+      this.utente = ut;
 
-  getLottiUser() {
-    this.os.getOpere().subscribe(opere => {
-      this.listaOpere = opere.filter(opera =>
-        opera.autore.id === this.utenteId && opera.statoLotto !== "IN_ATTESA"
-      );
+      if(this.utenteSS) {
+        if(this.utenteSS.roles[0] == 'ROLE_ADMIN') {
+          this.isAdmin = true;
+          this.getNotificheAdmin();
+        } else if(this.utenteSS.roles[0] == 'ROLE_USER') {
+          this.isAdmin = false;
+          this.getNotificheUser();
+        } else {
+          console.log("Errore nel caricamento delle notifiche");
+        }
+      }
     })
   }
 
-  getLottiAdmin() {
-    this.os.getOpere().subscribe(opere => {
-      this.listaOpere = opere.filter(opera => opera.statoLotto === "IN_ATTESA");
+  getNotificheUser() {
+    this.ns.getNotificheByUtente(this.utente!).subscribe(notifiche => {
+      this.listaNotifiche = notifiche.filter(notifica => notifica.opera.statoLotto !== "IN_ATTESA" && notifica.opera.statoLotto !== "SCADUTO");
     })
   }
 
-  confermaLotto(id: number) {
-    this.os.getOperaById(id).subscribe(opera => {
-      const scadenzaTimer = new Date(this.oggi.getTime() + 7 * 24 * 60 * 60 * 1000);
+  getNotificheAdmin() {
+    this.ns.getNotificheByUtente(this.utente!).subscribe(notifiche => {
+      this.listaNotifiche = notifiche;
+    })
+  }
+
+  confermaLotto(opera: Opera, notifica: Notifica) {
+    this.notificaVisualizzata(notifica);
+    const oggi = new Date();
+    this.os.getOperaById(opera.id).subscribe(opera => {
+      const scadenzaTimer = new Date(oggi.getTime() + 7 * 24 * 60 * 60 * 1000);
       const operaAggiornata = {
         ...opera,
         statoLotto: 'APPROVATO',
@@ -58,21 +70,53 @@ export class NotificheComponent implements OnInit {
         scadenzaTimer: scadenzaTimer
       };
       console.log('Data di scadenza aggiornata: ', operaAggiornata.scadenzaTimer);
-      this.os.updateOpera(operaAggiornata, id).subscribe(() => {
+      this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
         console.log('Lotto confermato');
-        this.getLottiAdmin();
+        this.creaNotifica(opera, "Il tuo lotto è stato confermato");
+        this.getNotificheAdmin();
       });
     });
   }
 
-  rifiutaLotto(id: number) {
-    this.os.getOperaById(id).subscribe(opera => {
+  rifiutaLotto(opera: Opera, notifica: Notifica) {
+    this.notificaVisualizzata(notifica);
+    this.os.getOperaById(opera.id).subscribe(opera => {
       const operaAggiornata = { ...opera, statoLotto: 'RIFIUTATO' };
-      this.os.updateOpera(operaAggiornata, id).subscribe(() => {
+      this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
         console.log('Lotto rifiutato');
-        this.getLottiAdmin();
+        this.creaNotifica(opera, "Il tuo lotto è stato rifiutato");
+        this.getNotificheAdmin();
       });
     });
+  }
+
+  creaNotifica(opera: Opera, messaggio: string) {
+    const nuovaNotifica: Partial<Notifica> = {
+      utente: opera.autore,
+      opera: opera,
+      messaggio: messaggio
+    };
+
+    this.ns.addNotifica(nuovaNotifica).subscribe(notifica => {
+      console.log("Notifica aggiunta correttamente", notifica);
+    })
+  }
+
+  notificaVisualizzata(notifica: Notifica) {
+    const aggiornaNotifica: Partial<Notifica> = {
+      ...notifica,
+      visualizzato: true
+    };
+
+    this.ns.updateNotifica(aggiornaNotifica).subscribe(notifica => {
+      console.log("Notifica aggiornata correttamente", notifica);
+
+      if(this.utenteSS.roles[0] == 'ROLE_ADMIN') {
+        this.getNotificheAdmin();
+      } else if(this.utenteSS.roles[0] == 'ROLE_USER') {
+        this.getNotificheUser();
+      }
+    })
   }
 
 }

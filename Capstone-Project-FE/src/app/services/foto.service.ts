@@ -1,7 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Foto } from '../models/foto.interface';
+import { Opera } from '../models/opera.interface';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Access-Control-Allow-Origin': '*'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +25,19 @@ export class FotoService {
     return this.http.get<Foto>(`http://localhost:8080/app/foto/${id}`);
   }
 
-  deletFoto(id: number): Observable<Object> {
+  getFotoByOperaId(opera: Opera): Observable<Foto[]> {
+    const params = new HttpParams().set('opera', opera.id.toString());
+    return this.http.get<Foto[]>(`http://localhost:8080/app/foto/cerca`, { params });
+  }
+
+  deleteFoto(id: number): Observable<Object> {
     return this.http.delete(`http://localhost:8080/app/foto/${id}`);
+  }
+
+  uploadImage(vals: any): Observable<any> {
+    let data = vals;
+
+    return this.http.post('https://api.cloudinary.com/v1_1/dwe3fc2iq/image/upload', data, httpOptions);
   }
 
   addFoto(foto: Partial<Foto>): Observable<Object> {

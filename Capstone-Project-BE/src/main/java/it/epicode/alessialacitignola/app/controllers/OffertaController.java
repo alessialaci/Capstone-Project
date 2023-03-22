@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.epicode.alessialacitignola.app.entities.Offerta;
+import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.services.OffertaService;
 
 @RestController
@@ -100,4 +102,9 @@ public class OffertaController {
 		return new ResponseEntity<>(String.format("Offerta con id %d eliminata", id), HttpStatus.OK);
 	}
 	
+	@GetMapping("offerte/cerca")
+	public List<Offerta> getAllOfferteByOpera(@RequestParam("opera") Opera opera) {
+		return os.getAllByOpera(opera);
+	}
+
 }

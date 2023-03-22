@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.epicode.alessialacitignola.app.entities.FotoOpera;
+import it.epicode.alessialacitignola.app.entities.Opera;
 import it.epicode.alessialacitignola.app.repositories.FotoOperaRepository;
 
 @Service
@@ -23,6 +24,10 @@ public class FotoOperaService {
 	
 	public Page<FotoOpera> getAllInPages(Pageable pageable) {
 		return fr.findAll(pageable);
+	}
+	
+	public List<FotoOpera> getAllByOpera(Opera opera) {
+		return fr.findByOpera(opera);
 	}
 	
 	public Optional<FotoOpera> getById(int id) {
