@@ -2,8 +2,8 @@
 
 <div class="container my-5">
   <div class="row">
-    <div class="col"> <!--*ngFor="let foto of listaFoto"-->
-      <img src="https://res.cloudinary.com/dwe3fc2iq/image/upload/v1679505177/foto_opere/bgxswbghoyin5ogtanlk.jpg" class="card-img-top" alt="Immagine lotto">
+    <div class="col">
+      <img *ngFor="let foto of listaFoto" src="{{foto.file}}" height="200px" alt="Immagine lotto">
       <button class="btn" (click)="aggiungiAiPreferiti()"><i class="bi bi-heart"></i></button>
     </div>
     <div class="col">

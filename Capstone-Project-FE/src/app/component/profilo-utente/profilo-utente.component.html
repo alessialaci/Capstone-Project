@@ -4,31 +4,31 @@
   <div>
     <h1>Profilo Utente</h1>
 
+    <div>
+      <img class="img-thumbnail rounded-circle" src="{{utente?.foto || '../../../../../assets/img/utente.png'}}" alt="Immagine profilo {{utente?.nome}} {{utente?.cognome}}" height="200px" width="200px"/>
+      <button class="btn btn-warning rounded-pill" (click)="modifica()">Modifica</button>
+    </div>
+
+    <div *ngIf="modificaDati" class="px-5">
+      <ngx-dropzone class="px-5" (change)="onSelect($event)">
+        <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+          <ngx-dropzone-label class="text-dark">({{ f.name }})</ngx-dropzone-label>
+        </ngx-dropzone-image-preview>
+      </ngx-dropzone>
+
+      <p>{{errore}}</p>
+
+      <div>
+        <button class="btn btn-secondary rounded-pill" (click)="annulla()">Annulla</button>
+        <button class="btn btn-warning rounded-5 px-5 my-3" (click)="aggiornaUtente()">Conferma</button>
+      </div>
+    </div>
+
     <p>Nome: {{utente?.nome}}</p>
     <p>Cognome: {{utente?.cognome}}</p>
     <p>Username: {{utente?.username}}</p>
     <p>Email: {{utente?.email}}</p>
-
-    <!-- <form (ngSubmit)="aggiornaUtente(formUtente)" #formUtente="ngForm" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label class="form-label">Foto: </label>
-        <input class="form-control" type="file" name="foto" accept="image/png, image/jpeg" ngModel />
-      </div>
-      <button type="submit" class="btn btn-warning">Submit</button>
-    </form> -->
-  </div>
-
-  <div class="px-5">
-    <ngx-dropzone class="px-5" (change)="onSelect($event)">
-      <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
-      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-        <ngx-dropzone-label>({{ f.name }})</ngx-dropzone-label>
-      </ngx-dropzone-image-preview>
-    </ngx-dropzone>
-
-    <div>
-      <button class="btn btn-warning rounded-5 px-5 my-3" (click)="aggiornaUtente()">Conferma</button>
-    </div>
   </div>
 
   <div>

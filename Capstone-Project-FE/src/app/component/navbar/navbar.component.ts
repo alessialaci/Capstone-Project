@@ -32,8 +32,6 @@ export class NavbarComponent implements OnInit {
     if(authUser) {
       let parseUser = JSON.parse(authUser);
       this.userId = parseUser.id;
-    } else {
-      console.log("utente non loggato");
     }
   }
 

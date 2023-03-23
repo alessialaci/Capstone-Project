@@ -46,7 +46,7 @@ public class Beans {
 	@Scope("prototype")
 	public FotoOpera foto(String file, Opera opera) {
 		return FotoOpera.builder()
-				.file("src/assets/img/opere/" + file)
+				.file(file)
 				.opera(opera)
 				.build();
 	}

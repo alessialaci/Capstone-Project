@@ -33,11 +33,9 @@ export class DettagliLottoComponent implements OnInit {
 
     this.os.getOperaById(this.idOpera).subscribe(o => {
       this.opera = o;
-      this.fs.getFotoByOperaId(this.opera).subscribe(foto => {
-        this.listaFoto = foto;
-
-        this.trovaOfferte();
-      });
+      console.log(o);
+      this.trovaFoto(o);
+      this.trovaOfferte();
     });
 
     const utenteId = this.ss.getUser().id;
@@ -111,6 +109,14 @@ export class DettagliLottoComponent implements OnInit {
   trovaOfferte() {
     this.ofs.getOfferteByOperaId(this.opera!).subscribe(offerte => {
       this.listaOfferte = offerte.reverse();
+    });
+  }
+
+  trovaFoto(opera: Opera) {
+    this.fs.getFotoByOperaId(opera).subscribe(foto => {
+      this.listaFoto = foto;
+      console.log(foto);
+
     });
   }
 

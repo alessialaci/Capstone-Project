@@ -119,4 +119,22 @@ export class NotificheComponent implements OnInit {
     })
   }
 
+
+
+  // if (this.opera!.stato === 'SCADUTO') {
+  //   this.errore = 'Il timer è scaduto! Non è più possibile fare offerte per questo lotto';
+  //   return;
+  // }
+
+  // trovaUltimaOfferta(callback: (ultimaOfferta: Offerta | undefined) => void) {
+  //   this.ofs.getOfferteByOperaId(this.opera!).subscribe(offerte => {
+  //     if (offerte.length > 0) {
+  //       offerte.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
+  //       callback(offerte[offerte.length - 1]);
+  //     } else {
+  //       callback(undefined);
+  //     }
+  //   });
+  // }
+
 }

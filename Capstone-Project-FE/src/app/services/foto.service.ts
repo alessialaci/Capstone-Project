@@ -36,7 +36,6 @@ export class FotoService {
 
   uploadImage(vals: any): Observable<any> {
     let data = vals;
-
     return this.http.post('https://api.cloudinary.com/v1_1/dwe3fc2iq/image/upload', data, httpOptions);
   }
 

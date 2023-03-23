@@ -11,10 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,12 +56,5 @@ public class Utente {
 //		inverseJoinColumns = @JoinColumn(name = "preferito_id")
 //	)
 //	private Set<Opera> preferiti;
-	
-//    @Transient
-//    public String getPhotosImagePath() {
-//        if (foto == null) return null;
-//         
-//        return "/foto-utenti/" + id + "/" + foto;
-//    }
 
 }

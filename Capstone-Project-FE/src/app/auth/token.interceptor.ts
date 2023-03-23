@@ -34,10 +34,8 @@ export class TokenInterceptor implements HttpInterceptor {
           withCredentials: false,
         });
       } else {
-        console.log("errore1");
+        console.log("Errore");
       }
-    } else {
-      console.log("errore2");
     }
 
     return next.handle(request);
