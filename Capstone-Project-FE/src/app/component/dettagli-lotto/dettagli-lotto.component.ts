@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Foto } from 'src/app/models/foto.interface';
+import { Notifica } from 'src/app/models/notifica.interface';
 import { FotoService } from 'src/app/services/foto.service';
+import { NotificheService } from 'src/app/services/notifiche.service';
 import { StorageService } from '../../auth/storage.service';
 import { Offerta } from '../../models/offerta.interface';
 import { Opera } from '../../models/opera.interface';
@@ -18,6 +20,8 @@ import { UtentiService } from '../../services/utenti.service';
 })
 export class DettagliLottoComponent implements OnInit {
 
+  @Output() aggiungiNotifica = new EventEmitter<Opera>();
+
   utente: Utente | undefined;
   opera: Opera | undefined;
   idOpera!: number;
@@ -26,7 +30,7 @@ export class DettagliLottoComponent implements OnInit {
   listaFoto: Foto[] = [];
   errore = ""
 
-  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private router: Router) { }
+  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private router: Router) { }
 
   ngOnInit(): void {
     this.idOpera = this.ar.snapshot.params["id"];
@@ -130,6 +134,53 @@ export class DettagliLottoComponent implements OnInit {
         console.log("Utente aggiornato con successo", response);
       })
     }
+  }
+
+  // Per aggiornare lo stato del lotto in 'SCADUTO' quando il countdown arriva a 0 e inviare la notifica all'utente
+  timerScaduto(opera: Opera) {
+    this.os.updateOpera(opera, opera.id).subscribe(() => {
+      const operaAggiornata = {
+        ...opera,
+        statoLotto: 'SCADUTO',
+      };
+
+      this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
+        console.log('Lotto scaduto');
+        this.calcoloAstaAggiudicata().then((messaggio) => {
+          this.creaNotifica(opera.autore, opera, messaggio);
+          // this.creaNotifica(opera.offerte[0].utente, opera, messaggio);
+        });
+      });
+    });
+  }
+
+  creaNotifica(destinatario: Utente, opera: Opera, messaggio: string) {
+    const nuovaNotifica: Partial<Notifica> = {
+      utente: destinatario,
+      opera: opera,
+      messaggio: messaggio,
+    };
+
+    this.ns.addNotifica(nuovaNotifica).subscribe((notifica) => {
+      console.log('Notifica aggiunta correttamente', notifica);
+    });
+  }
+
+  calcoloAstaAggiudicata(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.trovaUltimaOfferta((ultimaOfferta) => {
+        if (ultimaOfferta == undefined || ultimaOfferta.offerta <= 1) {
+          resolve("Ci dispiace, ma non sono state effettuate offerte per la tua opera");
+        } else if (ultimaOfferta.offerta < this.opera!.prezzoMinimo) {
+          resolve("Ci dispiace, ma le offerte effettuate dagli utenti non hanno raggiunto il prezzo minimo da te inserito. L'asta è annullata");
+        } else {
+          this.creaNotifica(ultimaOfferta.utente, ultimaOfferta.opera, "Complimenti! Ti sei aggiudicato l'asta del lotto n. " + ultimaOfferta.opera.id);
+          console.log(ultimaOfferta.utente);
+
+          resolve('Asta terminata! Il tuo lotto è stato venduto all\'utente ' + ultimaOfferta.utente.nome + ' ' + ultimaOfferta.utente.cognome + ' al prezzo di €' + ultimaOfferta.offerta);
+        }
+      });
+    });
   }
 
 }

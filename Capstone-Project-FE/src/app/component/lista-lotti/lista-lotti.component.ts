@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Foto } from 'src/app/models/foto.interface';
 import { Opera } from 'src/app/models/opera.interface';
-import { FotoService } from 'src/app/services/foto.service';
 import { OpereService } from 'src/app/services/opere.service';
 
 @Component({

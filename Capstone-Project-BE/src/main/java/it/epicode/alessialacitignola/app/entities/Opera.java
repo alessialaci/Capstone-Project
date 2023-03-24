@@ -1,6 +1,6 @@
 package it.epicode.alessialacitignola.app.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -75,13 +75,6 @@ public class Opera {
 	@Enumerated(EnumType.STRING)
 	private StatoLotto statoLotto = StatoLotto.IN_ATTESA;
 	
-	private LocalDate scadenzaTimer;
-	
-//    @Transient
-//    public String getPhotosImagePath() {
-//        if (photos == null || id == null) return null;
-//         
-//        return "/user-photos/" + id + "/" + photos;
-//    }
+	private LocalDateTime scadenzaTimer;
 
 }

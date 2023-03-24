@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { StorageService } from 'src/app/auth/storage.service';
 import { Notifica } from 'src/app/models/notifica.interface';
 import { Opera } from 'src/app/models/opera.interface';
@@ -6,7 +7,6 @@ import { Utente } from 'src/app/models/utente.interface';
 import { NotificheService } from 'src/app/services/notifiche.service';
 import { OpereService } from 'src/app/services/opere.service';
 import { UtentiService } from 'src/app/services/utenti.service';
-import { TimerComponent } from '../timer/timer.component';
 
 @Component({
   selector: 'app-notifiche',
@@ -48,13 +48,17 @@ export class NotificheComponent implements OnInit {
 
   getNotificheUser() {
     this.ns.getNotificheByUtente(this.utente!).subscribe(notifiche => {
-      this.listaNotifiche = notifiche.reverse().filter(notifica => notifica.opera.statoLotto !== "IN_ATTESA" && notifica.opera.statoLotto !== "SCADUTO");
+      this.listaNotifiche = notifiche.filter(notifica => notifica.opera.statoLotto !== "IN_ATTESA").sort((a, b) => {
+        return b.id - a.id;
+      });
     })
   }
 
   getNotificheAdmin() {
     this.ns.getNotificheByUtente(this.utente!).subscribe(notifiche => {
-      this.listaNotifiche = notifiche.reverse();
+      this.listaNotifiche = notifiche.sort((a, b) => {
+        return b.id - a.id;
+      });
     })
   }
 
@@ -62,11 +66,13 @@ export class NotificheComponent implements OnInit {
     this.notificaVisualizzata(notifica);
     const oggi = new Date();
     this.os.getOperaById(opera.id).subscribe(opera => {
-      const scadenzaTimer = new Date(oggi.getTime() + 7 * 24 * 60 * 60 * 1000);
+      // const scadenzaTimer = new Date(oggi.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const scadenzaTimer = new Date(oggi.getTime() + (60 * 60 * 1000) + (20 * 60 * 1000)).toISOString();
+      console.log(scadenzaTimer);
+
       const operaAggiornata = {
         ...opera,
         statoLotto: 'APPROVATO',
-        timer: new TimerComponent(),
         scadenzaTimer: scadenzaTimer
       };
       console.log('Data di scadenza aggiornata: ', operaAggiornata.scadenzaTimer);
@@ -118,6 +124,7 @@ export class NotificheComponent implements OnInit {
       }
     })
   }
+
 
 
 

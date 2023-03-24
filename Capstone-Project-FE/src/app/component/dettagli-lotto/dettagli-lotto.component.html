@@ -9,7 +9,8 @@
     <div class="col">
       <div class="text-center fw-bold border p-3">
         <p class="m-0">Si chiude in: </p>
-        <app-timer [opera]="opera"></app-timer>
+        <app-timer [opera]="opera" (timerScaduto)="timerScaduto(opera!)"></app-timer>
+        <p *ngIf="opera?.statoLotto == 'SCADUTO'">Lotto Scaduto</p>
       </div>
 
       <div class="my-3" *ngIf="opera">

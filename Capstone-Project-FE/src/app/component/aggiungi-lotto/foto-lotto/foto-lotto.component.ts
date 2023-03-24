@@ -25,16 +25,13 @@ export class FotoLottoComponent implements OnInit {
 
   ngOnInit() {
     this.operaSS = this.ss.getOpera();
+    console.log(this.operaSS);
 
     if(this.operaSS) {
-      this.os.getOpere().subscribe(opere => {
-        this.opera = opere.find((operaTrovata) => {
-          if (this.operaSS!.id == operaTrovata.id) {
-            return true;
-          } else {
-            return false;
-          }
-        })
+      this.os.getOperaById(this.operaSS.id).subscribe(op => {
+        this.opera = op;
+        console.log(op);
+
       })
     }
   }
@@ -86,7 +83,6 @@ export class FotoLottoComponent implements OnInit {
       data.append('cloud_name', 'dwe3fc2iq');
 
       this.fs.uploadImage(data).pipe(
-        // switchMap serve a fare in modo che l'aggiornamento dell'utente avvenga solo dopo che l'immagine è stata caricata con successo
         switchMap(response => {
           if (response) {
             let url = response.secure_url;
