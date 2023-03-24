@@ -1,7 +1,5 @@
 package it.epicode.alessialacitignola.app.entities;
 
-import java.io.File;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

@@ -22,7 +22,6 @@ const routes: Routes = [
   {
     path: 'dettagli-lotto/:id',
     component: DettagliLottoComponent,
-    // canActivate: [AuthGuard]
   },
   {
     path: 'profilo-utente/:id',

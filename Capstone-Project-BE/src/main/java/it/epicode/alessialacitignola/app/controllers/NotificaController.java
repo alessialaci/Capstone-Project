@@ -38,6 +38,11 @@ public class NotificaController {
 		return new ResponseEntity<>(notifiche, HttpStatus.CREATED);
 	}
 	
+	@GetMapping("notifiche/cerca")
+	public List<Notifica> getAllNotificheByUtente(@RequestParam("utente") Utente utente) {
+		return ns.getAllByUtente(utente);
+	}
+	
 	@GetMapping("notifiche/{id}")
 	public ResponseEntity<Object> getNotificaById(@PathVariable int id) {
 		Optional<Notifica> notificaObj = ns.getById(id);
@@ -87,11 +92,6 @@ public class NotificaController {
 		ns.delete(notificaObj.get());
 		
 		return new ResponseEntity<>(String.format("Notifica con id %d eliminata", id), HttpStatus.OK);
-	}
-	
-	@GetMapping("notifiche/cerca")
-	public List<Notifica> getAllNotificheByUtente(@RequestParam("utente") Utente utente) {
-		return ns.getAllByUtente(utente);
 	}
 
 }

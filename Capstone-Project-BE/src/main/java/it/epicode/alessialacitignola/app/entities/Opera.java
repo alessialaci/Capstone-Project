@@ -1,6 +1,7 @@
 package it.epicode.alessialacitignola.app.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -52,7 +52,7 @@ public class Opera {
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "opera")
-    private Set<FotoOpera> foto;
+    private List<FotoOpera> foto;
 	
 	@Enumerated(EnumType.STRING)
 	private TecnicaOpera tecnica;

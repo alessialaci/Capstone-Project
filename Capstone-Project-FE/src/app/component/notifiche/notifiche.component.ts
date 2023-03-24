@@ -48,13 +48,13 @@ export class NotificheComponent implements OnInit {
 
   getNotificheUser() {
     this.ns.getNotificheByUtente(this.utente!).subscribe(notifiche => {
-      this.listaNotifiche = notifiche.filter(notifica => notifica.opera.statoLotto !== "IN_ATTESA" && notifica.opera.statoLotto !== "SCADUTO");
+      this.listaNotifiche = notifiche.reverse().filter(notifica => notifica.opera.statoLotto !== "IN_ATTESA" && notifica.opera.statoLotto !== "SCADUTO");
     })
   }
 
   getNotificheAdmin() {
     this.ns.getNotificheByUtente(this.utente!).subscribe(notifiche => {
-      this.listaNotifiche = notifiche;
+      this.listaNotifiche = notifiche.reverse();
     })
   }
 

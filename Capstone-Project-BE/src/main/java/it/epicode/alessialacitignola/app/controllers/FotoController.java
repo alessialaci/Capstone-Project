@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,7 +52,13 @@ public class FotoController {
 		return new ResponseEntity<>(foto, HttpStatus.OK);
 	}
 	
+	@GetMapping("foto/cerca")
+	public List<FotoOpera> getAllFotoByOpera(@RequestParam("opera") Opera opera) {
+		return fs.getAllByOpera(opera);
+	}
+	
 	@GetMapping("foto/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> getFotoById(@PathVariable int id) {
 		Optional<FotoOpera> fotoObj = fs.getById(id);
 		
@@ -70,6 +77,7 @@ public class FotoController {
 	}
 
 	@PutMapping("foto/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> updateFoto(@PathVariable int id, @RequestBody FotoOpera _foto) {
 		Optional<FotoOpera> fotoObj = fs.getById(id);
 		
@@ -97,11 +105,6 @@ public class FotoController {
 		fs.delete(fotoObj.get());
 		
 		return new ResponseEntity<>(String.format("Foto con id %d eliminata", id), HttpStatus.OK);
-	}
-	
-	@GetMapping("foto/cerca")
-	public List<FotoOpera> getAllFotoByOpera(@RequestParam("opera") Opera opera) {
-		return fs.getAllByOpera(opera);
 	}
 
 }

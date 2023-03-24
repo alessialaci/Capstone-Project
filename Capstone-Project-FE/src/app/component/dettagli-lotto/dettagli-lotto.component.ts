@@ -33,7 +33,6 @@ export class DettagliLottoComponent implements OnInit {
 
     this.os.getOperaById(this.idOpera).subscribe(o => {
       this.opera = o;
-      console.log(o);
       this.trovaFoto(o);
       this.trovaOfferte();
     });
@@ -115,8 +114,6 @@ export class DettagliLottoComponent implements OnInit {
   trovaFoto(opera: Opera) {
     this.fs.getFotoByOperaId(opera).subscribe(foto => {
       this.listaFoto = foto;
-      console.log(foto);
-
     });
   }
 

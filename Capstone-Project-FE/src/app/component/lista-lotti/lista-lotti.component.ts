@@ -13,7 +13,7 @@ export class ListaLottiComponent implements OnInit {
 
   listaOpere: Opera[] | undefined;
 
-  constructor(private os: OpereService, private fs: FotoService) { }
+  constructor(private os: OpereService) { }
 
   ngOnInit(): void {
     this.getLotti();
