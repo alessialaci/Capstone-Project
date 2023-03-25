@@ -19,7 +19,7 @@ export class FotoLottoComponent implements OnInit {
   errore = '';
   operaSS: Opera | undefined;
   opera: Opera | undefined;
-  opere: Opera[] | undefined;
+  opere: Opera[] = [];
 
   constructor(private ss: StorageService, private fs: FotoService, private os: OpereService, private router: Router) { }
 
@@ -34,6 +34,19 @@ export class FotoLottoComponent implements OnInit {
 
       })
     }
+
+    // if(this.operaSS) {
+    //   this.os.getOpere().subscribe(opere => {
+    //     this.opera = opere.find(operaTrovata => {
+    //       if (this.operaSS?.id == operaTrovata.id) {
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     })
+    //   })
+    // }
+
   }
 
   onSelect(event: any) {

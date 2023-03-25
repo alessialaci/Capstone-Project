@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Offerta } from '../models/offerta.interface';
 import { Opera } from '../models/opera.interface';
 
@@ -20,7 +20,7 @@ export class OfferteService {
   }
 
   getOfferteByOperaId(opera: Opera): Observable<Offerta[]> {
-    const params = new HttpParams().set('opera', opera.id.toString());
+    const params = new HttpParams().set('opera', opera.id);
     return this.http.get<Offerta[]>(`http://localhost:8080/app/offerte/cerca`, { params });
   }
 
@@ -34,6 +34,13 @@ export class OfferteService {
 
   updateOfferta(offerta: Offerta, id: number): Observable<Object> {
     return this.http.put(`http://localhost:8080/app/offerte/${id}`, offerta);
+  }
+
+  getUltimaOfferta(opera: Opera): Observable<Offerta> {
+    const params = new HttpParams().set('opera', opera.id).set('_sort', 'data').set('_order', 'desc').set('_limit', '1');
+    return this.http.get<Offerta[]>('http://localhost:8080/app/offerte/cerca', { params }).pipe(
+      map(offerte => offerte[offerte.length - 1])
+    );
   }
 
 }
