@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/auth/storage.service';
 import { Notifica } from 'src/app/models/notifica.interface';
 import { Opera } from 'src/app/models/opera.interface';
@@ -15,15 +15,15 @@ import { UtentiService } from 'src/app/services/utenti.service';
 })
 export class NotificheComponent implements OnInit {
 
-  utente: Utente | undefined;
   utenteSS: any;
-  listaOpere: Opera[] | undefined;
-  listaNotifiche: Notifica[] | undefined;
-  notificheVisualizzate: Notifica[] = [];
   utenteId!: number;
+  utente: Utente | undefined;
+  listaOpere: Opera[] | undefined;
+  listaNotifiche: Notifica[] = [];
+  notificheVisualizzate: Notifica[] = [];
   isAdmin = false;
 
-  constructor(private ss: StorageService, private os: OpereService, private us: UtentiService, private ns: NotificheService) { }
+  constructor(private ar: ActivatedRoute, private ss: StorageService, private ns: NotificheService, private us: UtentiService, private router: Router) { }
 
   ngOnInit(): void {
     this.utenteSS = this.ss.getUser();
@@ -62,52 +62,6 @@ export class NotificheComponent implements OnInit {
     })
   }
 
-  confermaLotto(opera: Opera, notifica: Notifica) {
-    this.notificaVisualizzata(notifica);
-    const oggi = new Date();
-    this.os.getOperaById(opera.id).subscribe(opera => {
-      // const scadenzaTimer = new Date(oggi.getTime() + 7 * 24 * 60 * 60 * 1000);
-      const scadenzaTimer = new Date(oggi.getTime() + (60 * 60 * 1000) + (20 * 60 * 1000)).toISOString();
-      console.log(scadenzaTimer);
-
-      const operaAggiornata = {
-        ...opera,
-        statoLotto: 'APPROVATO',
-        scadenzaTimer: scadenzaTimer
-      };
-      console.log('Data di scadenza aggiornata: ', operaAggiornata.scadenzaTimer);
-      this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-        console.log('Lotto confermato');
-        this.creaNotifica(opera, "Il tuo lotto è stato confermato");
-        this.getNotificheAdmin();
-      });
-    });
-  }
-
-  rifiutaLotto(opera: Opera, notifica: Notifica) {
-    this.notificaVisualizzata(notifica);
-    this.os.getOperaById(opera.id).subscribe(opera => {
-      const operaAggiornata = { ...opera, statoLotto: 'RIFIUTATO' };
-      this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-        console.log('Lotto rifiutato');
-        this.creaNotifica(opera, "Il tuo lotto è stato rifiutato");
-        this.getNotificheAdmin();
-      });
-    });
-  }
-
-  creaNotifica(opera: Opera, messaggio: string) {
-    const nuovaNotifica: Partial<Notifica> = {
-      utente: opera.autore,
-      opera: opera,
-      messaggio: messaggio
-    };
-
-    this.ns.addNotifica(nuovaNotifica).subscribe(notifica => {
-      console.log("Notifica aggiunta correttamente", notifica);
-    })
-  }
-
   notificaVisualizzata(notifica: Notifica) {
     const aggiornaNotifica: Partial<Notifica> = {
       ...notifica,
@@ -122,26 +76,8 @@ export class NotificheComponent implements OnInit {
       } else if(this.utenteSS.roles[0] == 'ROLE_USER') {
         this.getNotificheUser();
       }
-    })
+    });
+    this.router.navigate(['/dettagli-notifiche/', notifica.id]);
   }
-
-
-
-
-  // if (this.opera!.stato === 'SCADUTO') {
-  //   this.errore = 'Il timer è scaduto! Non è più possibile fare offerte per questo lotto';
-  //   return;
-  // }
-
-  // trovaUltimaOfferta(callback: (ultimaOfferta: Offerta | undefined) => void) {
-  //   this.ofs.getOfferteByOperaId(this.opera!).subscribe(offerte => {
-  //     if (offerte.length > 0) {
-  //       offerte.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-  //       callback(offerte[offerte.length - 1]);
-  //     } else {
-  //       callback(undefined);
-  //     }
-  //   });
-  // }
 
 }

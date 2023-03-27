@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+
+<div class="container p-5" *ngIf="notifica">
+  <p class="m-0">{{notifica.messaggio}}</p>
+  <hr>
+  <div>
+    <img class="m-3" *ngFor="let foto of listaFoto" src="{{foto.file}}" height="200px" alt="Immagine lotto">
+  </div>
+  <p>Titolo: {{notifica.opera.titolo}}</p>
+  <p>Descrizione: {{notifica.opera.descrizione}}</p>
+  <p>Autore: {{notifica.opera.autore.nome}} {{notifica.opera.autore.cognome}}</p>
+  <p>Anno: {{notifica.opera.anno}}</p>
+  <p>Altezza: {{notifica.opera.altezza}} cm</p>
+  <p>Lunghezza: {{notifica.opera.lunghezza}} cm</p>
+  <p>Larghezza: {{notifica.opera.larghezza}} cm</p>
+  <p>Peso: {{notifica.opera.peso}} kg</p>
+  <p>Stato: {{notifica.opera.statoLotto}}</p>
+
+  <div class="btn-group" *ngIf="isAdmin">
+    <button type="submit" (click)="confermaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-5 px-5 me-3">Conferma</button>
+    <button type="submit" (click)="rifiutaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-5 px-5">Rifiuta</button>
+  </div>
+</div>

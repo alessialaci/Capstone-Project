@@ -1,21 +1,6 @@
-<app-navbar></app-navbar>
-
-<div class="container my-5">
-  <div *ngFor="let notifica of listaNotifiche" class="card p-3 mb-3" (click)="notificaVisualizzata(notifica)" [ngClass]="{'notifica-visualizzata': notifica.visualizzato}">
-    <p>{{notifica.messaggio}}</p>
-    <hr>
-    <p>Titolo: {{notifica.opera.titolo}}</p>
-    <p>Descrizione: {{notifica.opera.descrizione}}</p>
-    <p>Autore: {{notifica.opera.autore.nome}} {{notifica.opera.autore.cognome}}</p>
-    <p>Anno: {{notifica.opera.anno}}</p>
-    <p>Altezza: {{notifica.opera.altezza}} cm</p>
-    <p>Lunghezza: {{notifica.opera.lunghezza}} cm</p>
-    <p>Larghezza: {{notifica.opera.larghezza}} cm</p>
-    <p>Peso: {{notifica.opera.peso}} kg</p>
-
-    <div class="btn-group" *ngIf="isAdmin">
-      <button type="submit" (click)="confermaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-5 px-5 me-3">Conferma</button>
-      <button type="submit" (click)="rifiutaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-5 px-5">Rifiuta</button>
-    </div>
-  </div>
+<div *ngFor="let notifica of listaNotifiche" class="border p-3 mb-1" [ngClass]="{'notifica-visualizzata': notifica.visualizzato}" (click)="notificaVisualizzata(notifica)">
+  <p class="m-0">{{notifica.messaggio}}</p>
+</div>
+<div class="p-3 mb-1" *ngIf="listaNotifiche.length <= 0">
+  <p>Non ci sono notifiche</p>
 </div>

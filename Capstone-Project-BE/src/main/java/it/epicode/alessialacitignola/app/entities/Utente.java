@@ -1,5 +1,6 @@
 package it.epicode.alessialacitignola.app.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -49,12 +50,18 @@ public class Utente {
 	)
 	private Set<Ruolo> ruoli;
 	
+	private String via;
+	private int cap;
+	private String citta;
+	private String stato;
+	private String bio;
+	
 //	@ManyToMany
 //	@JoinTable(
 //		name = "preferiti_utenti",
 //		joinColumns = @JoinColumn(name = "utente_id"),
 //		inverseJoinColumns = @JoinColumn(name = "preferito_id")
 //	)
-//	private Set<Opera> preferiti;
+//	private List<Opera> preferiti;
 
 }

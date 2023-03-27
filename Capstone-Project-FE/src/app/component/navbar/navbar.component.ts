@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   userId: number | undefined;
   utente: Utente | undefined;
-  notifiche: number | undefined;
+  numeroNotifiche: number | undefined;
 
   constructor(private us: UtentiService, private ns: NotificheService, private ss: StorageService, private router: Router) { }
 
@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
     if(this.userId) {
       this.getUtente();
     }
-
   }
 
   getUserId() {
@@ -38,14 +37,14 @@ export class NavbarComponent implements OnInit {
   getUtente() {
     this.us.getUtenteById(this.userId!).subscribe(ut => {
       this.utente = ut;
-      this.getNotifiche()
+      this.getNumeroNotifiche()
     })
   }
 
-  getNotifiche() {
+  getNumeroNotifiche() {
     if (this.utente) {
       this.ns.getNotificheByUtente(this.utente!).subscribe(not => {
-        this.notifiche = not.filter(not => not.visualizzato == false).length;
+        this.numeroNotifiche = not.filter(not => not.visualizzato == false).length;
       });
     } else {
       console.log("Utente non definito");

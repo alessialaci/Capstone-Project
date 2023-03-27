@@ -9,5 +9,10 @@ export interface Utente {
   password: string;
   foto: string;
   attivo: boolean;
+  via: string,
+  cap: number,
+  citta: string,
+  stato: string,
+  bio: string
   preferiti: Opera[];
 }

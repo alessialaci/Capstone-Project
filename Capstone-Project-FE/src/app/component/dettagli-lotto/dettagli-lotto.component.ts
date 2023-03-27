@@ -20,42 +20,32 @@ import { UtentiService } from '../../services/utenti.service';
 })
 export class DettagliLottoComponent implements OnInit {
 
-  @Output() aggiungiNotifica = new EventEmitter<Opera>();
-
   utente: Utente | undefined;
-  opera: Opera | undefined;
   idOpera!: number;
-  listaPreferiti: Opera[] = [];
+  opera: Opera | undefined;
+  ultimaOfferta: Offerta | undefined;
   listaOfferte: Offerta[] = [];
   listaFoto: Foto[] = [];
+  listaPreferiti: Opera[] = [];
   errore = "";
-
-  ultimaOfferta: Offerta | undefined;
 
   constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private router: Router) { }
 
   ngOnInit(): void {
     this.idOpera = this.ar.snapshot.params["id"];
-    console.log("idOpera", this.idOpera);
-
 
     this.os.getOperaById(this.idOpera).subscribe(o => {
       this.opera = o;
-      console.log("opera", o);
 
       this.trovaFoto(o);
       this.trovaOfferte(o);
     });
 
     const utenteId = this.ss.getUser().id;
-    console.log("idUtente", utenteId);
-
 
     if (utenteId) {
       this.us.getUtenteById(utenteId).subscribe((utente: Utente) => {
         this.utente = utente;
-        console.log("utente", utente);
-
         this.listaPreferiti = utente.preferiti ?? [];
       });
     }
@@ -65,8 +55,6 @@ export class DettagliLottoComponent implements OnInit {
   trovaFoto(opera: Opera) {
     this.fs.getFotoByOperaId(opera).subscribe(foto => {
       this.listaFoto = foto;
-      console.log("lista foto", foto);
-
     });
   }
 
@@ -77,11 +65,11 @@ export class DettagliLottoComponent implements OnInit {
       console.log("offerte", offerte);
     });
 
-    this.trovaUltimaOfferta2(opera);
+    this.trovaUltimaOfferta(opera);
   }
 
   // Per recuperare l'ultima offerta legata all'opera presa in considerazione
-  trovaUltimaOfferta2(opera: Opera) {
+  trovaUltimaOfferta(opera: Opera) {
     this.ofs.getUltimaOfferta(opera).subscribe(offerta => {
       if(offerta) {
         this.ultimaOfferta = offerta;
@@ -130,6 +118,7 @@ export class DettagliLottoComponent implements OnInit {
         if(this.ultimaOfferta) {
           console.log(this.ultimaOfferta.utente);
           this.creaNotifica(this.ultimaOfferta.utente, this.opera!, "L'utente " + this.utente!.nome + " ha fatto un'offerta di €" + form.value.offerta)
+          this.trovaOfferte(this.opera!);
         }
       });
     } else if ((this.ultimaOfferta !== undefined && form.value.offerta < this.ultimaOfferta!.offerta) || (this.ultimaOfferta == undefined && form.value.offerta < 1)) {
@@ -139,7 +128,6 @@ export class DettagliLottoComponent implements OnInit {
       this.errore = "L'offerta non può essere uguale o inferiore alla precedente di €" + this.ultimaOfferta?.offerta;
       return;
     }
-    this.trovaOfferte(this.opera!);
   }
 
   aggiungiAiPreferiti() {

@@ -13,6 +13,8 @@ import { ValoreLottoComponent } from './component/aggiungi-lotto/valore-lotto/va
 import { SpedizioneLottoComponent } from './component/aggiungi-lotto/spedizione-lotto/spedizione-lotto.component';
 import { RiepilogoComponent } from './component/aggiungi-lotto/riepilogo/riepilogo.component';
 import { NotificheComponent } from './component/notifiche/notifiche.component';
+import { PagamentoComponent } from './component/pagamento/pagamento.component';
+import { DettagliNotificaComponent } from './component/dettagli-notifica/dettagli-notifica.component';
 
 const routes: Routes = [
   {
@@ -61,8 +63,13 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   {
-    path: 'notifiche',
-    component: NotificheComponent,
+    path: 'dettagli-notifiche/:id',
+    component: DettagliNotificaComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'pagamento',
+    component: PagamentoComponent,
     // canActivate: [AuthGuard]
   },
   // {

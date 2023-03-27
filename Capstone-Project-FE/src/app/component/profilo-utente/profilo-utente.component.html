@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<div class="p-5">
+<div class="container p-5">
   <div>
     <h1>Profilo Utente</h1>
 
@@ -21,7 +21,7 @@
 
       <div>
         <button class="btn btn-secondary rounded-pill" (click)="annulla()">Annulla</button>
-        <button class="btn btn-warning rounded-5 px-5 my-3" (click)="aggiornaUtente()">Conferma</button>
+        <button class="btn btn-warning rounded-5 px-5 my-3" (click)="aggiornaFotoUtente()">Conferma</button>
       </div>
     </div>
 
@@ -29,6 +29,15 @@
     <p>Cognome: {{utente?.cognome}}</p>
     <p>Username: {{utente?.username}}</p>
     <p>Email: {{utente?.email}}</p>
+    <p>Bio: {{utente?.bio || 'da compilare'}}</p>
+
+    <h5>Dati spedizione</h5>
+    <p>Via: {{utente?.via || 'da compilare'}}</p>
+    <p>Cap: {{utente?.cap || 'da compilare'}}</p>
+    <p>Città: {{utente?.citta || 'da compilare'}}</p>
+    <p>Stato: {{utente?.stato || 'da compilare'}}</p>
+
+    <button class="btn btn-warning rounded-pill" (click)="modifica()">Modifica</button>
   </div>
 
   <div>

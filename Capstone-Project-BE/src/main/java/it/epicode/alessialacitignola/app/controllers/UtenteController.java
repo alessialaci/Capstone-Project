@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -37,9 +36,6 @@ public class UtenteController {
 	
 	@Autowired
 	private PasswordEncoder pwEncoder;
-	
-    @Value("${upload.path}")
-    private String uploadPath;
 	
 	@GetMapping("utenti")
 	public ResponseEntity<Object> getUtenti() {
@@ -109,6 +105,11 @@ public class UtenteController {
 		utente.setRuoli(_utente.getRuoli());
 		utente.setFoto(_utente.getFoto());
 //		utente.setPreferiti(_utente.getPreferiti());
+		utente.setVia(_utente.getVia());
+		utente.setCap(_utente.getCap());
+		utente.setCitta(_utente.getCitta());
+		utente.setStato(_utente.getStato());
+		utente.setBio(_utente.getBio());
 		
 		us.save(utente);
 		

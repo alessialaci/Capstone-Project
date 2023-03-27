@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, switchMap } from 'rxjs';
 import { Opera } from 'src/app/models/opera.interface';
@@ -49,7 +50,7 @@ export class ProfiloUtenteComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  aggiornaUtente() {
+  aggiornaFotoUtente() {
     if(this.files.length > 1) {
       this.errore = 'Non è possibile inserire più di una foto';
       return;
@@ -81,6 +82,35 @@ export class ProfiloUtenteComponent implements OnInit {
       this.modificaDati = false;
     });
   }
+
+  aggiornaDatiUtente(form: NgForm) {
+    const utenteAggiornato = {
+      ...this.utente,
+      // bio: form.bio.value,
+
+
+    }
+  }
+
+  /*aggiornaDatiLotto(form: NgForm) {
+    const operaSS = this.ss.getOpera();
+
+    const operaAggiornata = {
+      ...operaSS,
+      altezza: form.value.altezza,
+      lunghezza: form.value.lunghezza,
+      larghezza: form.value.larghezza,
+      peso: form.value.peso
+    };
+
+    this.os.updateOpera(operaAggiornata, operaSS.id).subscribe((response) => {
+      console.log('Opera aggiornata con successo', response);
+    });
+
+    this.ss.saveOpera(operaAggiornata);
+
+    this.router.navigate(['/aggiungi-lotto/riepilogo']);
+  } */
 
   modifica() {
     this.modificaDati = true;

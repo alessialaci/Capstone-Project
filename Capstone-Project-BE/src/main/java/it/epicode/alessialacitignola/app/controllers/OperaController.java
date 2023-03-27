@@ -93,7 +93,8 @@ public class OperaController {
 		opera.setOfferta(_opera.getOfferta());
 		opera.setStatoLotto(_opera.getStatoLotto());
 		opera.setScadenzaTimer(_opera.getScadenzaTimer());
-	    opera.setFoto(_opera.getFoto()); 
+	    opera.setFoto(_opera.getFoto());
+	    
 		
 		os.save(opera);
 		

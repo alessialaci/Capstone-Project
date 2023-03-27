@@ -9,7 +9,7 @@ import { OpereService } from 'src/app/services/opere.service';
 })
 export class ListaLottiComponent implements OnInit {
 
-  listaOpere: Opera[] | undefined;
+  listaOpere: Opera[] = [];
 
   constructor(private os: OpereService) { }
 
@@ -20,6 +20,7 @@ export class ListaLottiComponent implements OnInit {
   getLotti() {
     this.os.getOpere().subscribe(opere => {
       this.listaOpere = opere.filter(opera => opera.statoLotto === "APPROVATO");
+      console.log(this.listaOpere);
     })
   }
 

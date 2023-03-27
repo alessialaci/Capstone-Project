@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,8 @@ import { RiepilogoComponent } from './component/aggiungi-lotto/riepilogo/riepilo
 import { NotificheComponent } from './component/notifiche/notifiche.component';
 import { TimerComponent } from './component/timer/timer.component';
 import { DragdropDirective } from './directives/dragdrop.directive';
+import { PagamentoComponent } from './component/pagamento/pagamento.component';
+import { DettagliNotificaComponent } from './component/dettagli-notifica/dettagli-notifica.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { DragdropDirective } from './directives/dragdrop.directive';
     RiepilogoComponent,
     NotificheComponent,
     TimerComponent,
-    DragdropDirective
+    DragdropDirective,
+    PagamentoComponent,
+    DettagliNotificaComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,8 @@ import { DragdropDirective } from './directives/dragdrop.directive';
     HttpClientModule,
     FormsModule,
     AuthRoutingModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NgxPaginationModule
   ],
   providers: [
     {

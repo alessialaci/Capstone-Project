@@ -24,16 +24,15 @@ export class FotoLottoComponent implements OnInit {
   constructor(private ss: StorageService, private fs: FotoService, private os: OpereService, private router: Router) { }
 
   ngOnInit() {
-    this.operaSS = this.ss.getOpera();
-    console.log(this.operaSS);
+    // this.operaSS = this.ss.getOpera();
+    // console.log(this.operaSS);
 
-    if(this.operaSS) {
-      this.os.getOperaById(this.operaSS.id).subscribe(op => {
-        this.opera = op;
-        console.log(op);
-
-      })
-    }
+    // if(this.operaSS) {
+    //   this.os.getOperaById(this.operaSS.id).subscribe(op => {
+    //     this.opera = op;
+    //     console.log(op);
+    //   })
+    // }
 
     // if(this.operaSS) {
     //   this.os.getOpere().subscribe(opere => {
@@ -46,7 +45,6 @@ export class FotoLottoComponent implements OnInit {
     //     })
     //   })
     // }
-
   }
 
   onSelect(event: any) {
@@ -59,31 +57,9 @@ export class FotoLottoComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  // aggiornaDatiLotto() {
-  //   if(this.files.length < 3) {
-  //     this.errore = 'Inserisci almeno 3 immagini prima di continuare';
-  //     return;
-  //   }
-
-  //   for (let i = 0; i < this.files.length; i++) {
-  //     const data = new FormData();
-  //     data.append('file', this.files[i]);
-  //     data.append('upload_preset', 'artia_cloudinary');
-  //     data.append('cloud_name', 'dwe3fc2iq');
-
-  //     this.fs.uploadImage(data).subscribe(response => {
-  //       if (response) {
-  //         console.log(response);
-  //         this.aggiungiFotoSuDb(response.secure_url);
-  //       }
-  //     });
-  //   }
-
-  //   this.router.navigate(['/aggiungi-lotto/valore']);
-  // }
-
-
   aggiornaDatiLotto() {
+    this.operaSS = this.ss.getOpera();
+
     if (this.files.length < 3) {
       this.errore = 'Inserisci almeno 3 immagini prima di continuare';
       return;
@@ -111,9 +87,8 @@ export class FotoLottoComponent implements OnInit {
         })
       ).subscribe((response) => {
         console.log('Foto aggiunta con successo', response);
+        this.router.navigate(['/aggiungi-lotto/valore']);
       });
-
-      this.router.navigate(['/aggiungi-lotto/valore']);
     }
   }
 
