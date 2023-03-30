@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #e6e4e1;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 50px;
+  color: #484847;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: #484847;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #484847;
+}
+
+a {
+  color: #484847;
+  transition: 0.3s linear;
+
+  &:hover {
+    color: #DBA23E;
+  }
+}
+
+form {
+  label {
+    color: #484847;
+  }
+
+  .form-control:focus,
+  .form-control:active,
+  .form-select:focus,
+  .fotm-select:active {
+    border-color: #DBA23E;
+    box-shadow: 0 0 0 0.2rem #edc168;
+  }
+}
+
+.btn {
+  background-color: #DBA23E;
+  border: none;
+}

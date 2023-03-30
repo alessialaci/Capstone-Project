@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Opera } from 'src/app/models/opera.interface';
 import { OpereService } from 'src/app/services/opere.service';
 
@@ -20,7 +20,6 @@ export class ListaLottiComponent implements OnInit {
   getLotti() {
     this.os.getOpere().subscribe(opere => {
       this.listaOpere = opere.filter(opera => opera.statoLotto === "APPROVATO");
-      console.log(this.listaOpere);
     })
   }
 

@@ -26,5 +26,6 @@ export interface Opera {
   statoLotto: StatoLotto,
   timer: TimerComponent,
   scadenzaTimer: Date,
-  foto: Foto[]
+  foto: Foto[],
+  offerte: Offerta[];
 }

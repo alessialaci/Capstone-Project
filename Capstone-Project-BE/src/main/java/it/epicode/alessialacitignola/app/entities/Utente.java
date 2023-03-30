@@ -3,6 +3,7 @@ package it.epicode.alessialacitignola.app.entities;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -54,6 +56,8 @@ public class Utente {
 	private int cap;
 	private String citta;
 	private String stato;
+	
+	@Column(length = 400)
 	private String bio;
 	
 //	@ManyToMany
@@ -63,5 +67,5 @@ public class Utente {
 //		inverseJoinColumns = @JoinColumn(name = "preferito_id")
 //	)
 //	private List<Opera> preferiti;
-
+	
 }

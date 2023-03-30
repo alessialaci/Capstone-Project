@@ -23,6 +23,22 @@
           <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
           <label for="password"><i class="bi bi-key"></i> Password</label>
         </div>
+        <div class="form-floating form-group mb-3">
+          <input name="via" type="text" class="form-control" id="via" placeholder="Via" required ngModel>
+          <label for="via"><i class="bi bi-person"></i> Via</label>
+        </div>
+        <div class="form-floating form-group mb-3">
+          <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required ngModel>
+          <label for="citta"><i class="bi bi-person"></i> città</label>
+        </div>
+        <div class="form-floating form-group mb-3">
+          <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required ngModel>
+          <label for="cap"><i class="bi bi-person"></i> Cap</label>
+        </div>
+        <div class="form-floating form-group mb-3">
+          <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required ngModel>
+          <label for="stato"><i class="bi bi-person"></i> Stato</label>
+        </div>
         <button type="submit" (click)="onsubmit(form)" class="btn btn-warning rounded-5 px-5" [disabled]="form.invalid">Registrati</button>
       </form>
     </div>

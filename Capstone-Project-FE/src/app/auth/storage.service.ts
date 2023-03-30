@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Opera } from '../models/opera.interface';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { Opera } from '../models/opera.interface';
 })
 export class StorageService {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   clean(): void {
     window.sessionStorage.clear();
@@ -38,13 +39,12 @@ export class StorageService {
     return {};
   }
 
-  public isLoggedIn(): boolean {
+  public isLoggedIn() {
     const user = window.sessionStorage.getItem('auth-user');
-
     if (user) {
       return true;
     }
-
+    this.router.createUrlTree(['/login']);
     return false;
   }
 

@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<section class="step-wizard p-5">
+  <ul class="step-wizard-list p-3">
+    <li class="step-wizard-item" [class.current-item]="currentStep === 1">
+      <a class="text-decoration-none" [routerLink]="['dati']">
+        <span class="progress-count">1</span>
+        <span class="progress-label">Dettagli</span>
+      </a>
+    </li>
+    <li class="step-wizard-item" [class.current-item]="currentStep === 2" [ngClass]="{'disabled': currentStep < 2}">
+      <a class="text-decoration-none" [routerLink]="['foto']">
+        <span class="progress-count">2</span>
+        <span class="progress-label">Foto</span>
+      </a>
+    </li>
+    <li class="step-wizard-item" [class.current-item]="currentStep === 3" [ngClass]="{'disabled': currentStep < 3}">
+      <a class="text-decoration-none" [routerLink]="['valore']">
+        <span class="progress-count">3</span>
+        <span class="progress-label">Valore</span>
+      </a>
+    </li>
+    <li class="step-wizard-item" [class.current-item]="currentStep === 4" [ngClass]="{'disabled': currentStep < 4}">
+      <a class="text-decoration-none" [routerLink]="['spedizione']">
+        <span class="progress-count">4</span>
+        <span class="progress-label">Spedizione</span>
+      </a>
+    </li>
+    <li class="step-wizard-item" [class.current-item]="currentStep === 5" [ngClass]="{'disabled': currentStep < 5}">
+      <a class="text-decoration-none" [routerLink]="['riepilogo']">
+        <span class="progress-count">5</span>
+        <span class="progress-label">Riepilogo</span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+<div class="container p-5">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer></app-footer>

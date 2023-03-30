@@ -1,6 +1,13 @@
-<div *ngFor="let notifica of listaNotifiche" class="border p-3 mb-1" [ngClass]="{'notifica-visualizzata': notifica.visualizzato}" (click)="notificaVisualizzata(notifica)">
-  <p class="m-0">{{notifica.messaggio}}</p>
+<div *ngFor="let notifica of listaNotifiche" class="notifica border p-3 mb-1" [ngClass]="{'notifica-visualizzata': notifica.visualizzato}" (click)="notificaVisualizzata(notifica)">
+  <div class="row align-items-center">
+    <div class="col-1">
+      <div id="pallino" *ngIf="!notifica.visualizzato"></div>
+    </div>
+    <div class="col-11">
+      <p class="m-0">{{notifica.messaggio}}</p>
+    </div>
+  </div>
 </div>
 <div class="p-3 mb-1" *ngIf="listaNotifiche.length <= 0">
-  <p>Non ci sono notifiche</p>
+  <p>Al momento non ci sono aggiornamenti.<br>Torna più tardi!</p>
 </div>

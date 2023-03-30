@@ -45,10 +45,9 @@ export class DatiLottoComponent implements OnInit {
     this.os.addOpera(nuovaOpera).subscribe(
       response => {
         console.log('Opera aggiunta con successo', response);
+        this.router.navigate(['/aggiungi-lotto/foto']);
       }
     );
-
-    this.router.navigate(['/aggiungi-lotto/foto']);
   }
 
 }

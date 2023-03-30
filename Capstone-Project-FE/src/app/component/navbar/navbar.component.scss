@@ -1,1 +1,17 @@
+nav {
+  background-color: #484847;
+}
 
+.nav-link {
+  color: #F4E4E2;
+  transition: 0.3 linear;
+
+  &:hover {
+    color: #DBA23E;
+  }
+}
+
+.nav-link.active {
+  color: #DBA23E;
+  font-weight: bold;
+}

@@ -5,7 +5,6 @@ import { Notifica } from 'src/app/models/notifica.interface';
 import { Opera } from 'src/app/models/opera.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { NotificheService } from 'src/app/services/notifiche.service';
-import { OpereService } from 'src/app/services/opere.service';
 import { UtentiService } from 'src/app/services/utenti.service';
 
 @Component({

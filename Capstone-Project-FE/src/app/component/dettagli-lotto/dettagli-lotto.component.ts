@@ -1,10 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Foto } from 'src/app/models/foto.interface';
 import { Notifica } from 'src/app/models/notifica.interface';
+import { Ordine } from 'src/app/models/ordine.interface';
 import { FotoService } from 'src/app/services/foto.service';
 import { NotificheService } from 'src/app/services/notifiche.service';
+import { OrdiniService } from 'src/app/services/ordini.service';
+import { TimerService } from 'src/app/services/timer.service';
 import { StorageService } from '../../auth/storage.service';
 import { Offerta } from '../../models/offerta.interface';
 import { Opera } from '../../models/opera.interface';
@@ -24,12 +27,13 @@ export class DettagliLottoComponent implements OnInit {
   idOpera!: number;
   opera: Opera | undefined;
   ultimaOfferta: Offerta | undefined;
+  ordine: Partial<Ordine> | undefined;
   listaOfferte: Offerta[] = [];
   listaFoto: Foto[] = [];
   listaPreferiti: Opera[] = [];
   errore = "";
 
-  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private router: Router) { }
+  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private tms: TimerService) { }
 
   ngOnInit(): void {
     this.idOpera = this.ar.snapshot.params["id"];
@@ -118,8 +122,8 @@ export class DettagliLottoComponent implements OnInit {
         if(this.ultimaOfferta) {
           console.log(this.ultimaOfferta.utente);
           this.creaNotifica(this.ultimaOfferta.utente, this.opera!, "L'utente " + this.utente!.nome + " ha fatto un'offerta di €" + form.value.offerta)
-          this.trovaOfferte(this.opera!);
         }
+        this.trovaOfferte(this.opera!);
       });
     } else if ((this.ultimaOfferta !== undefined && form.value.offerta < this.ultimaOfferta!.offerta) || (this.ultimaOfferta == undefined && form.value.offerta < 1)) {
       this.errore = "Non puoi fare un'offerta minore della precedente di €" + (this.ultimaOfferta?.offerta ? this.ultimaOfferta.offerta : 1);
@@ -156,8 +160,35 @@ export class DettagliLottoComponent implements OnInit {
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
         console.log('Lotto scaduto');
         this.invioNotifiche(opera);
+
+        if(this.ultimaOfferta && this.ultimaOfferta.offerta > 1) {
+          this.creaOrdine();
+        }
       });
     });
+  }
+
+  // Per creare un ordine legato all'utente nel session storage
+  creaOrdine() {
+    let prezzo = this.ultimaOfferta?.offerta;
+    let speseTrasporto = 10.00;
+    let commissione = (this.ultimaOfferta!.offerta * 8) / 100;
+    let totale = Number(prezzo) + Number(speseTrasporto) + Number(commissione);
+
+    const nuovoOrdine: Partial<Ordine> = {
+      opera: this.opera,
+      compratore: this.utente,
+      valuta: 'EUR',
+      prezzo: prezzo,
+      speseTrasporto: speseTrasporto,
+      commissione: commissione,
+      totale: totale
+    };
+
+    this.ors.addOrdine(nuovoOrdine).subscribe(ordine => {
+      this.ordine = ordine;
+      console.log(ordine);
+    })
   }
 
   // Per creare una notifica

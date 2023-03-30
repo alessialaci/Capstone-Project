@@ -3,7 +3,7 @@
     <div class="form-group mb-3">
       <label for="tipo">Tipo di oggetto</label>
       <select class="form-select" aria-label="Tipo Lotto" name="tipo" [(ngModel)]="tipoSelezionato" required>
-        <option *ngFor="let tipo of tipiLotto" [value]="tipo">{{tipo}}</option>
+        <option *ngFor="let tipo of tipiLotto" [value]="tipo">{{tipo | capitalcase}}</option>
       </select>
     </div>
     <div class="form-group mb-3">
@@ -21,13 +21,13 @@
     <div class="form-group mb-3">
       <label for="tecnica">Tecnica utilizzata</label>
       <select class="form-select" aria-label="Tecnica" name="tecnica" [(ngModel)]="tecnicaSelezionata" required>
-        <option *ngFor="let tecnica of tecnicheOpera" [value]="tecnica">{{tecnica}}</option>
+        <option *ngFor="let tecnica of tecnicheOpera" [value]="tecnica">{{tecnica | capitalcase}}</option>
       </select>
     </div>
     <div class="form-group mb-3">
       <label for="condizioni">Condizioni</label>
       <select class="form-select" aria-label="Condizioni" name="condizioni" [(ngModel)]="condizioniSelezionate" required>
-        <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni}}</option>
+        <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni | capitalcase}}</option>
       </select>
     </div>
     <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-warning rounded-5 px-5">Continua</button>

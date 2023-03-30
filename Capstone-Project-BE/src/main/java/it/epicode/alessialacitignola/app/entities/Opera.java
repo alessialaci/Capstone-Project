@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -45,6 +46,8 @@ public class Opera {
 	private TipoOpera tipo;
 	
 	private String titolo;
+	
+	@Column(length = 800)
 	private String descrizione;
 	
 	@ManyToOne

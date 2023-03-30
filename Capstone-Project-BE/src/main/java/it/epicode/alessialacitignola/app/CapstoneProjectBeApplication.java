@@ -72,21 +72,21 @@ public class CapstoneProjectBeApplication implements CommandLineRunner {
 		us.save(u1);
 		us.save(u2);
 
-		Opera o1 = (Opera) ctx.getBean("opera", TipoOpera.DIPINTO, "Titolo Prova 1", "Descrizione Prova 1", u2, TecnicaOpera.ACQUERELLO, CondizioniOpera.BUONE_CONDIZIONI, 2010, 100, 150, 10, 3, 150.50, 80);
-		Opera o2 = (Opera) ctx.getBean("opera", TipoOpera.DISEGNO, "Titolo Prova 2", "Descrizione Prova 2", u2, TecnicaOpera.OLIO_SU_TELA, CondizioniOpera.BUONE_CONDIZIONI, 2015, 100, 200, 8, 5, 220, 100);
-		
-		os.save(o1);
-		os.save(o2);
-		
-		FotoOpera f1 = (FotoOpera) ctx.getBean("foto", "url1", o1);
-		FotoOpera f2 = (FotoOpera) ctx.getBean("foto", "url2", o2);
-		FotoOpera f3 = (FotoOpera) ctx.getBean("foto", "url3", o2);
-		
-		fs.save(f1);
-		fs.save(f2);
-		fs.save(f3);
-		
-		System.out.println("Db popolato");
+//		Opera o1 = (Opera) ctx.getBean("opera", TipoOpera.DIPINTO, "Titolo Prova 1", "Descrizione Prova 1", u2, TecnicaOpera.ACQUERELLO, CondizioniOpera.BUONE_CONDIZIONI, 2010, 100, 150, 10, 3, 150.50, 80);
+//		Opera o2 = (Opera) ctx.getBean("opera", TipoOpera.DISEGNO, "Titolo Prova 2", "Descrizione Prova 2", u2, TecnicaOpera.OLIO_SU_TELA, CondizioniOpera.BUONE_CONDIZIONI, 2015, 100, 200, 8, 5, 220, 100);
+//		
+//		os.save(o1);
+//		os.save(o2);
+//		
+//		FotoOpera f1 = (FotoOpera) ctx.getBean("foto", "url1", o1);
+//		FotoOpera f2 = (FotoOpera) ctx.getBean("foto", "url2", o2);
+//		FotoOpera f3 = (FotoOpera) ctx.getBean("foto", "url3", o2);
+//		
+//		fs.save(f1);
+//		fs.save(f2);
+//		fs.save(f3);
+//		
+//		System.out.println("Db popolato");
 	}
 
 }

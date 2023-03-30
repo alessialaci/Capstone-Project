@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  isLoggedIn(): boolean {
+  isLoggedIn() {
     return this.ss.isLoggedIn();
   }
 

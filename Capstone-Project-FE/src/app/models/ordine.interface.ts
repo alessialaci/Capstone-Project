@@ -1,9 +1,15 @@
+import { Opera } from "./opera.interface";
+import { Utente } from "./utente.interface";
+
 export interface Ordine {
 
-  prezzo: number,
+  id: number,
+  opera: Opera,
+  compratore: Utente,
 	valuta: string,
-	metodo: string,
-	intent: string,
-	descrizione: string
+  prezzo: number,
+  speseTrasporto: number,
+  commissione: number,
+  totale: number
 
 }
