@@ -3,9 +3,14 @@ package it.epicode.alessialacitignola.app.entities.enums;
 public enum TecnicaOpera {
 	
 	ACQUERELLO,
-	ACRILICO_SU_CARTA,
+	ACRILICO,
+	OLIO,
+	PASTELLO,
+	TEMPERA,
+	DIGITALE,
+	CALOTIPIA,
 	INCISIONE,
-	OLIO_SU_TELA,
+	TECNICA_MISTA,
 	ALTRO
 
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.epicode.alessialacitignola.app.entities.Opera;
+import it.epicode.alessialacitignola.app.entities.enums.TipoOpera;
 import it.epicode.alessialacitignola.app.repositories.OperaRepository;
 
 @Service
@@ -27,6 +28,10 @@ public class OperaService {
 	
 	public Optional<Opera> getById(int id) {
 		return or.findById(id);
+	}
+	
+	public List<Opera> getByTipo(TipoOpera tipo) {
+		return or.findByTipo(tipo);
 	}
 	
 	public Opera save(Opera o) {

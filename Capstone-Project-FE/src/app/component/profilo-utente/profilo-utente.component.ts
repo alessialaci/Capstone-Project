@@ -14,7 +14,7 @@ import { UtentiService } from 'src/app/services/utenti.service';
 })
 export class ProfiloUtenteComponent implements OnInit {
 
-  utente: any;
+  utente: Utente | undefined;
   files: File[] = [];
   modificaDati = false;
   preferiti: Opera[] | undefined;
@@ -51,6 +51,11 @@ export class ProfiloUtenteComponent implements OnInit {
   }
 
   aggiornaFotoUtente() {
+    if(this.files.length < 1) {
+      this.errore = 'Non hai inserito nessuna foto';
+      return;
+    }
+
     if(this.files.length > 1) {
       this.errore = 'Non è possibile inserire più di una foto';
       return;
@@ -86,11 +91,19 @@ export class ProfiloUtenteComponent implements OnInit {
   aggiornaDatiUtente(form: NgForm) {
     const utenteAggiornato = {
       ...this.utente,
-      // bio: form.bio.value,
-      // via: form.valid?.valueOf,
-
-
+      nome: form.value.nome,
+      cognome: form.value.cognome,
+      username: form.value.username,
+      bio: form.value.bio,
+      via: form.value.via,
+      cap: form.value.cap,
+      citta: form.value.citta,
+      stato: form.value.stato
     }
+
+    this.us.updateUtente(utenteAggiornato).subscribe(res => {
+      console.log("Utente aggiornato correttamente", res);
+    });
   }
 
   /*aggiornaDatiLotto(form: NgForm) {

@@ -1,6 +1,7 @@
 package it.epicode.alessialacitignola.app.config;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,8 @@ public class Beans {
 				.peso(peso)
 				.stimaPrezzo(stimaPrezzo)
 				.prezzoMinimo(prezzoMinimo)
-				.statoLotto(StatoLotto.IN_ATTESA)
+				.statoLotto(StatoLotto.APPROVATO)
+				.scadenzaTimer(LocalDateTime.of(2023, 4, 21, 12, 0))
 				.build();
 	}
 	
@@ -61,7 +63,7 @@ public class Beans {
 	
 	@Bean
 	@Scope("prototype")
-	public Utente utente(String nome, String cognome, String username, String email, String password) {
+	public Utente utente(String nome, String cognome, String username, String email, String password, String via, String cap, String citta, String stato, String bio) {
 		return Utente.builder()
 				.nome(nome)
 				.cognome(cognome)
@@ -69,6 +71,11 @@ public class Beans {
 				.email(email)
 				.password(password)
 				.attivo(true)
+				.via(via)
+				.cap(cap)
+				.citta(citta)
+				.stato(stato)
+				.bio(bio)
 				.build();
 	}
 	

@@ -10,40 +10,141 @@ h1 {
 
 h3 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
-  color: #484847;
-}
-
-h3 {
-  font-family: 'Montserrat', sans-serif;
   color: #484847;
 }
 
 a {
   color: #484847;
   transition: 0.3s linear;
+  text-decoration: none;
 
   &:hover {
     color: #DBA23E;
   }
 }
 
-form {
-  label {
-    color: #484847;
-  }
+.a-link {
+  color: #DBA23E;
+  text-decoration: none;
+  transition: 0.3s linear;
 
-  .form-control:focus,
-  .form-control:active,
-  .form-select:focus,
-  .fotm-select:active {
-    border-color: #DBA23E;
-    box-shadow: 0 0 0 0.2rem #edc168;
+  &:hover {
+    text-decoration: underline;
   }
 }
 
-.btn {
+label {
+  color: #484847;
+  margin-bottom: 5px;
+}
+
+.form-control:focus,
+.form-control:active,
+.form-select:focus,
+.fotm-select:active {
+  border-color: #DBA23E;
+  box-shadow: 0 0 0 0.2rem #edc168;
+}
+
+.btn-warning {
   background-color: #DBA23E;
   border: none;
+}
+
+.btn-annulla {
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid #DBA23E;
+  }
+}
+
+.bg-giallino {
+  background-color: #edc168;
+}
+
+.btn-categoria {
+  background: none;
+  border: 2px solid #DBA23E;
+  padding: 10px 20px;
+  min-width: 150px;
+  position: relative;
+  transition: color 0.4s linear;
+  cursor: pointer;
+
+  &:hover {
+    color: #e6e4e1;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #DBA23E;
+    z-index: -1;
+    transition: transform 0.5s;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    transform: scaleX(0);
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+  }
+
+  &:focus {
+    color: #e6e4e1;
+    background-color: #DBA23E;
+  }
+}
+
+.lotto {
+  cursor: pointer;
+  position: relative;
+  color: white;
+  border-radius: 0;
+  border: 1px solid #2e2e2e95;
+
+  &:hover .card-body {
+    color: white;
+    height: 50%;
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #2e2e2e95;
+    overflow: hidden;
+    width: 100%;
+    height: 12%;
+    transition: .5s ease;
+  }
+}
+
+.ngx-pagination .current {
+  background: #DBA23E !important;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .lotto .card-body {
+    height: 25%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .lotto .card-body {
+    height: 20%;
+  }
 }

@@ -1,24 +1,21 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg shadow">
   <div class="container">
     <a class="navbar-brand" href="#"><img src="../../../assets/img/logo-bianco.png" alt="Logo Artìa" width="150px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
+    <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarNavDropdown">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item m-2">
           <a class="nav-link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item m-2">
           <a class="nav-link" [routerLink]="['/lista-lotti']" routerLinkActive="active">ASTE</a>
         </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a class="nav-link" [routerLink]="['/profilo-utente', userId]" routerLinkActive="active">PROFILO</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
+        <li class="nav-item m-2" *ngIf="isLoggedIn()">
           <a class="nav-link" [routerLink]="['/aggiungi-lotto']" routerLinkActive="active">VENDI</a>
         </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
+        <li class="nav-item m-2" *ngIf="isLoggedIn()">
           <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
             <i class="bi bi-bell"></i>
             <span *ngIf="numeroNotifiche != 0" class="position-absolute top-25 start-75 translate-middle badge rounded-pill" style="background-color: #DBA23E;">
@@ -26,23 +23,34 @@
             </span>
           </a>
         </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a class="nav-link" [routerLink]="['/ordini']" routerLinkActive="active">ORDINI</a>
-        </li>
-        <li class="nav-item" *ngIf="!isLoggedIn()">
+        <li class="nav-item m-2" *ngIf="!isLoggedIn()">
           <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">LOGIN</a>
         </li>
-        <li class="nav-item" *ngIf="!isLoggedIn()">
-          <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">REGISTER</a>
+        <li class="nav-item m-2" *ngIf="!isLoggedIn()">
+          <a class="btn-categoria text-light p-2" [routerLink]="['/register']" routerLinkActive="active">SIGN UP</a>
         </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a class="nav-link" routerLinkActive="active" (click)="logout()">LOGOUT</a>
+        <li class="nav-item m-2" *ngIf="isLoggedIn()">
+          <div class="dropdown">
+            <a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown">{{utente?.nome | uppercase}}</a>
+            <ul class="dropdown-menu dropdown-menu-end p-2">
+              <li class="nav-item">
+                <a class="dropdown-item" [routerLink]="['/profilo-utente', userId]" routerLinkActive="active">PROFILO</a>
+              </li>
+              <li class="nav-item">
+                <a class="dropdown-item" [routerLink]="['/ordini']" routerLinkActive="active">ORDINI</a>
+              </li>
+              <li class="nav-item">
+                <a class="dropdown-item logout" routerLinkActive="active" (click)="logout()">LOGOUT</a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
+<!-- Offcanvas per la lista notifiche -->
 <div *ngIf="isLoggedIn()" class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
   <div class="offcanvas-header">
     <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Notifiche</h3>

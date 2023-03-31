@@ -1,6 +1,6 @@
 <div class="px-5">
   <div *ngIf="!confermato">
-    <h3>Riepilogo Dati</h3>
+    <h3 class="mb-5">Riepilogo</h3>
 
     <p>Tipo: {{opera?.tipo | capitalcase}}</p>
     <p>Descrizione: {{opera?.descrizione}}</p>
@@ -13,6 +13,7 @@
     <p>Larghezza: {{opera?.larghezza}} cm</p>
     <p>Peso: {{opera?.peso}} kg</p>
     <p>Stima Prezzo: €{{opera?.stimaPrezzo}}</p>
+    <p>Prezzo minimo: €{{opera?.prezzoMinimo}}</p>
 
     <button type="submit" (click)="inviaDati()" class="btn btn-warning rounded-5 px-5">Conferma</button>
   </div>
@@ -23,5 +24,3 @@
     <p>Torna alla <a [routerLink]="['/lista-lotti']" title="Lista lotti">lista lotti</a></p>
   </div>
 </div>
-
-

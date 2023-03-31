@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -53,7 +52,7 @@ public class Utente {
 	private Set<Ruolo> ruoli;
 	
 	private String via;
-	private int cap;
+	private String cap;
 	private String citta;
 	private String stato;
 	

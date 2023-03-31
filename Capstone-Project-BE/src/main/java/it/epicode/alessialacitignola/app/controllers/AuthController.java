@@ -67,14 +67,20 @@ public class AuthController {
 	@GetMapping("update_pw_utente")
 	@ResponseBody
 	public String update_user_pw() {
-		int id = 1;
+		int id1 = 1;
+		int id2 = 2;
 		
-		Utente u = us.getById(id).get();
-		String pw = u.getPassword();
-		u.setPassword( pwEncoder.encode(pw) );
-		us.save(u);
+		Utente u1 = us.getById(id1).get();
+		String pw1 = u1.getPassword();
+		u1.setPassword( pwEncoder.encode(pw1) );
+		us.save(u1);
 		
-		return "utente aggiornato";
+		Utente u2 = us.getById(id2).get();
+		String pw2 = u2.getPassword();
+		u2.setPassword( pwEncoder.encode(pw2) );
+		us.save(u2);
+		
+		return "Utenti aggiornati";
 	}
 
 }

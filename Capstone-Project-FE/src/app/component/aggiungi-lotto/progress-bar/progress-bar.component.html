@@ -1,42 +1,60 @@
 <app-navbar></app-navbar>
 
-<section class="step-wizard p-5">
-  <ul class="step-wizard-list p-3">
-    <li class="step-wizard-item" [class.current-item]="currentStep === 1">
-      <a class="text-decoration-none" [routerLink]="['dati']">
-        <span class="progress-count">1</span>
-        <span class="progress-label">Dettagli</span>
-      </a>
-    </li>
-    <li class="step-wizard-item" [class.current-item]="currentStep === 2" [ngClass]="{'disabled': currentStep < 2}">
-      <a class="text-decoration-none" [routerLink]="['foto']">
-        <span class="progress-count">2</span>
-        <span class="progress-label">Foto</span>
-      </a>
-    </li>
-    <li class="step-wizard-item" [class.current-item]="currentStep === 3" [ngClass]="{'disabled': currentStep < 3}">
-      <a class="text-decoration-none" [routerLink]="['valore']">
-        <span class="progress-count">3</span>
-        <span class="progress-label">Valore</span>
-      </a>
-    </li>
-    <li class="step-wizard-item" [class.current-item]="currentStep === 4" [ngClass]="{'disabled': currentStep < 4}">
-      <a class="text-decoration-none" [routerLink]="['spedizione']">
-        <span class="progress-count">4</span>
-        <span class="progress-label">Spedizione</span>
-      </a>
-    </li>
-    <li class="step-wizard-item" [class.current-item]="currentStep === 5" [ngClass]="{'disabled': currentStep < 5}">
-      <a class="text-decoration-none" [routerLink]="['riepilogo']">
-        <span class="progress-count">5</span>
-        <span class="progress-label">Riepilogo</span>
-      </a>
-    </li>
-  </ul>
-</section>
+<div class="container my-5">
+  <h1>Vendi</h1>
+  <hr>
 
-<div class="container p-5">
-  <router-outlet></router-outlet>
+  <section class="step-wizard p-5">
+    <ul class="step-wizard-list p-3">
+      <li class="step-wizard-item" [class.current-item]="currentStep === 1">
+        <a class="text-decoration-none" [routerLink]="['dati']">
+          <span class="progress-count">1</span>
+          <span class="progress-label">Dettagli</span>
+        </a>
+      </li>
+      <li class="step-wizard-item" [class.current-item]="currentStep === 2" [ngClass]="{'disabled': currentStep < 2}">
+        <a class="text-decoration-none" [routerLink]="['foto']">
+          <span class="progress-count">2</span>
+          <span class="progress-label">Foto</span>
+        </a>
+      </li>
+      <li class="step-wizard-item" [class.current-item]="currentStep === 3" [ngClass]="{'disabled': currentStep < 3}">
+        <a class="text-decoration-none" [routerLink]="['valore']">
+          <span class="progress-count">3</span>
+          <span class="progress-label">Valore</span>
+        </a>
+      </li>
+      <li class="step-wizard-item" [class.current-item]="currentStep === 4" [ngClass]="{'disabled': currentStep < 4}">
+        <a class="text-decoration-none" [routerLink]="['spedizione']">
+          <span class="progress-count">4</span>
+          <span class="progress-label">Spedizione</span>
+        </a>
+      </li>
+      <li class="step-wizard-item" [class.current-item]="currentStep === 5" [ngClass]="{'disabled': currentStep < 5}">
+        <a class="text-decoration-none" [routerLink]="['riepilogo']">
+          <span class="progress-count">5</span>
+          <span class="progress-label">Riepilogo</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="container p-3" *ngIf="currentStep === 0">
+    <h3 class="mb-5">Info</h3>
+    <p>Per poter procedere abbiamo bisogno di qualche informazione sulla tua opera.</p>
+    <p>Ti preghiamo di compilare i campi come richiesto seguendo passo passo tutti gli step.</p>
+    <p>Quando avrai completato, potrai inviare i dati della tua opera ad un esperto che li controllerà.</p>
+    <p>Il lotto verrà pubblicato soltanto dopo la conferma dell'esperto.</p>
+    <p>Riceverai entro 7 giorni una comunicazione con l'esito.</p>
+    <p class="mb-5">Ti ringraziamo per la fiducia che ci stai dando.</p>
+
+    <p>Per proseguire clicca su <a class="a-link" [routerLink]="['dati']">Dettagli</a>.</p>
+  </div>
+
 </div>
 
 <app-footer></app-footer>

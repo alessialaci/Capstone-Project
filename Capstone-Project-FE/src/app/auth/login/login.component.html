@@ -1,8 +1,10 @@
+<app-navbar></app-navbar>
+
 <div class="container-fluid d-flex justify-content-center align-items-center">
   <div class="card shadow text-center p-5 m-5">
-    <div class="card-body text-warning">
-      <h1 class="card-title fw-bold">Effettua il Login</h1>
-      <form #form="ngForm">
+    <div class="card-body">
+      <h1 class="card-title mb-4">Login</h1>
+      <form #formLogin="ngForm">
         <div class="form-floating form-group mb-3">
           <input name="username" type="username" class="form-control" id="username" placeholder="username" required ngModel>
           <label for="username"><i class="bi bi-envelope"></i> Username</label>
@@ -11,10 +13,14 @@
           <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
           <label for="password"><i class="bi bi-key"></i> Password</label>
         </div>
-        <button type="submit" (click)="onsubmit(form)" [disabled]="form.invalid" class="btn btn-warning rounded-5 px-5">Login</button>
+        <button type="submit" (click)="onsubmit(formLogin)" [disabled]="formLogin.invalid" class="btn btn-warning rounded-0 px-5">Login</button>
       </form>
     </div>
     <hr class="border border-secondary">
     <p class="text-secondary">Non sei registrato? <a class="text-warning text-decoration-none" [routerLink]="['/register']">Registrati</a></p>
   </div>
+</div>
+
+<div class="container-fluid position-fixed bottom-0 m-0 p-0">
+  <app-footer></app-footer>
 </div>

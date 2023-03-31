@@ -53,17 +53,7 @@ export class OrdiniComponent implements OnInit {
           });
         },
         onApprove: (data: any, actions: any) => {
-          for (const ordine of this.listaOrdini) {
-            this.ors.deleteOrdine(ordine.id).subscribe(
-              response => {
-                console.log('Ordine eliminato con successo', response);
-                window.location.href = '/';
-              },
-              error => {
-                console.log('Errore durante l\'eliminazione dell\'ordine', error);
-              }
-            );
-          }
+          this.eliminaOrdini();
         },
         onCancel: function(data: any, actions: any) {
           console.log('Transazione annullata');
@@ -78,6 +68,7 @@ export class OrdiniComponent implements OnInit {
     for(let i = 0; i < this.listaOrdini.length; i++) {
       this.ors.deleteOrdine(this.listaOrdini[i].id).subscribe(response => {
         console.log('Ordine cancellato con successo', response);
+        window.location.href = '/';
       });
     }
   }

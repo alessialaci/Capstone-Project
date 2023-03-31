@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.epicode.alessialacitignola.app.entities.Opera;
+import it.epicode.alessialacitignola.app.entities.enums.TipoOpera;
 import it.epicode.alessialacitignola.app.services.OperaService;
 
 @RestController
@@ -58,6 +60,11 @@ public class OperaController {
 		}
 		
 		return new ResponseEntity<>(operaObj.get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("opere/cerca")
+	public List<Opera> getAllOpereByTipo(@RequestParam("tipo") TipoOpera tipo) {
+		return os.getByTipo(tipo);
 	}
 	
 	@PostMapping("opere")

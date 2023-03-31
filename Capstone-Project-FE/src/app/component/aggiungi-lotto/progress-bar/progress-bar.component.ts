@@ -8,15 +8,17 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class ProgressBarComponent implements OnInit {
 
-  currentStep: number = 1;
+  currentStep: number = 0;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    // Aggiorna il valore di currentStep in base alla pagina corrente
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         switch (event.urlAfterRedirects) {
+          case '/aggiungi-lotto':
+            this.currentStep = 0;
+            break;
           case '/aggiungi-lotto/dati':
             this.currentStep = 1;
             break;
@@ -38,6 +40,8 @@ export class ProgressBarComponent implements OnInit {
           }
         }
       });
+      console.log(this.currentStep);
+
     }
 
 }

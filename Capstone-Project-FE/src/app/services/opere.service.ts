@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { StorageService } from '../auth/storage.service';
+import { TipoOpera } from '../enums/tipo-opera.enum';
 import { Opera } from '../models/opera.interface';
 
 @Injectable({
@@ -17,6 +18,11 @@ export class OpereService {
 
   getOperaById(id: number): Observable<Opera> {
     return this.http.get<Opera>(`http://localhost:8080/app/opere/${id}`);
+  }
+
+  getOpereByTipo(tipo: TipoOpera): Observable<Opera[]> {
+    const params = new HttpParams().set('tipo', tipo);
+    return this.http.get<Opera[]>(`http://localhost:8080/app/opere/cerca`, { params });
   }
 
   deleteOpera(id: number): Observable<Object> {

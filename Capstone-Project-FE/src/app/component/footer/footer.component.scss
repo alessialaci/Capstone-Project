@@ -1,3 +1,28 @@
+footer {
+  background-color: #484847;
+}
+
+a {
+  color: #DBA23E;
+}
+
 .bi {
   font-size: 25px;
+  transition: 0.3s linear;
+}
+
+.bi-facebook:hover {
+  color: #3b5998;
+}
+
+.bi-instagram:hover {
+  color: #D62976;
+}
+
+.bi-pinterest:hover {
+  color: #c8232c;
+}
+
+.bi-twitter:hover {
+  color: #00acee;
 }

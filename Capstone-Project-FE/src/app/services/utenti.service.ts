@@ -26,7 +26,7 @@ export class UtentiService {
     return this.http.post('http://localhost:8080/app/utenti', utente);
   }
 
-  updateUtente(utente: Utente): Observable<Object> {
+  updateUtente(utente: Partial<Utente>): Observable<Object> {
     return this.http.put(`http://localhost:8080/app/utenti/${utente.id}`, utente);
   }
 

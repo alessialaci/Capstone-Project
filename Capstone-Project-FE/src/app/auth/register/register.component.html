@@ -1,48 +1,59 @@
+<app-navbar></app-navbar>
+
 <div class="container-fluid d-flex justify-content-center align-items-center">
   <div class="card shadow text-center p-5 m-5">
-    <div class="card-body text-warning">
-      <h1 class="card-title mb-4 logo fw-bold">Registrati</h1>
-      <form #form="ngForm">
-        <div class="form-floating form-group mb-3">
-          <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome" required ngModel>
-          <label for="nome"><i class="bi bi-person"></i> Nome</label>
-        </div>
-        <div class="form-floating form-group mb-3">
-          <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome" required ngModel>
-          <label for="cognome"><i class="bi bi-person"></i>Cognome</label>
-        </div>
-        <div class="form-floating form-group mb-3">
-          <input name="username" type="text" class="form-control" id="username" placeholder="Username" required ngModel>
-          <label for="username"><i class="bi bi-person"></i>Username</label>
-        </div>
-        <div class="form-floating form-group mb-3">
-          <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com" required ngModel>
-          <label for="email"><i class="bi bi-envelope"></i> Email</label>
+    <div class="card-body">
+      <h1 class="card-title mb-4">Registrati</h1>
+      <form #formRegister="ngForm">
+        <div class="row">
+          <div class="col">
+            <div class="form-floating form-group mb-3">
+              <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome" required ngModel>
+              <label for="nome"><i class="bi bi-person"></i> Nome</label>
+            </div>
+            <div class="form-floating form-group mb-3">
+              <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome" required ngModel>
+              <label for="cognome"><i class="bi bi-person"></i> Cognome</label>
+            </div>
+            <div class="form-floating form-group mb-3">
+              <input name="username" type="text" class="form-control" id="username" placeholder="Username" required ngModel>
+              <label for="username"><i class="bi bi-person"></i> Username</label>
+            </div>
+            <div class="form-floating form-group mb-3">
+              <input name="email" type="email" class="form-control" id="email" placeholder="Email" required ngModel>
+              <label for="email"><i class="bi bi-envelope"></i> Email</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating form-group mb-3">
+              <input name="via" type="text" class="form-control" id="via" placeholder="Via" required ngModel>
+              <label for="via"><i class="bi bi-house-door"></i> Via</label>
+            </div>
+            <div class="form-floating form-group mb-3">
+              <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required ngModel>
+              <label for="citta"><i class="bi bi-house-door"></i> Città</label>
+            </div>
+            <div class="form-floating form-group mb-3">
+              <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required ngModel>
+              <label for="cap"><i class="bi bi-house-door"></i> Cap</label>
+            </div>
+            <div class="form-floating form-group mb-3">
+              <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required ngModel>
+              <label for="stato"><i class="bi bi-house-door"></i> Stato</label>
+            </div>
+          </div>
         </div>
         <div class="form-floating form-group mb-3">
           <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
           <label for="password"><i class="bi bi-key"></i> Password</label>
         </div>
-        <div class="form-floating form-group mb-3">
-          <input name="via" type="text" class="form-control" id="via" placeholder="Via" required ngModel>
-          <label for="via"><i class="bi bi-person"></i> Via</label>
-        </div>
-        <div class="form-floating form-group mb-3">
-          <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required ngModel>
-          <label for="citta"><i class="bi bi-person"></i> città</label>
-        </div>
-        <div class="form-floating form-group mb-3">
-          <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required ngModel>
-          <label for="cap"><i class="bi bi-person"></i> Cap</label>
-        </div>
-        <div class="form-floating form-group mb-3">
-          <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required ngModel>
-          <label for="stato"><i class="bi bi-person"></i> Stato</label>
-        </div>
-        <button type="submit" (click)="onsubmit(form)" class="btn btn-warning rounded-5 px-5" [disabled]="form.invalid">Registrati</button>
+
+        <button type="submit" (click)="onsubmit(formRegister)" class="btn btn-warning rounded-0 px-5" [disabled]="formRegister.invalid">Registrati</button>
       </form>
     </div>
     <hr class="border border-secondary">
     <p class="text-secondary">Sei già registrato? <a class="text-warning text-decoration-none" [routerLink]="['/login']">Effettua il Login</a></p>
   </div>
 </div>
+
+<app-footer></app-footer>

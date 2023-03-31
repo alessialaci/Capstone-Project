@@ -207,11 +207,11 @@ export class DettagliLottoComponent implements OnInit {
   // Per inviare le notifiche in base alla situazione
   invioNotifiche(opera: Opera) {
     if (this.ultimaOfferta == undefined || this.ultimaOfferta.offerta <= 1) {
-      this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma non sono state effettuate offerte per la tua opera');
+      this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma non hai ricevuto offerte per la tua opera');
     } else if(this.ultimaOfferta.offerta < this.opera!.prezzoMinimo) {
       this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma le offerte effettuate dagli utenti non hanno raggiunto il prezzo minimo da te inserito. L\'asta è annullata');
     } else {
-      this.creaNotifica(opera.autore, opera, 'Asta terminata! Il tuo lotto è stato venduto all\'utente ' + this.ultimaOfferta.utente.nome + ' ' + this.ultimaOfferta.utente.cognome + ' al prezzo di €' + this.ultimaOfferta.offerta);
+      this.creaNotifica(opera.autore, opera, 'Asta terminata! Il tuo lotto è stato venduto all\'utente ' + this.ultimaOfferta.utente.nome + ' ' + this.ultimaOfferta.utente.cognome + ' al prezzo di €' + this.ultimaOfferta.offerta + '. Il pacco deve essere spedito in: ' + this.ultimaOfferta.utente.via + ' ' + this.ultimaOfferta.utente.cap + ' - ' + this.ultimaOfferta.utente.citta + ' ' + this.ultimaOfferta.utente.stato);
       this.creaNotifica(this.ultimaOfferta.utente, opera, 'Complimenti! Ti sei aggiudicato l\'asta del lotto n. ' + this.opera!.id)
     }
   }

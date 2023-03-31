@@ -1,35 +1,49 @@
 <div class="px-5">
-  <form #formDati="ngForm">
-    <div class="form-group mb-3">
-      <label for="tipo">Tipo di oggetto</label>
-      <select class="form-select" aria-label="Tipo Lotto" name="tipo" [(ngModel)]="tipoSelezionato" required>
-        <option *ngFor="let tipo of tipiLotto" [value]="tipo">{{tipo | capitalcase}}</option>
-      </select>
+  <h3 class="mb-5">Dettagli</h3>
+
+  <div class="row">
+    <div class="col-12 col-md-6 order-2 order-md-1">
+      <form #formDati="ngForm">
+        <div class="form-group mb-3">
+          <label for="tipo">Cosa possiamo aiutarti a vendere?</label>
+          <select class="form-select" aria-label="Tipo Lotto" name="tipo" [(ngModel)]="tipoSelezionato" required>
+            <option *ngFor="let tipo of tipiLotto" [value]="tipo">{{tipo | capitalcase}}</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="titolo">Titolo</label>
+          <input name="titolo" type="text" class="form-control" id="titolo" placeholder="Titolo" required ngModel>
+        </div>
+        <div class="form-group mb-3">
+          <label for="descrizione">Descrizione</label>
+          <textarea class="form-control" placeholder="Descrivi la tua opera" id="descrizione" name="descrizione" rows="5" cols="2" maxlength="800" required ngModel></textarea>
+        </div>
+        <div class="form-group mb-3">
+          <label for="anno">Anno</label>
+          <input name="anno" type="number" class="form-control" id="anno" placeholder="Anno" required ngModel>
+        </div>
+        <div class="form-group mb-3">
+          <label for="tecnica">Tecnica utilizzata</label>
+          <select class="form-select" aria-label="Tecnica" name="tecnica" [(ngModel)]="tecnicaSelezionata" required>
+            <option *ngFor="let tecnica of tecnicheOpera" [value]="tecnica">{{tecnica | capitalcase}}</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="condizioni">Condizioni</label>
+          <select class="form-select" aria-label="Condizioni" name="condizioni" [(ngModel)]="condizioniSelezionate" required>
+            <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni | capitalcase}}</option>
+          </select>
+        </div>
+        <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-warning rounded-0 px-5 my-4">Continua</button>
+      </form>
     </div>
-    <div class="form-group mb-3">
-      <label for="titolo">Titolo dell'opera</label>
-      <input name="titolo" type="text" class="form-control" id="titolo" placeholder="Titolo" required ngModel>
+    <div class="col-12 col-md-6 text-center order-1 order-md-2 mb-5">
+      <span class="position-absolute translate-middle badge bg-giallino rounded-circle text-dark" style="font-size: 20px;">
+        <i class="bi bi-info-circle"></i>
+      </span>
+      <div class="bg-giallino p-4">
+        <p class="m-0">Approfondisci le caratteristiche del tuo oggetto in modo che l’acquirente perfetto possa trovarlo.</p>
+      </div>
     </div>
-    <div class="form-group mb-3">
-      <label for="descrizione">Descrizione</label>
-      <textarea class="form-control" placeholder="Descrivi la tua opera" id="descrizione" name="descrizione" required ngModel></textarea>
-    </div>
-    <div class="form-group mb-3">
-      <label for="anno">Anno</label>
-      <input name="anno" type="number" class="form-control" id="anno" placeholder="Anno" required ngModel>
-    </div>
-    <div class="form-group mb-3">
-      <label for="tecnica">Tecnica utilizzata</label>
-      <select class="form-select" aria-label="Tecnica" name="tecnica" [(ngModel)]="tecnicaSelezionata" required>
-        <option *ngFor="let tecnica of tecnicheOpera" [value]="tecnica">{{tecnica | capitalcase}}</option>
-      </select>
-    </div>
-    <div class="form-group mb-3">
-      <label for="condizioni">Condizioni</label>
-      <select class="form-select" aria-label="Condizioni" name="condizioni" [(ngModel)]="condizioniSelezionate" required>
-        <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni | capitalcase}}</option>
-      </select>
-    </div>
-    <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-warning rounded-5 px-5">Continua</button>
-  </form>
+  </div>
 </div>

@@ -1,28 +1,46 @@
 <div class="px-5">
-  <form #formSpedizione="ngForm">
-    <div class="form-group mb-3">
-      <label for="tipo">Spese di spedizione</label>
-      <select class="form-select" aria-label="Spese Spedizione">
-        <option value="Poste Italiane">Poste Italiane</option>
-        <option value="Altro spedizioniere">Altro spedizioniere</option>
-      </select>
+  <h3 class="mb-5">Spedizione</h3>
+
+  <div class="row">
+    <div class="col-12 col-md-6 order-2 order-md-1">
+      <form #formSpedizione="ngForm">
+        <div class="form-group mb-3">
+          <label for="tipo">Spedizioniere</label>
+          <select class="form-select" aria-label="Spese Spedizione">
+            <option value="Poste Italiane">Poste Italiane</option>
+            <option value="Altro spedizioniere">Altro spedizioniere</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="dimensioni">Dimensioni</label>
+          <div class="input-group">
+            <span class="input-group-text">cm</span>
+            <input name="lunghezza" type="number" class="form-control" id="lunghezza" placeholder="Lunghezza" aria-label="Lunghezza" required ngModel>
+            <input name="altezza" type="number" class="form-control" id="altezza" placeholder="Altezza" aria-label="Altezza" required ngModel>
+            <input name="larghezza" type="number" class="form-control" id="larghezza" placeholder="Larghezza" aria-label="Larghezza" required ngModel>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="minimo">Peso</label>
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="peso">kg</span>
+            <input name="peso" type="number" class="form-control" id="peso" placeholder="2" aria-label="peso" aria-describedby="peso" required ngModel>
+          </div>
+        </div>
+
+        <button type="submit" (click)="aggiornaDatiLotto(formSpedizione)" [disabled]="formSpedizione.invalid" class="btn btn-warning rounded-0 px-5 my-4">Conferma</button>
+      </form>
     </div>
-    <div class="form-group mb-3">
-      <label for="dimensioni">Dimensioni</label>
-      <div class="d-flex align-items-baseline">
-        <input name="altezza" type="number" class="form-control me-2" id="altezza" placeholder="Altezza" required ngModel>
-        <input name="lunghezza" type="number" class="form-control mx-2" id="lunghezza" placeholder="Lunghezza" required ngModel>
-        <input name="larghezza" type="number" class="form-control mx-2" id="larghezza" placeholder="Larghezza" required ngModel>
-        <p>cm</p>
+
+    <div class="col-12 col-md-6 text-center order-1 order-md-2 mb-5">
+      <span class="position-absolute translate-middle badge bg-giallino rounded-circle text-dark" style="font-size: 20px;">
+        <i class="bi bi-info-circle"></i>
+      </span>
+      <div class="bg-giallino p-4">
+        <p class="m-0">Approfondisci le caratteristiche del tuo oggetto in modo che l’acquirente perfetto possa trovarlo.</p>
       </div>
     </div>
-    <div class="form-group mb-3">
-      <label for="peso">Peso</label>
-      <div class="d-flex align-items-baseline">
-        <input name="peso" type="number" class="form-control me-2" id="peso" placeholder="Peso" required ngModel>
-        <p>kg</p>
-      </div>
-    </div>
-    <button type="submit" (click)="aggiornaDatiLotto(formSpedizione)" [disabled]="formSpedizione.invalid" class="btn btn-warning rounded-5 px-5">Conferma</button>
-  </form>
+  </div>
+
+
 </div>

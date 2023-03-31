@@ -1,19 +1,37 @@
 <div class="px-5">
-  <form #formValore="ngForm">
-    <div class="form-group mb-3">
-      <label for="stimaPrezzo">Valore Stimato</label>
-      <div class="d-flex align-items-baseline">
-        <input name="stimaPrezzo" type="number" class="form-control me-2" id="stimaPrezzo" placeholder="Valore" required ngModel>
-        <p>€</p>
+  <h3 class="mb-5">Valore</h3>
+
+  <div class="row">
+    <div class="col-12 col-md-6 order-2 order-md-1">
+      <form #formValore="ngForm">
+        <div class="form-group mb-3">
+          <label for="stimaPrezzo">Quanto ritieni che valga il tuo oggetto?</label>
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="stimaPrezzo">€</span>
+            <input name="stimaPrezzo" type="number" class="form-control" id="stimaPrezzo" placeholder="100.00" aria-label="stimaPrezzo" aria-describedby="stimaPrezzo" required ngModel>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="minimo">Prezzo di riserva</label>
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="minimo">€</span>
+            <input name="minimo" type="number" class="form-control" id="minimo" placeholder="50.00" aria-label="Minimo" aria-describedby="minimo">
+          </div>
+        </div>
+        <button type="submit" (click)="aggiornaDatiLotto(formValore)" [disabled]="formValore.invalid" class="btn btn-warning rounded-0 px-5 my-4">Continua</button>
+      </form>
+    </div>
+
+    <div class="col-12 col-md-6 text-center order-1 order-md-2 mb-5">
+      <span class="position-absolute translate-middle badge bg-giallino rounded-circle text-dark" style="font-size: 20px;">
+        <i class="bi bi-info-circle"></i>
+      </span>
+      <div class="bg-giallino p-4">
+        <p class="m-0">Aiutaci a trovare l’asta perfetta per il tuo oggetto e imposta un prezzo di riserva opzionale.
+          Il prezzo di riserva è un prezzo minimo per cui sei disposto a vendere il tuo oggetto. I dati mostrano che non avere prezzo di riserva di solito comporta prezzi di vendita più alti.</p>
       </div>
     </div>
-    <div class="form-group mb-3">
-      <label for="minimo">Prezzo di riserva</label>
-      <div class="d-flex align-items-baseline">
-        <input name="minimo" type="number" class="form-control me-2" id="minimo" placeholder="Minimo" ngModel>
-        <p>€</p>
-      </div>
-    </div>
-    <button type="submit" (click)="aggiornaDatiLotto(formValore)" [disabled]="formValore.invalid" class="btn btn-warning rounded-5 px-5">Continua</button>
-  </form>
+  </div>
 </div>
+
+

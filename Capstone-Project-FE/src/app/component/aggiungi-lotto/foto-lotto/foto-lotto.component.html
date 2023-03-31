@@ -1,4 +1,17 @@
 <div class="px-5">
+  <h3 class="mb-5">Foto</h3>
+
+  <div class="text-center mb-5">
+    <span class="position-absolute translate-middle badge bg-giallino rounded-circle text-dark" style="font-size: 20px;">
+      <i class="bi bi-info-circle"></i>
+    </span>
+    <div class="bg-giallino p-4">
+      <p class="m-0">Gli acquirenti sono interessati alle immagini che mostrano i dettagli del tuo oggetto speciale.</p>
+      <p class="m-0">Scegli un'illuminazione naturale, uno sfondo neutro e mostra ogni angolazione della tua opera.</p>
+      <p class="m-0">Inserisci almeno 3 immagini.</p>
+    </div>
+  </div>
+
   <ngx-dropzone class="px-5" (change)="onSelect($event)">
     <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
@@ -6,9 +19,9 @@
     </ngx-dropzone-image-preview>
   </ngx-dropzone>
 
-  <p>{{errore}}</p>
+  <p class="my-2">{{errore}}</p>
 
   <div>
-    <button class="btn btn-warning rounded-5 px-5 my-3" (click)="aggiornaDatiLotto()">Conferma</button>
+    <button class="btn btn-warning rounded-0 px-5 my-4" (click)="aggiornaDatiLotto()">Conferma</button>
   </div>
 </div>

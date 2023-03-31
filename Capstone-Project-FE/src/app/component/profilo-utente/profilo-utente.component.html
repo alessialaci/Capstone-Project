@@ -1,100 +1,117 @@
 <app-navbar></app-navbar>
 
-<div class="container p-5">
+<!-- Modal -->
+<div class="modal fade" id="modificaUtente" tabindex="-1" aria-labelledby="modaleModificaUtente" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modaleModificaUtente">Modifica dati</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #formDatiUtente="ngForm">
+          <div class="form-floating form-group mb-3">
+            <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome" required [(ngModel)]="utente!.nome">
+            <label for="nome">Nome</label>
+          </div>
+          <div class="form-floating form-group mb-3">
+            <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome" required [(ngModel)]="utente!.cognome">
+            <label for="cognome">Cognome</label>
+          </div>
+          <div class="form-floating form-group mb-3">
+            <input name="username" type="text" class="form-control" id="username" placeholder="Username" required [(ngModel)]="utente!.username">
+            <label for="username">Username</label>
+          </div>
+          <!-- <div class="form-floating form-group mb-3">
+            <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
+            <label for="password">Password</label>
+          </div> -->
+          <div class="form-group mb-3">
+            <textarea class="form-control" placeholder="Parlaci di te" #bio id="bio" name="bio" rows="5" cols="3" maxlength="400" [(ngModel)]="utente!.bio"></textarea>
+          </div>
+
+          <h5>Dati spedizione</h5>
+          <div class="form-floating form-group mb-3">
+            <input name="via" type="text" class="form-control" id="via" placeholder="Via" required [(ngModel)]="utente!.via">
+            <label for="via">Via</label>
+          </div>
+          <div class="form-floating form-group mb-3">
+            <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required [(ngModel)]="utente!.citta">
+            <label for="citta">Città</label>
+          </div>
+          <div class="form-floating form-group mb-3">
+            <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required [(ngModel)]="utente!.cap">
+            <label for="cap">Cap</label>
+          </div>
+          <div class="form-floating form-group mb-3">
+            <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required [(ngModel)]="utente!.stato">
+            <label for="stato">Stato</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-annulla rounded-pill" data-bs-dismiss="modal">Annulla</button>
+        <button type="button" class="btn btn-warning rounded-pill" (click)="aggiornaDatiUtente(formDatiUtente)" data-bs-dismiss="modal">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container p-5 profilo">
   <div>
     <h1>Ciao {{utente?.nome}}</h1>
     <hr>
-    <div>
-      <img class="img-thumbnail rounded-circle" src="{{utente?.foto || '../../../../../assets/img/utente.png'}}" alt="Immagine profilo {{utente?.nome}} {{utente?.cognome}}" height="200px" width="200px"/>
-      <button class="btn btn-warning rounded-pill" (click)="modifica()">Modifica</button>
+
+    <div class="text-center rounded-5 p-5 m-5 bg-giallino shadow">
+        <div class="d-inline-block position-relative m-5">
+          <img class="img-thumbnail" src="{{utente?.foto || '../../../../../assets/img/utente.png'}}" alt="Immagine profilo {{utente?.nome}} {{utente?.cognome}}"/>
+          <button class="btn btn-warning rounded-pill shadow position-absolute top-0 end-0 translate-middle-x" (click)="modifica()"><i class="bi bi-pencil"></i></button>
+        </div>
+
+        <!-- Sezione per aggiungere immagine del profilo -->
+        <div *ngIf="modificaDati" class="px-5">
+          <ngx-dropzone class="rounded-5 px-5" (change)="onSelect($event)">
+            <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label class="text-dark">({{ f.name }})</ngx-dropzone-label>
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+
+          <p>{{errore}}</p>
+
+          <div class="text-end">
+            <button class="btn btn-annulla rounded-pill m-2" (click)="annulla()">Annulla</button>
+            <button class="btn btn-warning rounded-pill m-2 shadow" (click)="aggiornaFotoUtente()">Conferma</button>
+          </div>
+        </div>
+
+        <p><span class="fw-bold">Nome:</span> {{utente?.nome}}</p>
+        <p><span class="fw-bold">Cognome:</span> {{utente?.cognome}}</p>
+        <p><span class="fw-bold">Bio:</span> {{utente?.bio || '...'}}</p>
+        <p><span class="fw-bold">Username:</span> {{utente?.username}}</p>
+        <p><span class="fw-bold">Email:</span> {{utente?.email}}</p>
     </div>
 
-    <div *ngIf="modificaDati" class="px-5">
-      <ngx-dropzone class="px-5" (change)="onSelect($event)">
-        <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
-        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-          <ngx-dropzone-label class="text-dark">({{ f.name }})</ngx-dropzone-label>
-        </ngx-dropzone-image-preview>
-      </ngx-dropzone>
+    <div class="text-center rounded-5 p-5 m-5 bg-light shadow">
+      <h2 class="">Dati spedizione</h2>
+      <p><span class="fw-bold">Via:</span> {{utente?.via || '...'}}</p>
+      <p><span class="fw-bold">Cap:</span> {{utente?.cap || '...'}}</p>
+      <p><span class="fw-bold">Città:</span> {{utente?.citta || '...'}}</p>
+      <p><span class="fw-bold">Stato:</span> {{utente?.stato || '...'}}</p>
 
-      <p>{{errore}}</p>
-
-      <div>
-        <button class="btn btn-secondary rounded-pill" (click)="annulla()">Annulla</button>
-        <button class="btn btn-warning rounded-5 px-5 my-3" (click)="aggiornaFotoUtente()">Conferma</button>
+      <div class="text-end">
+        <!-- Bottone modale per modificare i dati -->
+        <button type="button" class="btn btn-warning rounded-pill shadow" data-bs-toggle="modal" data-bs-target="#modificaUtente">
+          Modifica dati
+        </button>
       </div>
     </div>
-
-    <p>Nome: {{utente?.nome}}</p>
-    <p>Cognome: {{utente?.cognome}}</p>
-    <p>Username: {{utente?.username}}</p>
-    <p>Email: {{utente?.email}}</p>
-    <p>Bio: {{utente?.bio || 'da compilare'}}</p>
-
-    <h5>Dati spedizione</h5>
-    <p>Via: {{utente?.via || 'da compilare'}}</p>
-    <p>Cap: {{utente?.cap || 'da compilare'}}</p>
-    <p>Città: {{utente?.citta || 'da compilare'}}</p>
-    <p>Stato: {{utente?.stato || 'da compilare'}}</p>
-
-    <button class="btn btn-warning rounded-pill">Modifica</button>
-
-    <form #formUtente="ngForm">
-      <div class="form-floating form-group mb-3">
-        <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome" required ngModel>
-        <label for="nome">Nome</label>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome" required ngModel>
-        <label for="cognome">Cognome</label>
-      </div>
-      <div class="form-group mb-3">
-        <label for="bio">Bio</label>
-        <textarea class="form-control" placeholder="Parlaci di te" id="bio" name="bio" ngModel></textarea>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="username" type="text" class="form-control" id="username" placeholder="Username" required ngModel>
-        <label for="username">Username</label>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
-        <label for="password"><i class="bi bi-key"></i>Password</label>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="via" type="text" class="form-control" id="via" placeholder="Via" required ngModel>
-        <label for="via">Via</label>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required ngModel>
-        <label for="citta">Città</label>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required ngModel>
-        <label for="cap">Cap</label>
-      </div>
-      <div class="form-floating form-group mb-3">
-        <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required ngModel>
-        <label for="stato">Stato</label>
-      </div>
-
-      <button type="submit" [disabled]="formUtente.invalid" class="btn btn-warning rounded-5 px-5">Continua</button>
-    </form>
-
   </div>
 
 
 
-
-
-
-
-
-
-
-
-
-  <div>
-    <!-- <h2>Preferiti</h2> -->
+  <!-- <div>
+    <h2>Preferiti</h2>
 
     <div class="container my-5">
       <div class="row justify-content-center">
@@ -108,7 +125,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
 

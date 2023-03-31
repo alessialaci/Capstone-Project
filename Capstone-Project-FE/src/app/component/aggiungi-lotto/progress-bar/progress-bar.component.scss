@@ -105,7 +105,6 @@
 }
 
 .step-wizard-item.disabled {
-  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -114,7 +113,7 @@
   font-weight: bold;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 767px) {
   .step-wizard-list {
     flex-direction: column;
   }

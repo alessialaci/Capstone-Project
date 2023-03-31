@@ -23,11 +23,30 @@
   </svg>
 </div>
 
-<div style="height: 300px;"></div>
+<div class="container text-center my-5">
+  <h3>ASTE RECENTI</h3>
+
+  <div class="row justify-content-center my-5">
+    <div class="col-12 col-md-4 col-lg-3 card lotto p-3 m-3" *ngFor="let lotto of listaUltimeOpere" [routerLink]="['/dettagli-lotto', lotto.id]">
+      <img src="{{lotto.foto[0].file ? lotto.foto[0].file : '../../../../../assets/img/logo.png'}}" class="card-img-top" alt="Immagine lotto">
+      <div class="card-body text-start py-2 px-4">
+        <div class="d-flex justify-content-between align-items-baseline">
+          <h5 class="card-title">{{lotto.titolo}}</h5>
+          <i class="bi bi-caret-right"></i>
+        </div>
+        <p class="card-text">Autore: {{lotto.autore.nome}} {{lotto.autore.cognome}}</p>
+        <p class="card-text m-0">Anno: {{lotto.anno}}</p>
+        <p class="card-text">Scadenza: {{lotto.scadenzaTimer | date: 'yyyy-MM-dd HH:mm'}}</p>
+      </div>
+    </div>
+  </div>
+
+  <a class="btn-categoria" [routerLink]="['/lista-lotti']">Mostra tutto</a>
+</div>
 
 <div id="onda-due" class="custom-shape-divider-bottom-1680181813">
   <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path fill="#edc168" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+      <path fill="#484847" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
   </svg>
 </div>
 

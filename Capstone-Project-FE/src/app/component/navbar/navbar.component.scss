@@ -2,7 +2,7 @@ nav {
   background-color: #484847;
 }
 
-.nav-link {
+.nav-link, .dropdown-toggle {
   color: #F4E4E2;
   transition: 0.3 linear;
 
@@ -11,7 +11,36 @@ nav {
   }
 }
 
+.navbar-nav {
+  --bs-nav-link-padding-y: 0;
+}
+
 .nav-link.active {
   color: #DBA23E;
   font-weight: bold;
+}
+
+.offcanvas, .dropdown-menu {
+  background-color: #F4E4E2;
+  border-radius: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #DBA23E;
+}
+
+.dropdown-item:hover {
+  background-color:   #e6ca91;
+}
+
+.logout {
+  color: #ad1f1f;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: #ad1f1f;
+  }
 }

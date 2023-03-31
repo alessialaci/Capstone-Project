@@ -5,8 +5,7 @@ public enum TipoOpera {
 	DIPINTO,
 	DISEGNO,
 	FOTOGRAFIA,
-	STAMPA,
-	TECNICA_MISTA,
-	ALTRO
+	SCULTURA,
+	FUMETTO
 	
 }
