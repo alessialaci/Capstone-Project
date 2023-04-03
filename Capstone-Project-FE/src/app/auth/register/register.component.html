@@ -20,7 +20,8 @@
               <label for="username"><i class="bi bi-person"></i> Username</label>
             </div>
             <div class="form-floating form-group mb-3">
-              <input name="email" type="email" class="form-control" id="email" placeholder="Email" required ngModel>
+              <input name="email" type="email" class="form-control" id="email" placeholder="Email" required ngModel pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                (blur)="emailField.className = 'form-control ' + (emailField.checkValidity() ? '' : 'is-invalid')" #emailField>
               <label for="email"><i class="bi bi-envelope"></i> Email</label>
             </div>
           </div>
@@ -34,7 +35,8 @@
               <label for="citta"><i class="bi bi-house-door"></i> Città</label>
             </div>
             <div class="form-floating form-group mb-3">
-              <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required ngModel>
+              <input name="cap" type="text" class="form-control" id="cap" placeholder="Cap" required ngModel pattern="^[0-9]*$"
+              (blur)="capField.className = 'form-control ' + (capField.checkValidity() ? '' : 'is-invalid')" #capField>
               <label for="cap"><i class="bi bi-house-door"></i> Cap</label>
             </div>
             <div class="form-floating form-group mb-3">

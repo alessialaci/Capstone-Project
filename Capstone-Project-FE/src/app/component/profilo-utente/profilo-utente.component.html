@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <!-- Modal -->
-<div class="modal fade" id="modificaUtente" tabindex="-1" aria-labelledby="modaleModificaUtente" aria-hidden="true" *ngIf="utente">
+<div class="modal fade" id="modificaUtente" tabindex="-1" aria-labelledby="modaleModificaUtente" aria-hidden="true" *ngIf="utente && mostraModifica">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,11 +65,11 @@
     <div class="text-center rounded-4 p-5 m-5 bg-giallino shadow">
         <div class="d-inline-block position-relative m-5">
           <img class="img-thumbnail" src="{{utente?.foto || '../../../../../assets/img/utente.png'}}" alt="Immagine profilo {{utente?.nome}} {{utente?.cognome}}"/>
-          <button class="btn btn-warning rounded-pill shadow position-absolute top-0 end-0 translate-middle-x" (click)="modifica()"><i class="bi bi-pencil"></i></button>
+          <button *ngIf="mostraModifica" class="btn btn-warning rounded-pill shadow position-absolute top-0 end-0 translate-middle-x" (click)="modifica()"><i class="bi bi-pencil"></i></button>
         </div>
 
         <!-- Sezione per aggiungere immagine del profilo -->
-        <div *ngIf="modificaDati" class="px-5">
+        <div *ngIf="modificaDati && mostraModifica" class="px-5">
           <ngx-dropzone class="rounded-5 px-5" (change)="onSelect($event)">
             <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
             <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
@@ -103,8 +103,8 @@
       <p><span class="fw-bold">Città:</span> {{utente?.citta || '...'}}</p>
       <p><span class="fw-bold">Stato:</span> {{utente?.stato || '...'}}</p>
 
-      <div class="text-end">
-        <!-- Bottone modale per modificare i dati -->
+      <!-- Bottone modale per modificare i dati -->
+      <div class="text-end" *ngIf="mostraModifica">
         <button type="button" class="btn btn-warning rounded-0 shadow" data-bs-toggle="modal" data-bs-target="#modificaUtente">
           Modifica dati
         </button>

@@ -24,11 +24,18 @@ export class DatiLottoComponent implements OnInit {
   tipoSelezionato: TipoOpera | undefined;
   tecnicaSelezionata: TecnicaOpera | undefined;
   condizioniSelezionate: CondizioniOpera | undefined;
+  conteggio = 0;
+  descrizione = '';
+  annoCorrente = new Date().getFullYear();
 
   constructor(private ss: StorageService, private os: OpereService, private router: Router) {}
 
   ngOnInit(): void {
     this.utente = this.ss.getUser();
+  }
+
+  calcolaCaratteri() {
+    this.conteggio = this.descrizione.length; // Modifica il valore "100" per limitare il numero massimo di caratteri
   }
 
   aggiungiDatiLotto(form: NgForm) {

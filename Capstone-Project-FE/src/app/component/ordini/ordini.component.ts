@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StorageService } from 'src/app/auth/storage.service';
 import { Ordine } from 'src/app/models/ordine.interface';
 import { OrdiniService } from 'src/app/services/ordini.service';
+import Swal from 'sweetalert2';
+
 
 declare var paypal: any;
 
@@ -19,7 +22,7 @@ export class OrdiniComponent implements OnInit {
   commissioni = 0;
   valuta = '';
 
-  constructor(private ors: OrdiniService, private ss: StorageService) { }
+  constructor(private ors: OrdiniService, private ss: StorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.utenteSS = this.ss.getUser();
@@ -60,9 +63,19 @@ export class OrdiniComponent implements OnInit {
         },
         onApprove: (data: any, actions: any) => {
           this.eliminaOrdini();
+          Swal.fire({
+            icon: 'success',
+            title: 'Operazione completata',
+            text: 'La tua operazione è stata completata con successo!',
+          });
+          this.router.navigate(['/lista-lotti']);
         },
         onCancel: function(data: any, actions: any) {
-          console.log('Transazione annullata');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Transazione annullata!',
+          });
         }
       }).render('#paypal-button-container');
     } catch (error) {
@@ -74,7 +87,6 @@ export class OrdiniComponent implements OnInit {
     for(let i = 0; i < this.listaOrdini.length; i++) {
       this.ors.deleteOrdine(this.listaOrdini[i].id).subscribe(response => {
         console.log('Ordine cancellato con successo', response);
-        window.location.href = '/';
       });
     }
   }

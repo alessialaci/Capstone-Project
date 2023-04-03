@@ -8,14 +8,14 @@
           <label for="stimaPrezzo">Quanto ritieni che valga il tuo oggetto?</label>
           <div class="input-group flex-nowrap">
             <span class="input-group-text" id="stimaPrezzo">€</span>
-            <input name="stimaPrezzo" type="number" class="form-control" id="stimaPrezzo" placeholder="100.00" aria-label="stimaPrezzo" aria-describedby="stimaPrezzo" required ngModel>
+            <input name="stimaPrezzo" type="number" class="form-control" id="stimaPrezzo" placeholder="100.00" aria-label="stimaPrezzo" aria-describedby="stimaPrezzo" min="1" required ngModel>
           </div>
         </div>
         <div class="form-group mb-3">
           <label for="minimo">Prezzo di riserva</label>
           <div class="input-group flex-nowrap">
             <span class="input-group-text" id="minimo">€</span>
-            <input name="minimo" type="number" class="form-control" id="minimo" placeholder="50.00" aria-label="minimo" aria-describedby="minimo" ngModel>
+            <input name="minimo" type="number" class="form-control" id="minimo" placeholder="50.00" aria-label="minimo" aria-describedby="minimo" min="1" ngModel>
           </div>
         </div>
         <button type="submit" (click)="aggiornaDatiLotto(formValore)" [disabled]="formValore.invalid" class="btn btn-warning rounded-0 px-5 my-4">Continua</button>

@@ -113,6 +113,11 @@ export class DettagliLottoComponent implements OnInit {
       return;
     }
 
+    if ((this.ultimaOfferta !== undefined && form.value.offerta < this.ultimaOfferta.offerta) || (this.ultimaOfferta === undefined && form.value.offerta <= 1)) {
+      this.errore = "Non puoi fare un'offerta minore della precedente di €" + (this.ultimaOfferta?.offerta ? this.ultimaOfferta.offerta : 1);
+      return;
+    }
+
     if ((this.ultimaOfferta === undefined && form.value.offerta > 1) || (this.ultimaOfferta!.offerta !== undefined && form.value.offerta > this.ultimaOfferta!.offerta)) {
       const nuovaOfferta: Partial<Offerta> = {
         data: new Date(),
@@ -131,9 +136,6 @@ export class DettagliLottoComponent implements OnInit {
         }
         this.trovaOfferte(this.opera!);
       });
-    } else if ((this.ultimaOfferta !== undefined && form.value.offerta < this.ultimaOfferta!.offerta) || (this.ultimaOfferta == undefined && form.value.offerta < 1)) {
-      this.errore = "Non puoi fare un'offerta minore della precedente di €" + (this.ultimaOfferta?.offerta ? this.ultimaOfferta.offerta : 1);
-      return;
     } else {
       this.errore = "L'offerta non può essere uguale o inferiore alla precedente di €" + this.ultimaOfferta?.offerta;
       return;

@@ -23,17 +23,21 @@ export class ProfiloUtenteComponent implements OnInit {
   modificaDati = false;
   preferiti: Opera[] | undefined;
   errore = '';
+  mostraModifica = false;
 
   constructor(private us: UtentiService, private ss: StorageService, private fs: FotoService, private ar: ActivatedRoute, private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
     this.getUtente();
+    this.checkUtente();
   }
 
   getUtente() {
     this.utenteSS = this.ss.getUser();
 
     this.id = this.ar.snapshot.params["id"];
+    console.log(this.id);
+
 
     this.us.getUtenti().subscribe((utenti: Utente[]) => {
       this.utente = utenti.find((utenteTrovato) => {
@@ -44,6 +48,18 @@ export class ProfiloUtenteComponent implements OnInit {
         }
       })
     })
+  }
+
+  checkUtente() {
+    this.utenteSS = this.ss.getUser();
+    let id = this.ar.snapshot.params["id"];
+
+    if(this.utenteSS.id == id) {
+      this.mostraModifica = true;
+    } else {
+      this.mostraModifica = false;
+    }
+
   }
 
   onSelect(event: any) {

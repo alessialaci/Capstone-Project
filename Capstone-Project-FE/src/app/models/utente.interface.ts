@@ -10,7 +10,7 @@ export interface Utente {
   foto: string;
   attivo: boolean;
   via: string,
-  cap: number,
+  cap: string,
   citta: string,
   stato: string,
   bio: string

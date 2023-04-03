@@ -91,7 +91,7 @@ public class NotificaController {
 		
 		ns.delete(notificaObj.get());
 		
-		return new ResponseEntity<>(String.format("Notifica con id %d eliminata", id), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

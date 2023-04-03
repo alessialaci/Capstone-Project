@@ -1,9 +1,25 @@
 <app-navbar></app-navbar>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let foto of listaFoto">
+          <img class="mb-2 img-fluid" src="{{foto.file}}" alt="Immagine lotto">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container my-5">
   <div class="d-flex justify-content-between">
     <h1 *ngIf="opera">{{opera.titolo}}</h1>
-    <button class="btn border-0 icona" (click)="aggiungiAiPreferiti($event)"><i class="bi bi-heart-fill"></i></button>
+    <button class="btn border-0 icona fs-4" (click)="aggiungiAiPreferiti($event)"><i class="bi bi-heart-fill"></i></button>
   </div>
   <hr>
 
@@ -11,12 +27,12 @@
     <div class="col-12 col-lg-6">
       <div class="d-flex justify-content-center mb-5">
         <div class="m-1">
-          <div *ngFor="let foto of listaFoto.slice(1)">
-            <img class="mb-2" src="{{foto.file}}" alt="Immagine lotto" width="100px">
+          <div *ngFor="let foto of listaFoto.slice(1)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img class="mb-2 modalImg" src="{{foto.file}}" alt="Immagine lotto" width="100px">
           </div>
         </div>
-        <div class="m-1" *ngIf="listaFoto.length > 0">
-          <img src="{{listaFoto[0].file}}" alt="Immagine lotto" id="imgPrincipale">
+        <div class="m-1" *ngIf="listaFoto.length > 0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <img class="modalImg" src="{{listaFoto[0].file}}" alt="Immagine lotto" id="imgPrincipale">
         </div>
       </div>
 
@@ -85,7 +101,7 @@
           <form #formOfferta="ngForm" *ngIf="utente?.id != opera?.autore?.id">
             <div class="form-group mb-3">
               <label for="offerta">Fai un'offerta</label>
-              <input name="offerta" type="text" class="form-control" id="offerta" placeholder="€" required ngModel>
+              <input name="offerta" type="number" class="form-control" id="offerta" placeholder="€" min="1" required ngModel>
             </div>
             <p>{{errore}}</p>
             <button type="submit" (click)="confermaOfferta(formOfferta)" [disabled]="formOfferta.invalid"

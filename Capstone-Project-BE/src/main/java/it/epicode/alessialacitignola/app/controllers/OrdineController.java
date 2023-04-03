@@ -107,7 +107,7 @@ public class OrdineController {
 		
 		os.delete(ordineObj.get());
 		
-		return new ResponseEntity<>(String.format("Ordine con id %d eliminato", id), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 }

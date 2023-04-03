@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StorageService } from 'src/app/auth/storage.service';
 import { Foto } from 'src/app/models/foto.interface';
 import { Notifica } from 'src/app/models/notifica.interface';
@@ -7,6 +8,7 @@ import { Utente } from 'src/app/models/utente.interface';
 import { FotoService } from 'src/app/services/foto.service';
 import { NotificheService } from 'src/app/services/notifiche.service';
 import { UtentiService } from 'src/app/services/utenti.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-riepilogo',
@@ -18,10 +20,9 @@ export class RiepilogoComponent implements OnInit {
   utente: Utente | undefined;
   admin: Utente | undefined;
   opera: Opera | undefined;
-  confermato = false;
   listaFoto: Foto[] = [];
 
-  constructor(private us: UtentiService, private ns: NotificheService, private ss: StorageService, private fs: FotoService) { }
+  constructor(private us: UtentiService, private ns: NotificheService, private ss: StorageService, private fs: FotoService, private router: Router) { }
 
   ngOnInit(): void {
     let utenteId = this.ss.getUser().id;
@@ -39,8 +40,6 @@ export class RiepilogoComponent implements OnInit {
   }
 
   inviaDati() {
-    console.log("Dati inviati");
-    this.confermato = true;
     this.ss.removeOperaSS();
 
     const nuovaNotifica: Partial<Notifica> = {
@@ -50,7 +49,12 @@ export class RiepilogoComponent implements OnInit {
     };
 
     this.ns.addNotifica(nuovaNotifica).subscribe(notifica => {
-      console.log("Notifica aggiunta correttamente", notifica);
+      Swal.fire({
+        icon: 'success',
+        title: 'Grazie!',
+        text: 'Dati inviati con successo! Un esperto controllerà la tua opera prima di pubblicarla sul sito.',
+      });
+      this.router.navigate(['/lista-lotti']);
     })
   }
 

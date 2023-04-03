@@ -15,16 +15,16 @@
           <label for="dimensioni">Dimensioni</label>
           <div class="input-group">
             <span class="input-group-text">cm</span>
-            <input name="lunghezza" type="number" class="form-control" id="lunghezza" placeholder="Lunghezza" aria-label="Lunghezza" required ngModel>
-            <input name="altezza" type="number" class="form-control" id="altezza" placeholder="Altezza" aria-label="Altezza" required ngModel>
-            <input name="larghezza" type="number" class="form-control" id="larghezza" placeholder="Larghezza" aria-label="Larghezza" required ngModel>
+            <input name="lunghezza" type="number" class="form-control" id="lunghezza" placeholder="Lunghezza" aria-label="Lunghezza" min="0.1" required ngModel>
+            <input name="altezza" type="number" class="form-control" id="altezza" placeholder="Altezza" aria-label="Altezza" min="0.1" required ngModel>
+            <input name="larghezza" type="number" class="form-control" id="larghezza" placeholder="Larghezza" aria-label="Larghezza" min="0.1" required ngModel>
           </div>
         </div>
         <div class="form-group mb-3">
           <label for="minimo">Peso</label>
           <div class="input-group flex-nowrap">
             <span class="input-group-text" id="peso">kg</span>
-            <input name="peso" type="number" class="form-control" id="peso" placeholder="2" aria-label="peso" aria-describedby="peso" required ngModel>
+            <input name="peso" type="number" class="form-control" id="peso" placeholder="2" aria-label="peso" aria-describedby="peso" min="0.1" required ngModel>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 <div class="px-5">
-  <div *ngIf="!confermato">
+  <div>
     <h3 class="mb-5">Riepilogo</h3>
 
     <div class="text-center my-3">
@@ -84,13 +84,5 @@
     </table>
 
     <button type="submit" (click)="inviaDati()" class="btn btn-warning rounded-0 px-5">Conferma</button>
-  </div>
-
-  <div *ngIf="confermato">
-    <p>Dati inviati con successo! Un esperto controllerà la tua opera prima di caricarla sul sito.</p>
-
-    <p>Torna alla <a class="a-link" [routerLink]="['/lista-lotti']" title="Vai a lista lotti">lista lotti</a></p>
-
-    <div style="height: 300px"></div>
   </div>
 </div>

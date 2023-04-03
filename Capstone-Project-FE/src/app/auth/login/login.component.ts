@@ -13,33 +13,33 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
+  errore = '';
   roles: string[] = [];
 
   constructor(private usrsrv: AuthService, private router: Router, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    if(this.storageService.isLoggedIn()) {
+    if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
     }
   }
 
   async onsubmit(form: NgForm) {
-    try {
-      await this.usrsrv.login(form.value).subscribe({
-        next: data => {
-          this.storageService.saveUser(data);
+    await this.usrsrv.login(form.value).subscribe({
+      next: data => {
+        this.storageService.saveUser(data);
 
-          this.isLoginFailed = false;
-          this.isLoggedIn = true;
-          this.roles = this.storageService.getUser().roles;
-          this.router.navigate(['/']);
-        }
-      })
-    } catch (error) {
-      console.error(error);
-    }
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.storageService.getUser().roles;
+        this.router.navigate(['/']);
+      },
+      error: err => {
+        this.isLoginFailed = true;
+        this.errore = "Username o password errati";
+      }
+    })
   }
 
 }

@@ -63,6 +63,11 @@ public class OffertaController {
 		return new ResponseEntity<>(offerteObj.get(), HttpStatus.OK);
 	}
 	
+	@GetMapping("offerte/cerca")
+	public List<Offerta> getAllOfferteByOpera(@RequestParam("opera") Opera opera) {
+		return os.getAllByOpera(opera);
+	}
+	
 	@PostMapping("offerte")
 	public ResponseEntity<Object> createOfferta(@RequestBody Offerta o) {
 		Offerta offerta = os.save(o);
@@ -101,12 +106,7 @@ public class OffertaController {
 		
 		os.delete(offertaObj.get());
 		
-		return new ResponseEntity<>(String.format("Offerta con id %d eliminata", id), HttpStatus.OK);
-	}
-	
-	@GetMapping("offerte/cerca")
-	public List<Offerta> getAllOfferteByOpera(@RequestParam("opera") Opera opera) {
-		return os.getAllByOpera(opera);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

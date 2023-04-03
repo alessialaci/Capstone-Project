@@ -125,7 +125,7 @@ public class UtenteController {
 		
 		us.delete(utenteObj.get());
 		
-		return new ResponseEntity<>(String.format("Utente con id %d eliminato", id), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 }

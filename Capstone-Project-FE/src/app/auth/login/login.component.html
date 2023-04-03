@@ -13,6 +13,7 @@
           <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
           <label for="password"><i class="bi bi-key"></i> Password</label>
         </div>
+        <p *ngIf="isLoginFailed" class="text-danger">{{errore}}</p>
         <button type="submit" (click)="onsubmit(formLogin)" [disabled]="formLogin.invalid" class="btn btn-warning rounded-0 px-5">Login</button>
       </form>
     </div>

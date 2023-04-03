@@ -104,7 +104,7 @@ public class FotoController {
 		
 		fs.delete(fotoObj.get());
 		
-		return new ResponseEntity<>(String.format("Foto con id %d eliminata", id), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }
