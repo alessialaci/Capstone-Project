@@ -102,7 +102,6 @@ public class OperaController {
 		opera.setScadenzaTimer(_opera.getScadenzaTimer());
 	    opera.setFoto(_opera.getFoto());
 	    
-		
 		os.save(opera);
 		
 		return new ResponseEntity<Object>(opera, HttpStatus.CREATED);
@@ -118,7 +117,7 @@ public class OperaController {
 		
 		os.delete(operaObj.get());
 		
-		return new ResponseEntity<>(String.format("Opera con id %d eliminata", id), HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }

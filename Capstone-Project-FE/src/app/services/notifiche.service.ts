@@ -11,7 +11,7 @@ export class NotificheService {
 
   constructor(private http: HttpClient) { }
 
-  getOfferte(): Observable<Notifica[]> {
+  getNotifiche(): Observable<Notifica[]> {
     return this.http.get<Notifica[]>('http://localhost:8080/app/notifiche');
   }
 

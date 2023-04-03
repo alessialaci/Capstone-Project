@@ -35,6 +35,17 @@ a {
   }
 }
 
+.a-link2 {
+  color: #484847;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s linear;
+
+  &:hover {
+    color: #e6e4e1;
+  }
+}
+
 label {
   color: #484847;
   margin-bottom: 5px;
@@ -53,7 +64,7 @@ label {
 }
 
 .bg-panna {
-  background-color: #e6e4e1
+  background-color: #e6e4e1;
 }
 
 .btn-warning {
@@ -137,8 +148,14 @@ label {
   }
 }
 
-.ngx-pagination .current {
-  background: #DBA23E !important;
+.ngx-pagination {
+  .current {
+    background: #DBA23E !important;
+  }
+
+  .disabled {
+    color: #8e8e8c !important;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {

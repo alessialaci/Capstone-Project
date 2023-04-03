@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 import { of, switchMap } from 'rxjs';
 import { StorageService } from 'src/app/auth/storage.service';
 import { Opera } from 'src/app/models/opera.interface';
@@ -23,7 +24,7 @@ export class ProfiloUtenteComponent implements OnInit {
   preferiti: Opera[] | undefined;
   errore = '';
 
-  constructor(private us: UtentiService, private ss: StorageService, private fs: FotoService, private ar: ActivatedRoute) { }
+  constructor(private us: UtentiService, private ss: StorageService, private fs: FotoService, private ar: ActivatedRoute, private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
     this.getUtente();
@@ -31,11 +32,8 @@ export class ProfiloUtenteComponent implements OnInit {
 
   getUtente() {
     this.utenteSS = this.ss.getUser();
-    console.log(this.utenteSS);
 
     this.id = this.ar.snapshot.params["id"];
-    console.log(this.id);
-
 
     this.us.getUtenti().subscribe((utenti: Utente[]) => {
       this.utente = utenti.find((utenteTrovato) => {
@@ -49,12 +47,10 @@ export class ProfiloUtenteComponent implements OnInit {
   }
 
   onSelect(event: any) {
-    console.log(event);
     this.files.push(...event.addedFiles);
   }
 
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 
@@ -68,6 +64,8 @@ export class ProfiloUtenteComponent implements OnInit {
       this.errore = 'Non è possibile inserire più di una foto';
       return;
     }
+
+    this.loadingBar.start();
 
     const data = new FormData();
     data.append('file', this.files[0]);
@@ -93,6 +91,7 @@ export class ProfiloUtenteComponent implements OnInit {
     ).subscribe((response) => {
       this.getUtente();
       this.modificaDati = false;
+      this.loadingBar.complete();
     });
   }
 
@@ -114,26 +113,6 @@ export class ProfiloUtenteComponent implements OnInit {
       console.log("Utente aggiornato correttamente", res);
     });
   }
-
-  /*aggiornaDatiLotto(form: NgForm) {
-    const operaSS = this.ss.getOpera();
-
-    const operaAggiornata = {
-      ...operaSS,
-      altezza: form.value.altezza,
-      lunghezza: form.value.lunghezza,
-      larghezza: form.value.larghezza,
-      peso: form.value.peso
-    };
-
-    this.os.updateOpera(operaAggiornata, operaSS.id).subscribe((response) => {
-      console.log('Opera aggiornata con successo', response);
-    });
-
-    this.ss.saveOpera(operaAggiornata);
-
-    this.router.navigate(['/aggiungi-lotto/riepilogo']);
-  } */
 
   modifica() {
     this.modificaDati = true;

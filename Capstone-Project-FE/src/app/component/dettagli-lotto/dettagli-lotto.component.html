@@ -1,20 +1,13 @@
 <app-navbar></app-navbar>
 
 <div class="container my-5">
-  <h1 *ngIf="opera">{{opera.titolo}}</h1>
+  <div class="d-flex justify-content-between">
+    <h1 *ngIf="opera">{{opera.titolo}}</h1>
+    <button class="btn border-0 icona" (click)="aggiungiAiPreferiti($event)"><i class="bi bi-heart-fill"></i></button>
+  </div>
   <hr>
 
-  <div class="my-3" *ngIf="opera">
-    <h3></h3>
-
-  </div>
-
   <div class="row">
-    <!-- <div class="col">
-      <img *ngFor="let foto of listaFoto" src="{{foto.file}}" height="200px" alt="Immagine lotto">
-      <button class="btn" (click)="aggiungiAiPreferiti()"><i class="bi bi-heart"></i></button>
-    </div> -->
-
     <div class="col-12 col-lg-6">
       <div class="d-flex justify-content-center mb-5">
         <div class="m-1">
@@ -33,7 +26,7 @@
         </div>
 
         <div class="row">
-          <div class="col">
+          <div class="col p-4">
             <div class="mb-4">
               <p class="text-secondary m-0" style="font-size: 12px;">AUTORE</p>
               <a class="a-link" [routerLink]="['/profilo-utente/', opera.autore.id]">{{opera.autore.nome}}
@@ -108,7 +101,7 @@
           <h3>Lista offerte</h3>
           <p *ngIf="listaOfferte.length == 0">Non ci sono offerte</p>
           <div *ngFor="let offerta of listaOfferte">
-            <p>{{offerta.data}} - {{offerta.utente.nome}} {{offerta.utente.cognome}} - €{{offerta.offerta}}</p>
+            <p>{{offerta.data}} • {{offerta.utente.username}} • €{{offerta.offerta}}</p>
           </div>
         </div>
       </div>

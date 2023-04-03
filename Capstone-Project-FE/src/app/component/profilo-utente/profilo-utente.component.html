@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <!-- Modal -->
-<div class="modal fade" id="modificaUtente" tabindex="-1" aria-labelledby="modaleModificaUtente" aria-hidden="true">
+<div class="modal fade" id="modificaUtente" tabindex="-1" aria-labelledby="modaleModificaUtente" aria-hidden="true" *ngIf="utente">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,40 +11,40 @@
       <div class="modal-body">
         <form #formDatiUtente="ngForm">
           <div class="form-floating form-group mb-3">
-            <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome" required [(ngModel)]="utente!.nome">
+            <input name="nome" type="text" class="form-control" id="nome" placeholder="Nome" required [(ngModel)]="utente.nome">
             <label for="nome">Nome</label>
           </div>
           <div class="form-floating form-group mb-3">
-            <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome" required [(ngModel)]="utente!.cognome">
+            <input name="cognome" type="text" class="form-control" id="cognome" placeholder="Cognome" required [(ngModel)]="utente.cognome">
             <label for="cognome">Cognome</label>
           </div>
           <div class="form-floating form-group mb-3">
-            <input name="username" type="text" class="form-control" id="username" placeholder="Username" required [(ngModel)]="utente!.username">
+            <input name="username" type="text" class="form-control" id="username" placeholder="Username" required [(ngModel)]="utente.username">
             <label for="username">Username</label>
           </div>
           <div class="form-floating form-group mb-3">
-            <input name="password" type="password" class="form-control" id="password" placeholder="password" required [(ngModel)]="utente!.password">
+            <input name="password" type="password" class="form-control" id="password" placeholder="password" required [(ngModel)]="utente.password">
             <label for="password">Password</label>
           </div>
           <div class="form-group mb-3">
-            <textarea class="form-control" placeholder="Parlaci di te" #bio id="bio" name="bio" rows="5" cols="3" maxlength="400" [(ngModel)]="utente!.bio"></textarea>
+            <textarea class="form-control" placeholder="Parlaci di te" #bio id="bio" name="bio" rows="5" cols="3" maxlength="400" [(ngModel)]="utente.bio"></textarea>
           </div>
 
           <h5>Dati spedizione</h5>
           <div class="form-floating form-group mb-3">
-            <input name="via" type="text" class="form-control" id="via" placeholder="Via" required [(ngModel)]="utente!.via">
+            <input name="via" type="text" class="form-control" id="via" placeholder="Via" required [(ngModel)]="utente.via">
             <label for="via">Via</label>
           </div>
           <div class="form-floating form-group mb-3">
-            <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required [(ngModel)]="utente!.citta">
+            <input name="citta" type="text" class="form-control" id="citta" placeholder="Città" required [(ngModel)]="utente.citta">
             <label for="citta">Città</label>
           </div>
           <div class="form-floating form-group mb-3">
-            <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required [(ngModel)]="utente!.cap">
+            <input name="cap" type="number" class="form-control" id="cap" placeholder="Cap" required [(ngModel)]="utente.cap">
             <label for="cap">Cap</label>
           </div>
           <div class="form-floating form-group mb-3">
-            <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required [(ngModel)]="utente!.stato">
+            <input name="stato" type="text" class="form-control" id="stato" placeholder="Stato" required [(ngModel)]="utente.stato">
             <label for="stato">Stato</label>
           </div>
         </form>
@@ -62,7 +62,7 @@
     <h1>Ciao {{utente?.nome}}</h1>
     <hr>
 
-    <div class="text-center rounded-5 p-5 m-5 bg-giallino shadow">
+    <div class="text-center rounded-4 p-5 m-5 bg-giallino shadow">
         <div class="d-inline-block position-relative m-5">
           <img class="img-thumbnail" src="{{utente?.foto || '../../../../../assets/img/utente.png'}}" alt="Immagine profilo {{utente?.nome}} {{utente?.cognome}}"/>
           <button class="btn btn-warning rounded-pill shadow position-absolute top-0 end-0 translate-middle-x" (click)="modifica()"><i class="bi bi-pencil"></i></button>
@@ -79,6 +79,10 @@
 
           <p>{{errore}}</p>
 
+          <div class="my-3">
+            <ngx-loading-bar [height]="'10px'" [color]="'#e6e4e1'" [includeSpinner]="false" [fixed]="false"></ngx-loading-bar>
+          </div>
+
           <div class="text-end">
             <button class="btn btn-annulla rounded-0 m-2" (click)="annulla()">Annulla</button>
             <button class="btn btn-warning rounded-0 m-2 shadow" (click)="aggiornaFotoUtente()">Conferma</button>
@@ -92,7 +96,7 @@
         <p><span class="fw-bold">Email:</span> {{utente?.email}}</p>
     </div>
 
-    <div class="text-center rounded-5 p-5 m-5 bg-light shadow">
+    <div class="text-center rounded-4 p-5 m-5 bg-light shadow">
       <h2 class="">Dati spedizione</h2>
       <p><span class="fw-bold">Via:</span> {{utente?.via || '...'}}</p>
       <p><span class="fw-bold">Cap:</span> {{utente?.cap || '...'}}</p>
@@ -107,26 +111,6 @@
       </div>
     </div>
   </div>
-
-
-
-  <!-- <div>
-    <h2>Preferiti</h2>
-
-    <div class="container my-5">
-      <div class="row justify-content-center">
-        <div class="col-12 col-md-4 col-lg-3 card m-3" *ngFor="let preferito of preferiti" [routerLink]="['/dettagli-lotto', preferito.id]">
-          <img src="https://cdn.shopify.com/s/files/1/0608/0194/1757/products/20220507_170948_5ceab8dd-c390-4b15-aa22-6eafad3d306b.jpg?v=1659132817" class="card-img-top" alt="Immagine lotto">
-          <div class="card-body">
-            <h5 class="card-title">{{preferito?.titolo}}</h5>
-            <p class="card-text">Autore: {{preferito?.autore?.nome}} {{preferito?.autore?.cognome}}</p>
-            <p class="card-text">Anno: {{preferito?.anno}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
 </div>
 
 <app-footer></app-footer>

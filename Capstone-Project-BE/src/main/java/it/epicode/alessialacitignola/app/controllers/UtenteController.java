@@ -104,7 +104,6 @@ public class UtenteController {
 		utente.setPassword(pwEncoder.encode(_utente.getPassword()));
 		utente.setRuoli(_utente.getRuoli());
 		utente.setFoto(_utente.getFoto());
-//		utente.setPreferiti(_utente.getPreferiti());
 		utente.setVia(_utente.getVia());
 		utente.setCap(_utente.getCap());
 		utente.setCitta(_utente.getCitta());

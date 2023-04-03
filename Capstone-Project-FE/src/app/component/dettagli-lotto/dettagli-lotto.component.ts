@@ -15,6 +15,8 @@ import { Utente } from '../../models/utente.interface';
 import { OfferteService } from '../../services/offerte.service';
 import { OpereService } from '../../services/opere.service';
 import { UtentiService } from '../../services/utenti.service';
+import { PreferitiService } from 'src/app/services/preferiti.service';
+import { Preferito } from 'src/app/models/preferito.interface';
 
 @Component({
   selector: 'app-dettagli-lotto',
@@ -23,17 +25,17 @@ import { UtentiService } from '../../services/utenti.service';
 })
 export class DettagliLottoComponent implements OnInit {
 
-  utente: Utente | undefined;
+  utente: any;
   idOpera!: number;
   opera: Opera | undefined;
   ultimaOfferta: Offerta | undefined;
   ordine: Partial<Ordine> | undefined;
   listaOfferte: Offerta[] = [];
   listaFoto: Foto[] = [];
-  listaPreferiti: Opera[] = [];
+  listaPreferiti: any;
   errore = "";
 
-  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private tms: TimerService) { }
+  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private tms: TimerService, private ps: PreferitiService) { }
 
   ngOnInit(): void {
     this.idOpera = this.ar.snapshot.params["id"];
@@ -50,7 +52,11 @@ export class DettagliLottoComponent implements OnInit {
     if (utenteId) {
       this.us.getUtenteById(utenteId).subscribe((utente: Utente) => {
         this.utente = utente;
-        this.listaPreferiti = utente.preferiti ?? [];
+
+        const fakeEvent = {
+          target: document.querySelector('.btn.icona')
+        };
+        this.controllaPreferito(fakeEvent);
       });
     }
   }
@@ -134,19 +140,48 @@ export class DettagliLottoComponent implements OnInit {
     }
   }
 
-  aggiungiAiPreferiti() {
-    if (this.opera && this.utente) {
-      this.listaPreferiti.push(this.opera);
+  aggiungiAiPreferiti(event: any) {
+    this.ps.getPreferitiByUtenteId(this.utente.id).subscribe(preferiti => {
+      this.listaPreferiti = preferiti;
 
-      const utenteAggiornato: Utente = {
-        ...this.utente,
-        preferiti: this.listaPreferiti
+      if(preferiti.find(preferito => preferito.opera.id == this.opera?.id && preferito.utente.id == this.utente.id)) {
+        preferiti.find(preferito => this.ps.getPreferitoById(preferito.id).subscribe(preferito => {
+          event.target.classList.remove('icona-like');
+          event.target.classList.add('icona');
+
+          this.ps.deletePreferito(preferito.id).subscribe(res => {
+            console.log("cancellato", res);
+
+          });
+        }));
+      } else {
+        event.target.classList.remove('icona');
+        event.target.classList.add('icona-like');
+
+        const nuovoPreferito: Partial<Preferito> = {
+          utente: this.utente,
+          opera: this.opera
+        };
+
+        this.ps.addPreferito(nuovoPreferito).subscribe((preferito) => {
+          console.log('Preferito aggiunta correttamente', preferito);
+        });
       }
+    })
+  }
 
-      this.us.updateUtente(utenteAggiornato).subscribe((response) => {
-        console.log("Utente aggiornato con successo", response);
-      })
-    }
+  controllaPreferito(event: any) {
+    this.ps.getPreferitiByUtenteId(this.utente.id).subscribe(preferiti => {
+      this.listaPreferiti = preferiti;
+
+      if(preferiti.find(preferito => preferito.opera.id == this.opera?.id && preferito.utente.id == this.utente.id)) {
+        event.target.classList.remove('icona');
+        event.target.classList.add('icona-like');
+      } else {
+        event.target.classList.remove('icona-like');
+        event.target.classList.add('icona');
+      }
+    })
   }
 
   // Per aggiornare lo stato del lotto in 'SCADUTO' quando il countdown arriva a 0 e inviare la notifica all'utente

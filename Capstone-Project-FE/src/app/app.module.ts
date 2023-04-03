@@ -35,6 +35,7 @@ import { TimerComponent } from './component/timer/timer.component';
 
 import { ProvaComponent } from './component/prova/prova.component';
 import { AsteUtenteComponent } from './component/aste-utente/aste-utente.component';
+import { PreferitiComponent } from './component/preferiti/preferiti.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AsteUtenteComponent } from './component/aste-utente/aste-utente.compone
     TimerComponent,
 
     ProvaComponent,
-     AsteUtenteComponent
+     AsteUtenteComponent,
+     PreferitiComponent
   ],
   imports: [
     BrowserModule,

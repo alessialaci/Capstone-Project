@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Utente } from '../models/utente.interface';
+import { Opera } from '../models/opera.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,11 @@ export class UtentiService {
   }
 
   updateUtente(utente: Partial<Utente>): Observable<Object> {
+    return this.http.put(`http://localhost:8080/app/utenti/${utente.id}`, utente);
+  }
+
+  updatePreferiti(utente: Partial<Utente>, preferiti: Opera[]): Observable<Partial<Utente>> {
+    utente.preferiti = preferiti;
     return this.http.put(`http://localhost:8080/app/utenti/${utente.id}`, utente);
   }
 

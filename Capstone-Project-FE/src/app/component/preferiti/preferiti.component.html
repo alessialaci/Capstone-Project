@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<div class="container my-5">
+  <h1>Preferiti</h1>
+  <hr class="mb-5">
+
+  <div class="bg-giallino rounded-4 shadow p-5">
+    <div *ngFor="let preferito of listaPreferiti | paginate: {itemsPerPage: 9, currentPage: paginaCorrente}" class="card rounded-0 border-0 mb-3" [routerLink]="['/dettagli-lotto', preferito.opera.id]">
+      <div class="row g-0">
+        <div class="col-12 col-md-4 col-xl-2">
+          <img src="{{preferito.opera.foto[0].file}}" class="img-fluid" alt="Immagine lotto">
+        </div>
+        <div class="col-12 col-md-8 col-xl-10">
+          <div class="card-body">
+            <h5 class="card-title">{{preferito.opera.titolo}}</h5>
+            <p class="m-0">Autore: {{preferito.opera.autore.nome}} {{preferito.opera.autore.cognome}}</p>
+            <p class="m-0">Descrizione: {{preferito.opera.descrizione.length > 200 ? preferito.opera.descrizione.slice(0, 200) + '...' : preferito.opera.descrizione}}</p>
+            <p class="m-0">Tipo: {{preferito.opera.tipo | capitalcase}}</p>
+            <p class="m-0">Tecnica: {{preferito.opera.tecnica | capitalcase}}</p>
+            <p class="m-0">Anno: {{preferito.opera.anno}}</p>
+            <!-- <button *ngIf="!haOfferte" class="btn-warning" (click)="eliminaLotto(opera.id)"><i class="bi bi-trash3"></i></button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="listaPreferiti.length == 0">
+      <p>Non hai aggiunto nessun lotto ai preferiti.</p>
+      <p>Vai nella sezione <a class="a-link2" routerLink="/lista-lotti" title="Vai a lista lotti">'Aste'</a>, scegli un lotto e clicca sul cuoricino per aggiungerlo ai preferiti.</p>
+    </div>
+
+    <div class="text-center my-5">
+      <pagination-controls (pageChange)="paginaCorrente = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid position-fixed bottom-0 m-0 p-0" *ngIf="listaPreferiti.length == 0">
+  <app-footer></app-footer>
+</div>
+
+<app-footer *ngIf="listaPreferiti.length > 0"></app-footer>

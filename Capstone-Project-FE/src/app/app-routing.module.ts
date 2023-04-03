@@ -16,6 +16,7 @@ import { OrdiniComponent } from './component/ordini/ordini.component';
 import { ProvaComponent } from './component/prova/prova.component';
 import { ProgressBarComponent } from './component/aggiungi-lotto/progress-bar/progress-bar.component';
 import { AsteUtenteComponent } from './component/aste-utente/aste-utente.component';
+import { PreferitiComponent } from './component/preferiti/preferiti.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,11 @@ const routes: Routes = [
   {
     path: 'aste',
     component: AsteUtenteComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'preferiti',
+    component: PreferitiComponent,
     canActivate: [AuthGuard]
   }
 ];
