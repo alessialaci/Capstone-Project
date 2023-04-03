@@ -6,6 +6,7 @@ import { Foto } from 'src/app/models/foto.interface';
 import { Opera } from 'src/app/models/opera.interface';
 import { FotoService } from 'src/app/services/foto.service';
 import { OpereService } from 'src/app/services/opere.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-foto-lotto',
@@ -21,7 +22,7 @@ export class FotoLottoComponent implements OnInit {
   opera: Opera | undefined;
   opere: Opera[] = [];
 
-  constructor(private ss: StorageService, private fs: FotoService, private os: OpereService, private router: Router) { }
+  constructor(private ss: StorageService, private fs: FotoService, private os: OpereService, private router: Router, private loadingBar: LoadingBarService) { }
 
   ngOnInit() {
     this.operaSS = this.ss.getOpera();
@@ -58,6 +59,7 @@ export class FotoLottoComponent implements OnInit {
   }
 
   aggiornaDatiLotto() {
+    this.loadingBar.start();
     this.operaSS = this.ss.getOpera();
 
     if(this.opera) {
@@ -89,6 +91,7 @@ export class FotoLottoComponent implements OnInit {
         ).subscribe((response) => {
           console.log('Foto aggiunta con successo', response);
           this.router.navigate(['/aggiungi-lotto/valore']);
+          this.loadingBar.complete();
         });
       }
     }

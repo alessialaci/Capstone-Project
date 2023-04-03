@@ -24,15 +24,15 @@ export class DettagliNotificaComponent implements OnInit {
   utenteId!: number;
   listaFoto: Foto[] = [];
   isAdmin = false;
-  giudicato = false;
   routeSub!: Subscription;
+  id!: number;
 
   constructor(private ar: ActivatedRoute, private ns: NotificheService, private ss: StorageService, private us: UtentiService, private os: OpereService, private fs: FotoService) { }
 
   ngOnInit(): void {
     this.routeSub = this.ar.params.subscribe(params => {
-      const id = +params['id'];
-      this.getNotifica(id);
+      this.id = +params['id'];
+      this.getNotifica(this.id);
 
       this.utenteSS = this.ss.getUser();
       this.utenteId = this.utenteSS.id;
@@ -55,7 +55,6 @@ export class DettagliNotificaComponent implements OnInit {
     this.ns.getNotificaById(id).subscribe(not => {
       this.notifica = not;
       this.trovaFoto(not.opera);
-
     })
   }
 
@@ -77,9 +76,8 @@ export class DettagliNotificaComponent implements OnInit {
       };
 
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-        console.log('Lotto confermato');
-        this.giudicato = true;
-        this.creaNotifica(opera, "Il tuo lotto è stato confermato");
+        this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato confermato!");
+        this.getNotifica(this.id);
       });
     });
   }
@@ -88,9 +86,8 @@ export class DettagliNotificaComponent implements OnInit {
     this.os.getOperaById(opera.id).subscribe(opera => {
       const operaAggiornata = { ...opera, statoLotto: 'RIFIUTATO' };
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-        console.log('Lotto rifiutato');
-        this.giudicato = true;
-        this.creaNotifica(opera, "Il tuo lotto è stato rifiutato");
+        this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato rifiutato");
+        this.getNotifica(this.id);
       });
     });
   }

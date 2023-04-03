@@ -101,7 +101,7 @@ public class UtenteController {
 		utente.setCognome(_utente.getCognome());
 		utente.setUsername(_utente.getUsername());
 		utente.setEmail(_utente.getEmail());
-		utente.setPassword(_utente.getPassword());
+		utente.setPassword(pwEncoder.encode(_utente.getPassword()));
 		utente.setRuoli(_utente.getRuoli());
 		utente.setFoto(_utente.getFoto());
 //		utente.setPreferiti(_utente.getPreferiti());

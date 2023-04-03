@@ -1,19 +1,61 @@
 <app-navbar></app-navbar>
 
 <div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-4 col-lg-3 card m-3" *ngFor="let ordine of listaOrdini">
-      <img src="{{ordine.opera.foto[0].file ? ordine.opera.foto[0].file : '../../../../../assets/img/logo.png'}}" class="card-img-top" alt="Immagine lotto">
-      <div class="card-body">
-        <h5 class="card-title">Ordine n. {{ordine.id}}</h5>
-        <p>{{ordine.valuta}} {{ordine.totale}}</p>
+  <h1>Ordini</h1>
+  <hr class="mb-5">
+
+  <div class="row">
+    <div class="col-12 col-lg-7 bg-giallino shadow p-5">
+      <div *ngFor="let ordine of listaOrdini" class="d-flex bg-panna rounded-0 my-3">
+        <div>
+          <img src="{{ordine.opera.foto[0].file ? ordine.opera.foto[0].file : '../../../../../assets/img/logo.png'}}" class="img-fluid" alt="Immagine lotto" style="max-height: 210px;">
+        </div>
+
+        <div class="p-3">
+          <h5>Ordine n. {{ordine.id}}</h5>
+          <p class="m-0">Titolo: {{ordine.opera.titolo}}</p>
+          <p class="m-0">Autore: {{ordine.opera.autore.nome}} {{ordine.opera.autore.cognome}}</p>
+          <p class="m-0">Tipo: {{ordine.opera.tipo | capitalcase}}</p>
+          <p class="m-0">Tecnica: {{ordine.opera.tecnica | capitalcase}}</p>
+          <p class="m-0">Anno: {{ordine.opera.anno}}</p>
+          <p class="fw-bold m-0">{{ordine.valuta}} {{ordine.prezzo}}</p>
+        </div>
       </div>
+      <div *ngIf="listaOrdini.length == 0">
+        <p>Qui potrai procedere al pagamento delle opere di cui avrai vinto l'asta.</p>
+        <p class="mb-5">Esplora le nostre aste nella sezione <a class="a-link fw-bold text-dark" [routerLink]="['/lista-lotti']" title="Vai a lista lotti">'Aste'</a> per trovare qualcosa di speciale!</p>
+        <p>L'asta è appena terminata e non trovi il tuo ordine? Attendi qualche minuto e poi ricarica.</p>
+      </div>
+
+    </div>
+    <div class="col-12 col-lg-5 bg-light shadow p-5">
+      <table class="table table-striped">
+        <thead>
+          <h5 class="fw-bold mb-3">Totale</h5>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Opera</th>
+            <td class="text-end">{{prezzo.toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Commissione 8%</th>
+            <td class="text-end">{{commissioni.toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Spese di trasporto</th>
+            <td class="text-end">{{speseTrasporto.toFixed(2)}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <div class="d-flex justify-content-between mb-5">
+        <h5 class="fw-bold">Totale</h5>
+        <h5 class="fw-bold">{{valuta}} {{(prezzo + commissioni + speseTrasporto).toFixed(2)}}</h5>
+      </div>
+      <div id="paypal-button-container"></div>
     </div>
   </div>
-</div>
-
-<div class="container my-5">
-  <div id="paypal-button-container"></div>
 </div>
 
 <app-footer></app-footer>

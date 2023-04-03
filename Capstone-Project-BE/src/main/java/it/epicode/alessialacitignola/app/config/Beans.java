@@ -40,7 +40,7 @@ public class Beans {
 				.stimaPrezzo(stimaPrezzo)
 				.prezzoMinimo(prezzoMinimo)
 				.statoLotto(StatoLotto.APPROVATO)
-				.scadenzaTimer(LocalDateTime.of(2023, 4, 21, 12, 0))
+				.scadenzaTimer(LocalDateTime.now().plusDays(7))
 				.build();
 	}
 	

@@ -1,6 +1,11 @@
 .notifica {
   color: #ffffff;
   background-color: #484847;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #cecece;
+  }
 }
 
 #pallino {

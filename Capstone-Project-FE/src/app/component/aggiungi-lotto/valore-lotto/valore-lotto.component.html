@@ -15,7 +15,7 @@
           <label for="minimo">Prezzo di riserva</label>
           <div class="input-group flex-nowrap">
             <span class="input-group-text" id="minimo">€</span>
-            <input name="minimo" type="number" class="form-control" id="minimo" placeholder="50.00" aria-label="Minimo" aria-describedby="minimo">
+            <input name="minimo" type="number" class="form-control" id="minimo" placeholder="50.00" aria-label="minimo" aria-describedby="minimo" ngModel>
           </div>
         </div>
         <button type="submit" (click)="aggiornaDatiLotto(formValore)" [disabled]="formValore.invalid" class="btn btn-warning rounded-0 px-5 my-4">Continua</button>
@@ -33,5 +33,3 @@
     </div>
   </div>
 </div>
-
-

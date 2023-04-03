@@ -14,6 +14,10 @@ export class OrdiniComponent implements OnInit {
 
   utenteSS: any;
   listaOrdini: Ordine[] = [];
+  prezzo = 0;
+  speseTrasporto = 0;
+  commissioni = 0;
+  valuta = '';
 
   constructor(private ors: OrdiniService, private ss: StorageService) { }
 
@@ -28,26 +32,28 @@ export class OrdiniComponent implements OnInit {
   getOrdini() {
     this.ors.getOrdiniByUtente(this.utenteSS).subscribe(ordini => {
       this.listaOrdini = ordini;
-      console.log(ordini);
       this.creaBottoni(this.listaOrdini);
     })
   }
 
   async creaBottoni(ordini: Ordine[]) {
     let somma = 0;
+
     for(let i = 0; i < ordini.length; i++) {
       somma += ordini[i].totale;
+      this.prezzo += ordini[i].prezzo;
+      this.speseTrasporto += ordini[i].speseTrasporto;
+      this.commissioni += ordini[i].commissione;
+      this.valuta = ordini[i].valuta;
     }
 
     try {
       paypal.Buttons({
         createOrder: function(data: any, actions: any) {
-          console.log(actions.order);
-
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: somma.toFixed(2),
+                value: somma.toString(),
               }
             }]
           });

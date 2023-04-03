@@ -22,10 +22,10 @@
             <input name="username" type="text" class="form-control" id="username" placeholder="Username" required [(ngModel)]="utente!.username">
             <label for="username">Username</label>
           </div>
-          <!-- <div class="form-floating form-group mb-3">
-            <input name="password" type="password" class="form-control" id="password" placeholder="password" required ngModel>
+          <div class="form-floating form-group mb-3">
+            <input name="password" type="password" class="form-control" id="password" placeholder="password" required [(ngModel)]="utente!.password">
             <label for="password">Password</label>
-          </div> -->
+          </div>
           <div class="form-group mb-3">
             <textarea class="form-control" placeholder="Parlaci di te" #bio id="bio" name="bio" rows="5" cols="3" maxlength="400" [(ngModel)]="utente!.bio"></textarea>
           </div>
@@ -50,8 +50,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-annulla rounded-pill" data-bs-dismiss="modal">Annulla</button>
-        <button type="button" class="btn btn-warning rounded-pill" (click)="aggiornaDatiUtente(formDatiUtente)" data-bs-dismiss="modal">Salva</button>
+        <button type="button" class="btn btn-annulla rounded-0" data-bs-dismiss="modal">Annulla</button>
+        <button type="button" class="btn btn-warning rounded-0" (click)="aggiornaDatiUtente(formDatiUtente)" data-bs-dismiss="modal">Salva</button>
       </div>
     </div>
   </div>
@@ -80,8 +80,8 @@
           <p>{{errore}}</p>
 
           <div class="text-end">
-            <button class="btn btn-annulla rounded-pill m-2" (click)="annulla()">Annulla</button>
-            <button class="btn btn-warning rounded-pill m-2 shadow" (click)="aggiornaFotoUtente()">Conferma</button>
+            <button class="btn btn-annulla rounded-0 m-2" (click)="annulla()">Annulla</button>
+            <button class="btn btn-warning rounded-0 m-2 shadow" (click)="aggiornaFotoUtente()">Conferma</button>
           </div>
         </div>
 
@@ -101,7 +101,7 @@
 
       <div class="text-end">
         <!-- Bottone modale per modificare i dati -->
-        <button type="button" class="btn btn-warning rounded-pill shadow" data-bs-toggle="modal" data-bs-target="#modificaUtente">
+        <button type="button" class="btn btn-warning rounded-0 shadow" data-bs-toggle="modal" data-bs-target="#modificaUtente">
           Modifica dati
         </button>
       </div>

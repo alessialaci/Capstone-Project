@@ -1,27 +1,27 @@
 <app-navbar></app-navbar>
 
 <section class="text-white">
-  <video src="../../../assets/img/ultimo.mp4" autoplay loop muted></video>
+  <video src="../../../assets/img/video-home.mp4" autoplay loop muted></video>
   <div class="intro p-5 m-4">
     <h1>ART FOR<br>EVERY<span>ONE</span><br>EVERY<span>WHERE</span></h1>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-      <br>Quo sed ipsam dolores suscipit?
-      <br>Voluptate porro maxime quaerat incidunt nulla dolorum quo aperiam quia.
-      <br>Qui, harum suscipit. Provident aliquid aut doloribus?</p>
+    <p>Entra in un mondo di arte e bellezza con la nostra piattaforma online.
+      <br>Scopri le gemme nascoste di artisti emergenti e immergiti nelle loro accattivanti opere d'arte.
+      <br>Con il nostro sistema facile da usare, puoi fare offerte per le tue opere d'arte preferite da
+      <br>qualsiasi parte del mondo, senza dover lasciare la comodità di casa tua!</p>
+
   </div>
 </section>
 <div class="altro p-5">
-  <div class="container text-center p-5">
-    <h3>LOREM</h3>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo sed ipsam dolores suscipit? Voluptate porro maxime quaerat incidunt nulla dolorum quo aperiam quia. Qui, harum suscipit. Provident aliquid aut doloribus?</p>
+  <div class="container text-center">
+    <h3 class="pt-5">MISSION</h3>
+    <p class="m-0" style="font-size: 20px;">Crediamo che l'arte debba essere accessibile a tutti, indipendentemente da dove ti trovi nel mondo.
+      <br>Ecco perché abbiamo creato un sistema sicuro e facile da usare per unire in un unico posto
+      <br>il talento degli artisti emergenti e la passione per l'arte degli acquirenti e consentire a questi ultimi di partecipare alle aste d'arte
+      <br>senza dover viaggiare o cercare eventi nella propria zona.
   </div>
 </div>
 
-<div class="custom-shape-divider-bottom-1680181813">
-  <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path fill="#edc168" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-  </svg>
-</div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#edc168" fill-opacity="1" d="M0,0L720,224L1440,64L1440,0L720,0L0,0Z"></path></svg>
 
 <div class="container text-center my-5">
   <h3>ASTE RECENTI</h3>
@@ -44,10 +44,50 @@
   <a class="btn-categoria" [routerLink]="['/lista-lotti']">Mostra tutto</a>
 </div>
 
-<div id="onda-due" class="custom-shape-divider-bottom-1680181813">
-  <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path fill="#484847" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-  </svg>
+<div class="container-fluid my-5 immagine-fixed"></div>
+
+<div class="container text-center my-5">
+  <h3>PERCHÈ VENDERE DA NOI?</h3>
+
+  <div class="row">
+    <div class="col-12 col-md-6 my-5">
+      <p><i class="bi bi-box-arrow-in-right"></i></p>
+      <h5>Pubblica le tue opere gratis</h5>
+      <p>Puoi vendere all'asta tutte le opere che vuoi gratuitamente.<br>Paghi soltanto una piccola commissione quando l'oggetto viene venduto.</p>
+    </div>
+
+    <div class="col-12 col-md-6 my-5">
+      <p><i class="bi bi-globe-americas"></i></p>
+      <h5>Raggiungi tutto il mondo</h5>
+      <p>Con noi puoi raggiungere acquirenti appassionati da tutto il mondo.<br>Inizia a vendere oggi stesso e unisciti alla nostra Community.</p>
+    </div>
+  </div>
+
+  <a class="btn-categoria" [routerLink]="['/aggiungi-lotto']" title="Vai ad aggiungi lotto">Vendi</a>
 </div>
+
+<div class="container-fluid my-5 immagine-fixed"></div>
+
+<div class="container text-center my-5">
+  <h3>PERCHÈ COMPRARE DA NOI?</h3>
+
+  <div class="row">
+    <div class="col-12 col-md-6 my-5">
+      <p><i class="bi bi-house-door"></i></p>
+      <h5>Comodo sul tuo divano</h5>
+      <p>Comodamente da casa tua puoi sfogliare le nostre categorie,<br>scegliere un'opera proveniente da qualsiasi parte del mondo e iniziare l'avventura!</p>
+    </div>
+
+    <div class="col-12 col-md-6 my-5">
+      <p><i class="bi bi-easel"></i></p>
+      <h5>Opere selezionate</h5>
+      <p>Le opere che trovate sul nostro sito sono esaminate dai nostri esperti,<br>che hanno anni di esperienza e conoscienze in questo campo.</p>
+    </div>
+  </div>
+
+  <a class="btn-categoria" [routerLink]="['/lista-lotti']">Compra</a>
+</div>
+
+<svg id="spigolo-due" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#484847" fill-opacity="1" d="M0,0L720,224L1440,64L1440,0L720,0L0,0Z"></path></svg>
 
 <app-footer></app-footer>

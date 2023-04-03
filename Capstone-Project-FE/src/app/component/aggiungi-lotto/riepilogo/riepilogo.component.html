@@ -2,25 +2,95 @@
   <div *ngIf="!confermato">
     <h3 class="mb-5">Riepilogo</h3>
 
-    <p>Tipo: {{opera?.tipo | capitalcase}}</p>
-    <p>Descrizione: {{opera?.descrizione}}</p>
-    <p>Autore: {{utente?.nome}} {{utente?.cognome}}</p>
-    <p>Tecnica: {{opera?.tecnica | capitalcase}}</p>
-    <p>Condizioni: {{opera?.condizioni | capitalcase}}</p>
-    <p>Anno: {{opera?.anno}}</p>
-    <p>Altezza: {{opera?.altezza}} cm</p>
-    <p>Lunghezza: {{opera?.lunghezza}} cm</p>
-    <p>Larghezza: {{opera?.larghezza}} cm</p>
-    <p>Peso: {{opera?.peso}} kg</p>
-    <p>Stima Prezzo: €{{opera?.stimaPrezzo}}</p>
-    <p>Prezzo minimo: €{{opera?.prezzoMinimo}}</p>
+    <div class="text-center my-3">
+      <img class="my-3 me-3" *ngFor="let foto of listaFoto" src="{{foto.file}}" height="350px" alt="Immagine lotto">
+    </div>
 
-    <button type="submit" (click)="inviaDati()" class="btn btn-warning rounded-5 px-5">Conferma</button>
+    <table class="table table-striped">
+      <thead>
+        <h5 class="fw-bold mb-3">Dettagli</h5>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Tipo</th>
+          <td class="text-end">{{opera?.tipo | capitalcase}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Titolo</th>
+          <td class="text-end">{{opera?.titolo}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Autore</th>
+          <td class="text-end">{{utente?.nome}} {{utente?.cognome}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Tecnica</th>
+          <td class="text-end">{{opera?.tecnica | capitalcase}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Condizioni</th>
+          <td class="text-end">{{opera?.condizioni | capitalcase}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Anno</th>
+          <td class="text-end">{{opera?.anno}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bg-giallino p-4 my-5">
+      <p class="fw-bold mb-2">Descrizione</p>
+      <p class="m-0">{{opera?.descrizione}}</p>
+    </div>
+
+    <table class="table table-striped my-5">
+      <thead>
+        <h5 class="fw-bold mb-3">Spedizione</h5>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Altezza</th>
+          <td class="text-end">{{opera?.altezza}} cm</td>
+        </tr>
+        <tr>
+          <th scope="row">Lunghezza</th>
+          <td class="text-end">{{opera?.lunghezza}} cm</td>
+        </tr>
+        <tr>
+          <th scope="row">Larghezza</th>
+          <td class="text-end">{{opera?.larghezza}} cm</td>
+        </tr>
+        <tr>
+          <th scope="row">Peso</th>
+          <td class="text-end">{{opera?.peso}} kg</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-striped my-5">
+      <thead>
+        <h5 class="fw-bold mb-3">Valore</h5>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Stima Prezzo</th>
+          <td class="text-end">€{{opera?.stimaPrezzo}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Prezzo minimo</th>
+          <td class="text-end">€{{opera?.prezzoMinimo}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="submit" (click)="inviaDati()" class="btn btn-warning rounded-0 px-5">Conferma</button>
   </div>
 
   <div *ngIf="confermato">
     <p>Dati inviati con successo! Un esperto controllerà la tua opera prima di caricarla sul sito.</p>
 
-    <p>Torna alla <a [routerLink]="['/lista-lotti']" title="Lista lotti">lista lotti</a></p>
+    <p>Torna alla <a class="a-link" [routerLink]="['/lista-lotti']" title="Vai a lista lotti">lista lotti</a></p>
+
+    <div style="height: 300px"></div>
   </div>
 </div>

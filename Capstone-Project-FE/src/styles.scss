@@ -48,6 +48,14 @@ label {
   box-shadow: 0 0 0 0.2rem #edc168;
 }
 
+.bg-giallino {
+  background-color: #edc168;
+}
+
+.bg-panna {
+  background-color: #e6e4e1
+}
+
 .btn-warning {
   background-color: #DBA23E;
   border: none;
@@ -59,10 +67,6 @@ label {
   &:hover {
     border: 1px solid #DBA23E;
   }
-}
-
-.bg-giallino {
-  background-color: #edc168;
 }
 
 .btn-categoria {

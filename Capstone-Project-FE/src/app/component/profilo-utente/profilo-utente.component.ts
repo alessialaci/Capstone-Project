@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, switchMap } from 'rxjs';
+import { StorageService } from 'src/app/auth/storage.service';
 import { Opera } from 'src/app/models/opera.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { FotoService } from 'src/app/services/foto.service';
@@ -15,23 +16,30 @@ import { UtentiService } from 'src/app/services/utenti.service';
 export class ProfiloUtenteComponent implements OnInit {
 
   utente: Utente | undefined;
+  id!: number;
+  utenteSS: any;
   files: File[] = [];
   modificaDati = false;
   preferiti: Opera[] | undefined;
   errore = '';
 
-  constructor(private us: UtentiService, private fs: FotoService, private ar: ActivatedRoute) { }
+  constructor(private us: UtentiService, private ss: StorageService, private fs: FotoService, private ar: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getUtente();
   }
 
   getUtente() {
-    let id = this.ar.snapshot.params["id"];
+    this.utenteSS = this.ss.getUser();
+    console.log(this.utenteSS);
+
+    this.id = this.ar.snapshot.params["id"];
+    console.log(this.id);
+
 
     this.us.getUtenti().subscribe((utenti: Utente[]) => {
       this.utente = utenti.find((utenteTrovato) => {
-        if (id == utenteTrovato.id) {
+        if (this.id == utenteTrovato.id) {
           return true;
         } else {
           return false;
@@ -94,6 +102,7 @@ export class ProfiloUtenteComponent implements OnInit {
       nome: form.value.nome,
       cognome: form.value.cognome,
       username: form.value.username,
+      password: form.value.password,
       bio: form.value.bio,
       via: form.value.via,
       cap: form.value.cap,

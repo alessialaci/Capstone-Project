@@ -107,7 +107,7 @@ export class DettagliLottoComponent implements OnInit {
       return;
     }
 
-    if ((this.ultimaOfferta == undefined && form.value.offerta > 1) || (this.ultimaOfferta!.offerta !== undefined && form.value.offerta > this.ultimaOfferta!.offerta)) {
+    if ((this.ultimaOfferta === undefined && form.value.offerta > 1) || (this.ultimaOfferta!.offerta !== undefined && form.value.offerta > this.ultimaOfferta!.offerta)) {
       const nuovaOfferta: Partial<Offerta> = {
         data: new Date(),
         opera: this.opera,
@@ -211,8 +211,8 @@ export class DettagliLottoComponent implements OnInit {
     } else if(this.ultimaOfferta.offerta < this.opera!.prezzoMinimo) {
       this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma le offerte effettuate dagli utenti non hanno raggiunto il prezzo minimo da te inserito. L\'asta è annullata');
     } else {
-      this.creaNotifica(opera.autore, opera, 'Asta terminata! Il tuo lotto è stato venduto all\'utente ' + this.ultimaOfferta.utente.nome + ' ' + this.ultimaOfferta.utente.cognome + ' al prezzo di €' + this.ultimaOfferta.offerta + '. Il pacco deve essere spedito in: ' + this.ultimaOfferta.utente.via + ' ' + this.ultimaOfferta.utente.cap + ' - ' + this.ultimaOfferta.utente.citta + ' ' + this.ultimaOfferta.utente.stato);
-      this.creaNotifica(this.ultimaOfferta.utente, opera, 'Complimenti! Ti sei aggiudicato l\'asta del lotto n. ' + this.opera!.id)
+      this.creaNotifica(opera.autore, opera, 'Asta terminata! Il tuo lotto è stato venduto all\'utente ' + this.ultimaOfferta.utente.nome + ' ' + this.ultimaOfferta.utente.cognome + ' al prezzo di €' + this.ultimaOfferta.offerta + '. Il pacco deve essere spedito in: ' + this.ultimaOfferta.utente.via + ' - ' + this.ultimaOfferta.utente.cap + ' - ' + this.ultimaOfferta.utente.citta + ' ' + this.ultimaOfferta.utente.stato);
+      this.creaNotifica(this.ultimaOfferta.utente, opera, 'Complimenti! Ti sei aggiudicato l\'asta del lotto n. ' + this.opera!.id + ". Per poter ricevere la tua opera il prima possibile, ti preghiamo di completare l'ultimo passaggio nella sezione 'Ordini'.")
     }
   }
 

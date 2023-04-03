@@ -1,23 +1,99 @@
 <app-navbar></app-navbar>
 
 <div class="container p-5" *ngIf="notifica">
-  <p class="m-0">{{notifica.messaggio}}</p>
+  <h1>Notifica</h1>
   <hr>
-  <div>
-    <img class="m-3" *ngFor="let foto of listaFoto" src="{{foto.file}}" height="200px" alt="Immagine lotto">
-  </div>
-  <p>Titolo: {{notifica.opera.titolo}}</p>
-  <p>Descrizione: {{notifica.opera.descrizione}}</p>
-  <p>Autore: {{notifica.opera.autore.nome}} {{notifica.opera.autore.cognome}}</p>
-  <p>Anno: {{notifica.opera.anno}}</p>
-  <p>Altezza: {{notifica.opera.altezza}} cm</p>
-  <p>Lunghezza: {{notifica.opera.lunghezza}} cm</p>
-  <p>Larghezza: {{notifica.opera.larghezza}} cm</p>
-  <p>Peso: {{notifica.opera.peso}} kg</p>
-  <p>Stato: {{notifica.opera.statoLotto}}</p>
 
-  <div class="btn-group" *ngIf="isAdmin">
-    <button type="submit" (click)="confermaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-5 px-5 me-3">Conferma</button>
-    <button type="submit" (click)="rifiutaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-5 px-5">Rifiuta</button>
+  <div class="bg-giallino p-4" *ngIf="isAdmin && notifica.opera.statoLotto !== 'IN_ATTESA'">
+    <p class="fw-bold m-0">Lotto {{notifica.opera.statoLotto | capitalcase}}</p>
+  </div>
+
+  <div class="container px-5">
+    <p class="mt-5">{{notifica.messaggio}}</p>
+    <div class="text-center my-3">
+      <img class="my-3 me-3" *ngFor="let foto of listaFoto" src="{{foto.file}}" height="350px" alt="Immagine lotto">
+    </div>
+
+    <table class="table table-striped my-5">
+      <thead>
+        <h5 class="fw-bold mb-3">Dettagli</h5>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Tipo</th>
+          <td class="text-end">{{notifica.opera.tipo | capitalcase}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Titolo</th>
+          <td class="text-end">{{notifica.opera.titolo}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Autore</th>
+          <td class="text-end">{{notifica.opera.autore.nome}} {{notifica.opera.autore.cognome}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Tecnica</th>
+          <td class="text-end">{{notifica.opera.tecnica | capitalcase}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Condizioni</th>
+          <td class="text-end">{{notifica.opera.condizioni | capitalcase}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Anno</th>
+          <td class="text-end">{{notifica.opera.anno}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bg-light p-4 mb-5">
+      <p class="fw-bold mb-2">Descrizione</p>
+      <p class="m-0">{{notifica.opera.descrizione}}</p>
+    </div>
+
+    <table class="table table-striped my-5">
+      <thead>
+        <h5 class="fw-bold mb-3">Spedizione</h5>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Altezza</th>
+          <td class="text-end">{{notifica.opera.altezza}} cm</td>
+        </tr>
+        <tr>
+          <th scope="row">Lunghezza</th>
+          <td class="text-end">{{notifica.opera.lunghezza}} cm</td>
+        </tr>
+        <tr>
+          <th scope="row">Larghezza</th>
+          <td class="text-end">{{notifica.opera.larghezza}} cm</td>
+        </tr>
+        <tr>
+          <th scope="row">Peso</th>
+          <td class="text-end">{{notifica.opera.peso}} kg</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table table-striped my-5">
+      <thead>
+        <h5 class="fw-bold mb-3">Valore</h5>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Stima Prezzo</th>
+          <td class="text-end">€{{notifica.opera.stimaPrezzo}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Prezzo minimo</th>
+          <td class="text-end">€{{notifica.opera.prezzoMinimo}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="btn-group" *ngIf="isAdmin && notifica.opera.statoLotto === 'IN_ATTESA'">
+      <button type="submit" (click)="confermaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-0 px-5 me-3">Conferma</button>
+      <button type="submit" (click)="rifiutaLotto(notifica.opera, notifica)" class="btn btn-secondary rounded-0 px-5">Rifiuta</button>
+    </div>
   </div>
 </div>

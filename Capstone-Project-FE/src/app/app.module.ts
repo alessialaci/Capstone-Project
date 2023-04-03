@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
@@ -33,6 +34,7 @@ import { CapitalcasePipe } from './pipes/capitalcase.pipe';
 import { TimerComponent } from './component/timer/timer.component';
 
 import { ProvaComponent } from './component/prova/prova.component';
+import { AsteUtenteComponent } from './component/aste-utente/aste-utente.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { ProvaComponent } from './component/prova/prova.component';
     CapitalcasePipe,
     TimerComponent,
 
-    ProvaComponent
+    ProvaComponent,
+     AsteUtenteComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { ProvaComponent } from './component/prova/prova.component';
     HttpClientModule,
     FormsModule,
     NgxDropzoneModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    LoadingBarModule
   ],
   providers: [
     {

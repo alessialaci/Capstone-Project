@@ -1,49 +1,116 @@
 <app-navbar></app-navbar>
 
 <div class="container my-5">
-  <h1>Lotto n. {{opera?.id}}</h1>
+  <h1 *ngIf="opera">{{opera.titolo}}</h1>
   <hr>
 
+  <div class="my-3" *ngIf="opera">
+    <h3></h3>
+
+  </div>
+
   <div class="row">
-    <div class="col">
+    <!-- <div class="col">
       <img *ngFor="let foto of listaFoto" src="{{foto.file}}" height="200px" alt="Immagine lotto">
       <button class="btn" (click)="aggiungiAiPreferiti()"><i class="bi bi-heart"></i></button>
+    </div> -->
+
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-center mb-5">
+        <div class="m-1">
+          <div *ngFor="let foto of listaFoto.slice(1)">
+            <img class="mb-2" src="{{foto.file}}" alt="Immagine lotto" width="100px">
+          </div>
+        </div>
+        <div class="m-1" *ngIf="listaFoto.length > 0">
+          <img src="{{listaFoto[0].file}}" alt="Immagine lotto" id="imgPrincipale">
+        </div>
+      </div>
+
+      <div *ngIf="opera">
+        <div class="bg-light p-4 mb-4">
+          <p>{{opera.descrizione}}</p>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">AUTORE</p>
+              <a class="a-link" [routerLink]="['/profilo-utente/', opera.autore.id]">{{opera.autore.nome}}
+                {{opera.autore.cognome}}</a>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">ANNO</p>
+              <p>{{opera.anno}}</p>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">TIPO</p>
+              <p>{{opera.tipo | capitalcase}}</p>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">TECNICA</p>
+              <p>{{opera.tecnica | capitalcase}}</p>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">CONDIZIONI</p>
+              <p>{{opera.condizioni | capitalcase}}</p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">DIMENSIONI</p>
+              <p>{{opera.altezza}} x {{opera.lunghezza}} x {{opera.larghezza}} cm</p>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-secondary m-0" style="font-size: 12px;">PESO</p>
+              <p>{{opera.peso}} kg</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col">
-      <div class="text-center fw-bold border p-3">
-        <p class="m-0">Si chiude in: </p>
+
+    <div class="col-12 col-lg-6">
+      <div id="timer" class="text-center fw-bold bg-giallino p-3">
+        <p class="m-0">Termina tra:</p>
         <app-timer [opera]="opera" (timerScaduto)="timerScaduto(opera!)"></app-timer>
         <p *ngIf="opera?.statoLotto == 'SCADUTO'">Lotto Scaduto</p>
       </div>
 
-      <div class="my-3" *ngIf="opera">
-        <h3>{{opera.titolo}}</h3>
-        <p>Descrizione: {{opera.descrizione}}</p>
-        <p>Autore: {{opera.autore.nome}} {{opera.autore.cognome}}</p>
-        <p>Anno: {{opera.anno}}</p>
-        <p>Tipo: {{opera.tipo | capitalcase}}</p>
-        <p>Tecnica: {{opera.tecnica | capitalcase}}</p>
-        <p>Condizioni: {{opera.condizioni | capitalcase}}</p>
-        <p>Altezza: {{opera.altezza}} cm</p>
-        <p>Lunghezza: {{opera.lunghezza}} cm</p>
-        <p>Larghezza: {{opera.larghezza}} cm</p>
-        <p>Peso: {{opera.peso}} kg</p>
-      </div>
-    </div>
-    <div>
-      <form #formOfferta="ngForm" *ngIf="this.utente?.id != this.opera?.autore?.id">
-        <div class="form-group mb-3">
-          <label for="offerta">Fai un'offerta</label>
-          <input name="offerta" type="text" class="form-control" id="offerta" placeholder="€" required ngModel>
+      <div class="bg-light p-3 mt-3">
+        <div class="" *ngIf="listaOfferte.length > 0">
+          <p>Offerta corrente</p>
+          <h3>€{{listaOfferte[0].offerta}}</h3>
         </div>
-        <p>{{errore}}</p>
-        <button type="submit" (click)="confermaOfferta(formOfferta)" [disabled]="formOfferta.invalid" class="btn btn-warning rounded-5 px-5">Conferma</button>
-      </form>
-    </div>
-    <div>
-      <h3>Lista offerte</h3>
-      <div *ngFor="let offerta of listaOfferte">
-        <p>{{offerta.data}} - {{offerta.utente.nome}} {{offerta.utente.cognome}} - €{{offerta.offerta}}</p>
+        <div>
+          <form #formOfferta="ngForm" *ngIf="utente?.id != opera?.autore?.id">
+            <div class="form-group mb-3">
+              <label for="offerta">Fai un'offerta</label>
+              <input name="offerta" type="text" class="form-control" id="offerta" placeholder="€" required ngModel>
+            </div>
+            <p>{{errore}}</p>
+            <button type="submit" (click)="confermaOfferta(formOfferta)" [disabled]="formOfferta.invalid"
+              class="btn btn-warning rounded-0 px-5">Conferma</button>
+          </form>
+        </div>
+        <div class="my-5">
+          <p><i class="bi bi-truck"></i> Spedizione: €10 da {{utente?.stato}}, arriva in 2-9 giorni</p>
+          <p><i class="bi bi-info-circle"></i> Commissione: 8%</p>
+          <p><i class="bi bi-clock-history"></i> Chiude il: {{opera?.scadenzaTimer | date: 'yyyy-MM-dd HH:mm'}}</p>
+        </div>
+        <div class="my-5">
+          <h3>Lista offerte</h3>
+          <p *ngIf="listaOfferte.length == 0">Non ci sono offerte</p>
+          <div *ngFor="let offerta of listaOfferte">
+            <p>{{offerta.data}} - {{offerta.utente.nome}} {{offerta.utente.cognome}} - €{{offerta.offerta}}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/auth/storage.service';
+import { Foto } from 'src/app/models/foto.interface';
 import { Notifica } from 'src/app/models/notifica.interface';
 import { Opera } from 'src/app/models/opera.interface';
 import { Utente } from 'src/app/models/utente.interface';
+import { FotoService } from 'src/app/services/foto.service';
 import { NotificheService } from 'src/app/services/notifiche.service';
 import { UtentiService } from 'src/app/services/utenti.service';
 
@@ -17,8 +19,9 @@ export class RiepilogoComponent implements OnInit {
   admin: Utente | undefined;
   opera: Opera | undefined;
   confermato = false;
+  listaFoto: Foto[] = [];
 
-  constructor(private us: UtentiService, private ns: NotificheService, private ss: StorageService) { }
+  constructor(private us: UtentiService, private ns: NotificheService, private ss: StorageService, private fs: FotoService) { }
 
   ngOnInit(): void {
     let utenteId = this.ss.getUser().id;

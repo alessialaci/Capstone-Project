@@ -1,0 +1,38 @@
+#imgPrincipale {
+  width: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  #timer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+    z-index: 1000;
+    width: 100vw;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  #imgPrincipale {
+    width: 350px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #imgPrincipale {
+    width: 300px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #imgPrincipale {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  #imgPrincipale {
+    width: 500px;
+  }
+}

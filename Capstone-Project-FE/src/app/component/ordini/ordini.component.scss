@@ -1,0 +1,15 @@
+.bg-giallino {
+  min-height: 600px;
+  border-radius: 20px 0 0 20px;
+}
+
+.bg-light {
+  border-radius: 0 20px 20px 0;
+}
+
+@media screen and (max-width: 991px) {
+  .bg-giallino, .bg-light {
+    border-radius: 20px;
+    margin: 20px auto;
+  }
+}

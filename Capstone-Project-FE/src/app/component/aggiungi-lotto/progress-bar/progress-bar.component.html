@@ -43,16 +43,15 @@
     <router-outlet></router-outlet>
   </div>
 
-  <div class="container p-3" *ngIf="currentStep === 0">
+  <div class="container px-5" *ngIf="currentStep === 0">
     <h3 class="mb-5">Info</h3>
     <p>Per poter procedere abbiamo bisogno di qualche informazione sulla tua opera.</p>
     <p>Ti preghiamo di compilare i campi come richiesto seguendo passo passo tutti gli step.</p>
     <p>Quando avrai completato, potrai inviare i dati della tua opera ad un esperto che li controllerà.</p>
-    <p>Il lotto verrà pubblicato soltanto dopo la conferma dell'esperto.</p>
-    <p>Riceverai entro 7 giorni una comunicazione con l'esito.</p>
+    <p>Riceverai entro 7 giorni una comunicazione con l'esito e, se positivo, il tuo lotto verrà pubblicato.</p>
     <p class="mb-5">Ti ringraziamo per la fiducia che ci stai dando.</p>
 
-    <p>Per proseguire clicca su <a class="a-link" [routerLink]="['dati']">Dettagli</a>.</p>
+    <p>Per proseguire clicca su <a class="a-link" [routerLink]="['dati']" title="Vai a dettagli">Dettagli</a>.</p>
   </div>
 
 </div>
