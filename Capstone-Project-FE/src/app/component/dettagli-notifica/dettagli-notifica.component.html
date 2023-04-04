@@ -1,5 +1,21 @@
 <app-navbar></app-navbar>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let foto of listaFoto">
+          <img class="mb-2 img-fluid" src="{{foto.file}}" alt="Immagine lotto">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container p-5" *ngIf="notifica">
   <h1>Notifica</h1>
   <hr>
@@ -10,7 +26,7 @@
 
   <div class="container px-5">
     <p class="mt-5">{{notifica.messaggio}}</p>
-    <div class="text-center my-3">
+    <div class="text-center my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <img class="my-3 me-3" *ngFor="let foto of listaFoto" src="{{foto.file}}" height="350px" alt="Immagine lotto">
     </div>
 

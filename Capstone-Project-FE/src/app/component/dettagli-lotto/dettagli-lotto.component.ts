@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Foto } from 'src/app/models/foto.interface';
@@ -17,6 +17,7 @@ import { OpereService } from '../../services/opere.service';
 import { UtentiService } from '../../services/utenti.service';
 import { PreferitiService } from 'src/app/services/preferiti.service';
 import { Preferito } from 'src/app/models/preferito.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dettagli-lotto',
@@ -34,6 +35,15 @@ export class DettagliLottoComponent implements OnInit {
   listaFoto: Foto[] = [];
   listaPreferiti: any;
   errore = "";
+
+  swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-warning rounded-0 mx-2',
+      cancelButton: 'btn btn-annulla rounded-0 mx-2'
+    },
+    buttonsStyling: false
+  })
+
 
   constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private tms: TimerService, private ps: PreferitiService) { }
 
@@ -91,55 +101,71 @@ export class DettagliLottoComponent implements OnInit {
   }
 
   confermaOfferta(form: NgForm) {
-    const conferma = window.confirm(`Confermi l'offerta di €${form.value.offerta}?`);
-
-    if(!conferma) {
-      this.errore = "Offerta non confermata";
-      return;
-    }
-
-    if (!this.ss.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    if (this.opera!.autore && this.opera!.autore.id === this.utente?.id) {
-      this.errore = "Non puoi fare un'offerta per una tua opera";
-      return;
-    }
-
-    if (this.opera!.timer && this.opera!.timer.giorni <= 0 && this.opera!.timer.ore <= 0 && this.opera!.timer.minuti <= 0 && this.opera!.timer.secondi <= 0) {
-      this.errore = 'Il timer è scaduto! Non è più possibile fare offerte per questo lotto';
-      return;
-    }
-
-    if ((this.ultimaOfferta !== undefined && form.value.offerta < this.ultimaOfferta.offerta) || (this.ultimaOfferta === undefined && form.value.offerta <= 1)) {
-      this.errore = "Non puoi fare un'offerta minore della precedente di €" + (this.ultimaOfferta?.offerta ? this.ultimaOfferta.offerta : 1);
-      return;
-    }
-
-    if ((this.ultimaOfferta === undefined && form.value.offerta > 1) || (this.ultimaOfferta!.offerta !== undefined && form.value.offerta > this.ultimaOfferta!.offerta)) {
-      const nuovaOfferta: Partial<Offerta> = {
-        data: new Date(),
-        opera: this.opera,
-        utente: this.utente,
-        offerta: form.value.offerta
-      };
-
-      this.ofs.addOfferta(nuovaOfferta).subscribe((response) => {
-        this.errore = 'Offerta aggiunta con successo';
-        console.log('Offerta aggiunta con successo', response);
-
-        if(this.ultimaOfferta) {
-          console.log(this.ultimaOfferta.utente);
-          this.creaNotifica(this.ultimaOfferta.utente, this.opera!, "L'utente " + this.utente!.nome + " ha fatto un'offerta di €" + form.value.offerta)
+    this.swalWithBootstrapButtons.fire({
+      title: 'Sei sicuro?',
+      text: `Confermi l'offerta di €${form.value.offerta}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Conferma',
+      cancelButtonText: 'Annulla',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (!this.ss.isLoggedIn()) {
+          this.router.navigate(['/login']);
+          return;
         }
-        this.trovaOfferte(this.opera!);
-      });
-    } else {
-      this.errore = "L'offerta non può essere uguale o inferiore alla precedente di €" + this.ultimaOfferta?.offerta;
-      return;
-    }
+
+        if (this.opera!.autore && this.opera!.autore.id === this.utente?.id) {
+          this.errore = "Non puoi fare un'offerta per una tua opera";
+          return;
+        }
+
+        if (this.opera!.timer && this.opera!.timer.giorni <= 0 && this.opera!.timer.ore <= 0 && this.opera!.timer.minuti <= 0 && this.opera!.timer.secondi <= 0) {
+          this.errore = 'Il timer è scaduto! Non è più possibile fare offerte per questo lotto';
+          return;
+        }
+
+        if ((this.ultimaOfferta !== undefined && form.value.offerta < this.ultimaOfferta.offerta) || (this.ultimaOfferta === undefined && form.value.offerta <= 1)) {
+          this.errore = "Non puoi fare un'offerta minore della precedente di €" + (this.ultimaOfferta?.offerta ? this.ultimaOfferta.offerta : 1);
+          return;
+        }
+
+        if ((this.ultimaOfferta === undefined && form.value.offerta > 1) || (this.ultimaOfferta!.offerta !== undefined && form.value.offerta > this.ultimaOfferta!.offerta)) {
+          const nuovaOfferta: Partial<Offerta> = {
+            data: new Date(),
+            opera: this.opera,
+            utente: this.utente,
+            offerta: form.value.offerta
+          };
+
+          this.ofs.addOfferta(nuovaOfferta).subscribe((response) => {
+            console.log('Offerta aggiunta con successo', response);
+
+            if(this.ultimaOfferta) {
+              this.creaNotifica(this.ultimaOfferta.utente, this.opera!, "L'utente " + this.utente!.nome + " ha fatto un'offerta di €" + form.value.offerta)
+            }
+
+            this.swalWithBootstrapButtons.fire(
+              'Offerta confermata!',
+              '',
+              'success'
+            )
+
+            this.trovaOfferte(this.opera!);
+          });
+        } else {
+          this.errore = "L'offerta non può essere uguale o inferiore alla precedente di €" + this.ultimaOfferta?.offerta;
+          return;
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        this.swalWithBootstrapButtons.fire(
+          'Offerta annullata!',
+          '',
+          'error'
+        )
+      }
+    })
   }
 
   aggiungiAiPreferiti(event: any) {

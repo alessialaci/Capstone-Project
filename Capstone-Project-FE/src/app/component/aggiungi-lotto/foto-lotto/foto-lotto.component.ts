@@ -90,8 +90,8 @@ export class FotoLottoComponent implements OnInit {
           })
         ).subscribe((response) => {
           console.log('Foto aggiunta con successo', response);
-          this.router.navigate(['/aggiungi-lotto/valore']);
           this.loadingBar.complete();
+          this.router.navigate(['/aggiungi-lotto/valore']);
         });
       }
     }

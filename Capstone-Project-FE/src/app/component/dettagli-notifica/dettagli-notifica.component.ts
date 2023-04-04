@@ -10,6 +10,7 @@ import { FotoService } from 'src/app/services/foto.service';
 import { NotificheService } from 'src/app/services/notifiche.service';
 import { OpereService } from 'src/app/services/opere.service';
 import { UtentiService } from 'src/app/services/utenti.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dettagli-notifica',
@@ -78,16 +79,29 @@ export class DettagliNotificaComponent implements OnInit {
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
         this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato confermato!");
         this.getNotifica(this.id);
+        Swal.fire({
+          icon: 'success',
+          title: 'Lotto Approvato!',
+          text: 'Notifica inviata all\'autore del lotto.',
+        });
       });
     });
   }
 
   rifiutaLotto(opera: Opera, notifica: Notifica) {
     this.os.getOperaById(opera.id).subscribe(opera => {
-      const operaAggiornata = { ...opera, statoLotto: 'RIFIUTATO' };
+      const operaAggiornata = {
+        ...opera,
+        statoLotto: 'RIFIUTATO'
+      };
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
         this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato rifiutato");
         this.getNotifica(this.id);
+        Swal.fire({
+          icon: 'warning',
+          title: 'Lotto Rifiutato',
+          text: 'Notifica inviata all\'autore del lotto.',
+        });
       });
     });
   }

@@ -14,6 +14,13 @@
   cursor: zoom-in;
 }
 
+#sticky {
+  position: sticky;
+  top: 30px;
+  bottom: 0;
+  height: 100%;
+}
+
 @media screen and (max-width: 768px) {
   #timer {
     position: fixed;
@@ -22,6 +29,12 @@
     margin-bottom: 0;
     z-index: 1000;
     width: 100vw;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  #sticky {
+    position: static;
   }
 }
 

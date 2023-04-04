@@ -97,8 +97,8 @@
     </div>
 
     <div class="text-center rounded-4 p-5 m-5 bg-light shadow">
-      <h2 class="">Dati spedizione</h2>
-      <p><span class="fw-bold">Via:</span> {{utente?.via || '...'}}</p>
+      <h2 class="mb-5">Dati spedizione</h2>
+      <p *ngIf="mostraModifica"><span class="fw-bold">Via:</span> {{utente?.via || '...'}}</p>
       <p><span class="fw-bold">Cap:</span> {{utente?.cap || '...'}}</p>
       <p><span class="fw-bold">Città:</span> {{utente?.citta || '...'}}</p>
       <p><span class="fw-bold">Stato:</span> {{utente?.stato || '...'}}</p>

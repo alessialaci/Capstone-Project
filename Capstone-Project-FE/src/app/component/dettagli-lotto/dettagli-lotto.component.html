@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-6 " id="sticky">
       <div id="timer" class="text-center fw-bold bg-giallino p-3">
         <p class="m-0">Termina tra:</p>
         <app-timer [opera]="opera" (timerScaduto)="timerScaduto(opera!)"></app-timer>
@@ -103,7 +103,7 @@
               <label for="offerta">Fai un'offerta</label>
               <input name="offerta" type="number" class="form-control" id="offerta" placeholder="€" min="1" required ngModel>
             </div>
-            <p>{{errore}}</p>
+            <p class="text-danger">{{errore}}</p>
             <button type="submit" (click)="confermaOfferta(formOfferta)" [disabled]="formOfferta.invalid"
               class="btn btn-warning rounded-0 px-5">Conferma</button>
           </form>
