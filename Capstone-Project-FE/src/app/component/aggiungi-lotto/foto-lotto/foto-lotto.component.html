@@ -8,10 +8,11 @@
     <div class="bg-giallino p-4">
       <p class="m-0">Gli acquirenti sono interessati alle immagini che mostrano i dettagli del tuo oggetto speciale.</p>
       <p class="m-0">Scegli un'illuminazione naturale, uno sfondo neutro e mostra ogni angolazione della tua opera.</p>
-      <p class="m-0">Inserisci almeno 3 immagini.</p>
+      <p class="m-0">Inserisci almeno 3 immagini, la prima sarà la copertina.</p>
     </div>
   </div>
 
+  <!-- Sezione per aggiungere le immagini -->
   <ngx-dropzone class="px-5" (change)="onSelect($event)">
     <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
@@ -19,11 +20,12 @@
     </ngx-dropzone-image-preview>
   </ngx-dropzone>
 
+  <p class="text-danger my-2">{{errore}}</p>
+
+  <!-- Loading bar per il caricamento delle immagini -->
   <div class="my-3">
     <ngx-loading-bar [height]="'10px'" [color]="'#DBA23E'" [includeSpinner]="false" [fixed]="false"></ngx-loading-bar>
   </div>
-
-  <p class="my-2">{{errore}}</p>
 
   <div>
     <button class="btn btn-warning rounded-0 px-5 my-4" (click)="aggiornaDatiLotto()">Conferma</button>

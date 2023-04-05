@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CondizioniOpera } from 'src/app/enums/condizioni-opera.enum';
 import { TecnicaOpera } from 'src/app/enums/tecnica-opera.enum';
 import { TipoOpera } from 'src/app/enums/tipo-opera.enum';
 import { Opera } from 'src/app/models/opera.interface';
 import { Utente } from 'src/app/models/utente.interface';
 import { OpereService } from 'src/app/services/opere.service';
-import { UtentiService } from 'src/app/services/utenti.service';
 import { StorageService } from 'src/app/auth/storage.service';
 
 @Component({
@@ -24,8 +23,8 @@ export class DatiLottoComponent implements OnInit {
   tipoSelezionato: TipoOpera | undefined;
   tecnicaSelezionata: TecnicaOpera | undefined;
   condizioniSelezionate: CondizioniOpera | undefined;
-  conteggio = 0;
   descrizione = '';
+  conteggio = 0;
   annoCorrente = new Date().getFullYear();
 
   constructor(private ss: StorageService, private os: OpereService, private router: Router) {}
@@ -34,10 +33,7 @@ export class DatiLottoComponent implements OnInit {
     this.utente = this.ss.getUser();
   }
 
-  calcolaCaratteri() {
-    this.conteggio = this.descrizione.length; // Modifica il valore "100" per limitare il numero massimo di caratteri
-  }
-
+  // Per aggiungere al DB un'opera parziale (solo dettagli)
   aggiungiDatiLotto(form: NgForm) {
     const nuovaOpera: Partial<Opera> = {
       autore: this.utente,
@@ -55,6 +51,11 @@ export class DatiLottoComponent implements OnInit {
         this.router.navigate(['/aggiungi-lotto/foto']);
       }
     );
+  }
+
+  // Per contare i caratteri inseriti nella descrizione
+  calcolaCaratteri() {
+    this.conteggio = this.descrizione.length;
   }
 
 }

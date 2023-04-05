@@ -1,21 +1,20 @@
-import { Component, EventEmitter, HostBinding, HostListener, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Foto } from 'src/app/models/foto.interface';
-import { Notifica } from 'src/app/models/notifica.interface';
-import { Ordine } from 'src/app/models/ordine.interface';
 import { FotoService } from 'src/app/services/foto.service';
 import { NotificheService } from 'src/app/services/notifiche.service';
 import { OrdiniService } from 'src/app/services/ordini.service';
-import { TimerService } from 'src/app/services/timer.service';
 import { StorageService } from '../../auth/storage.service';
-import { Offerta } from '../../models/offerta.interface';
-import { Opera } from '../../models/opera.interface';
-import { Utente } from '../../models/utente.interface';
 import { OfferteService } from '../../services/offerte.service';
 import { OpereService } from '../../services/opere.service';
 import { UtentiService } from '../../services/utenti.service';
 import { PreferitiService } from 'src/app/services/preferiti.service';
+import { Notifica } from 'src/app/models/notifica.interface';
+import { Ordine } from 'src/app/models/ordine.interface';
+import { Foto } from 'src/app/models/foto.interface';
+import { Offerta } from '../../models/offerta.interface';
+import { Opera } from '../../models/opera.interface';
+import { Utente } from '../../models/utente.interface';
 import { Preferito } from 'src/app/models/preferito.interface';
 import Swal from 'sweetalert2';
 
@@ -44,8 +43,7 @@ export class DettagliLottoComponent implements OnInit {
     buttonsStyling: false
   })
 
-
-  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private tms: TimerService, private ps: PreferitiService) { }
+  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private ps: PreferitiService) { }
 
   ngOnInit(): void {
     this.idOpera = this.ar.snapshot.params["id"];

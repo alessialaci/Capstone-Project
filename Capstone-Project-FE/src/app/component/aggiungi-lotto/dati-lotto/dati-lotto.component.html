@@ -35,9 +35,11 @@
             <option *ngFor="let condizioni of condizioniOpera" [value]="condizioni">{{condizioni | capitalcase}}</option>
           </select>
         </div>
+
         <button type="submit" (click)="aggiungiDatiLotto(formDati)" [disabled]="formDati.invalid" class="btn btn-warning rounded-0 px-5 my-4">Continua</button>
       </form>
     </div>
+
     <div class="col-12 col-md-6 text-center order-1 order-md-2 mb-5">
       <span class="position-absolute translate-middle badge bg-giallino rounded-circle text-dark" style="font-size: 20px;">
         <i class="bi bi-info-circle"></i>

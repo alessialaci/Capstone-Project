@@ -26,40 +26,26 @@ export class FotoLottoComponent implements OnInit {
 
   ngOnInit() {
     this.operaSS = this.ss.getOpera();
-    // console.log(this.operaSS);
 
     if(this.operaSS) {
       this.os.getOperaById(this.operaSS.id).subscribe(op => {
         this.opera = op;
-        console.log(op);
       })
     }
-
-    // if(this.operaSS) {
-    //   this.os.getOpere().subscribe(opere => {
-    //     this.opera = opere.find(operaTrovata => {
-    //       if (this.operaSS?.id == operaTrovata.id) {
-    //         return true;
-    //       } else {
-    //         return false;
-    //       }
-    //     })
-    //   })
-    // }
   }
 
+  // Per aggiungere le immagini all'array files quando l'utente le seleziona
   onSelect(event: any) {
-    console.log(event);
     this.files.push(...event.addedFiles);
   }
 
+  // Per rimuovere le immagini dall'array files quando l'utente le elimina
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  // Per salvare su Cloudinary le immagini inserite dall'utente e il link di queste nel DB
   aggiornaDatiLotto() {
-    this.loadingBar.start();
     this.operaSS = this.ss.getOpera();
 
     if(this.opera) {
@@ -67,6 +53,8 @@ export class FotoLottoComponent implements OnInit {
         this.errore = 'Inserisci almeno 3 immagini prima di continuare';
         return;
       }
+
+      this.loadingBar.start();
 
       for (let i = 0; i < this.files.length; i++) {
         const data = new FormData();

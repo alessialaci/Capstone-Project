@@ -18,6 +18,7 @@
     <button class="btn-categoria m-3" (click)="cercaFotografie()">FOTOGRAFIE</button>
     <button class="btn-categoria m-3" (click)="cercaSculture()">SCULTURE</button>
     <button class="btn-categoria m-3" (click)="cercaFumetti()">FUMETTI</button>
+    <button class="btn-categoria m-3" (click)="getLottiInScadenza()">IN SCADENZA</button>
   </div>
 
   <div class="row justify-content-center">
@@ -28,8 +29,13 @@
       <p>Vai nella sezione <a class="a-link" [routerLink]="['/aggiungi-lotto']">Vendi</a> e inizia l'avventura!</p>
     </div>
     <div class="col-12 col-md-4 col-lg-3 card lotto p-3 m-3" *ngFor="let lotto of listaOpere | paginate: {itemsPerPage: 9, currentPage: paginaCorrente}" [routerLink]="['/dettagli-lotto', lotto.id]">
+      <span *ngIf="convertiLocalDateTimeInDate(lotto.scadenzaTimer) > oggi && convertiLocalDateTimeInDate(lotto.scadenzaTimer) < traUnOra" class="position-absolute  end-0 badge rounded-0" style="background-color: #DBA23E; top: 30px;">
+        <app-timer [opera]="lotto" (timerScaduto)="timerScaduto(lotto)"></app-timer>
+      </span>
       <img src="{{lotto.foto[0].file ? lotto.foto[0].file : '../../../../../assets/img/logo.png'}}" class="card-img-top" alt="Immagine lotto">
       <div class="card-body py-2 px-4">
+
+
         <div class="d-flex justify-content-between align-items-baseline">
           <h5 class="card-title">{{lotto.titolo}}</h5>
           <i class="bi bi-caret-right"></i>

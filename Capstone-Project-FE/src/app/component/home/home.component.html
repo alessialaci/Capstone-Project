@@ -46,45 +46,71 @@
 <div class="container-fluid my-5 immagine-fixed"></div>
 
 <div class="container text-center my-5">
-  <h3>PERCHÈ VENDERE DA NOI?</h3>
+  <h3>ASTE IN SCADENZA</h3>
 
-  <div class="row">
-    <div class="col-12 col-md-6 my-5">
-      <p><i class="bi bi-box-arrow-in-right"></i></p>
-      <h5>Pubblica le tue opere gratis</h5>
-      <p>Puoi vendere all'asta tutte le opere che vuoi gratuitamente.<br>Paghi soltanto una piccola commissione quando l'oggetto viene venduto.</p>
-    </div>
-
-    <div class="col-12 col-md-6 my-5">
-      <p><i class="bi bi-globe-americas"></i></p>
-      <h5>Raggiungi tutto il mondo</h5>
-      <p>Con noi puoi raggiungere acquirenti appassionati da tutto il mondo.<br>Inizia a vendere oggi stesso e unisciti alla nostra Community.</p>
+  <div class="row justify-content-center my-5">
+    <div class="col-12 col-md-4 col-lg-3 card lotto p-3 m-3" *ngFor="let lotto of listaOpereInScadenza" [routerLink]="['/dettagli-lotto', lotto.id]">
+      <span *ngIf="convertiLocalDateTimeInDate(lotto.scadenzaTimer) > oggi && convertiLocalDateTimeInDate(lotto.scadenzaTimer) < traUnOra" class="position-absolute  end-0 badge rounded-0" style="background-color: #DBA23E; top: 30px;">
+        IN SCADENZA
+      </span>
+      <img src="{{lotto.foto[0].file ? lotto.foto[0].file : '../../../../../assets/img/logo.png'}}" class="card-img-top" alt="Immagine lotto">
+      <div class="card-body text-start py-2 px-4">
+        <div class="d-flex justify-content-between align-items-baseline">
+          <h5 class="card-title">{{lotto.titolo}}</h5>
+          <i class="bi bi-caret-right"></i>
+        </div>
+        <p class="card-text">Autore: {{lotto.autore.nome}} {{lotto.autore.cognome}}</p>
+        <p class="card-text m-0">Anno: {{lotto.anno}}</p>
+        <p class="card-text">Scadenza: {{lotto.scadenzaTimer | date: 'yyyy-MM-dd HH:mm'}}</p>
+      </div>
     </div>
   </div>
 
-  <a class="btn-categoria" [routerLink]="['/aggiungi-lotto']" title="Vai ad aggiungi lotto">Vendi</a>
+  <a class="btn-categoria" [routerLink]="['/lista-lotti']">Mostra tutto</a>
 </div>
 
 <div class="container-fluid my-5 immagine-fixed"></div>
 
 <div class="container text-center my-5">
-  <h3>PERCHÈ COMPRARE DA NOI?</h3>
+  <div class="container text-center mb-5">
+    <h3>PERCHÈ VENDERE DA NOI?</h3>
 
-  <div class="row">
-    <div class="col-12 col-md-6 my-5">
-      <p><i class="bi bi-house-door"></i></p>
-      <h5>Comodo sul tuo divano</h5>
-      <p>Comodamente da casa tua puoi sfogliare le nostre categorie,<br>scegliere un'opera proveniente da qualsiasi parte del mondo e iniziare l'avventura!</p>
+    <div class="row">
+      <div class="col-12 col-md-6 my-5">
+        <p><i class="bi bi-box-arrow-in-right"></i></p>
+        <h5>Pubblica le tue opere gratis</h5>
+        <p>Puoi vendere all'asta tutte le opere che vuoi gratuitamente.<br>Paghi soltanto una piccola commissione quando l'oggetto viene venduto.</p>
+      </div>
+
+      <div class="col-12 col-md-6 my-5">
+        <p><i class="bi bi-globe-americas"></i></p>
+        <h5>Raggiungi tutto il mondo</h5>
+        <p>Con noi puoi raggiungere acquirenti appassionati da tutto il mondo.<br>Inizia a vendere oggi stesso e unisciti alla nostra Community.</p>
+      </div>
     </div>
 
-    <div class="col-12 col-md-6 my-5">
-      <p><i class="bi bi-easel"></i></p>
-      <h5>Opere selezionate</h5>
-      <p>Le opere che trovate sul nostro sito sono esaminate dai nostri esperti,<br>che hanno anni di esperienza e conoscienze in questo campo.</p>
-    </div>
+    <a class="btn-categoria d-inline-block mb-5" [routerLink]="['/aggiungi-lotto']" title="Vai ad aggiungi lotto">Vendi</a>
   </div>
 
-  <a class="btn-categoria" [routerLink]="['/lista-lotti']">Compra</a>
+  <div>
+    <h3>PERCHÈ COMPRARE DA NOI?</h3>
+
+    <div class="row">
+      <div class="col-12 col-md-6 my-5">
+        <p><i class="bi bi-house-door"></i></p>
+        <h5>Comodo sul tuo divano</h5>
+        <p>Comodamente da casa tua puoi sfogliare le nostre categorie,<br>scegliere un'opera proveniente da qualsiasi parte del mondo e iniziare l'avventura!</p>
+      </div>
+
+      <div class="col-12 col-md-6 my-5">
+        <p><i class="bi bi-easel"></i></p>
+        <h5>Opere selezionate</h5>
+        <p>Le opere che trovate sul nostro sito sono esaminate dai nostri esperti,<br>che hanno anni di esperienza e conoscienze in questo campo.</p>
+      </div>
+    </div>
+
+    <a class="btn-categoria d-inline-block" [routerLink]="['/lista-lotti']">Compra</a>
+  </div>
 </div>
 
 <svg id="spigolo-due" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#484847" fill-opacity="1" d="M0,0L720,224L1440,64L1440,0L720,0L0,0Z"></path></svg>
