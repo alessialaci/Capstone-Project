@@ -37,21 +37,6 @@ export class TimerComponent implements OnInit {
   }
 
   // Per calcolare il tempo che rimane da quando è stato pubblicato il lotto (dopo 7 giorni)
-  // getTimeRemaining(endtime: Date): any {
-  //   const total = Date.parse(endtime.toString()) - Date.parse(new Date().toString());
-  //   const secondi = Math.floor((total / 1000) % 60);
-  //   const minuti = Math.floor((total / 1000 / 60) % 60);
-  //   const ore = Math.floor((total / (1000 * 60 * 60)) % 24);
-  //   const giorni = Math.floor(total / (1000 * 60 * 60 * 24));
-  //   return {
-  //     total,
-  //     giorni,
-  //     ore,
-  //     minuti,
-  //     secondi
-  //   };
-  // }
-
   getTimeRemaining(endtime: any): any {
     const now = moment();
     const scadenza = moment(endtime);
