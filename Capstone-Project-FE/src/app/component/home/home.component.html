@@ -50,7 +50,7 @@
 
   <div class="row justify-content-center my-5">
     <div class="col-12 col-md-4 col-lg-3 card lotto p-3 m-3" *ngFor="let lotto of listaOpereInScadenza" [routerLink]="['/dettagli-lotto', lotto.id]">
-      <span *ngIf="convertiLocalDateTimeInDate(lotto.scadenzaTimer) > oggi && convertiLocalDateTimeInDate(lotto.scadenzaTimer) < traUnOra" class="position-absolute  end-0 badge rounded-0" style="background-color: #DBA23E; top: 30px;">
+      <span *ngIf="convertiInDate(lotto.scadenzaTimer) > oggi && convertiInDate(lotto.scadenzaTimer) < traUnOra" class="position-absolute  end-0 badge rounded-0" style="background-color: #DBA23E; top: 30px;">
         IN SCADENZA
       </span>
       <img src="{{lotto.foto[0].file ? lotto.foto[0].file : '../../../../../assets/img/logo.png'}}" class="card-img-top" alt="Immagine lotto">

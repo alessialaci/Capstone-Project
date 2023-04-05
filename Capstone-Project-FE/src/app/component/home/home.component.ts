@@ -10,33 +10,36 @@ import { OpereService } from 'src/app/services/opere.service';
 })
 export class HomeComponent implements OnInit {
 
+  utente: any;
   listaUltimeOpere: Opera[] = [];
   listaOpereInScadenza: Opera[] = [];
-  utente: any;
   traUnOra = new Date(new Date().getTime() + 3600000);
   oggi = new Date();
 
   constructor(private os: OpereService, private ss: StorageService) { }
 
   ngOnInit(): void {
+    this.utente = this.ss.getUser();
     this.getUlimiLotti();
     this.getLottiInScadenza();
-    this.utente = this.ss.getUser();
   }
 
+  // Per recuperare gli ultimi 3 lotti aggiunti di recente
   getUlimiLotti() {
     this.os.getOpere().subscribe(opere => {
       this.listaUltimeOpere = opere.filter(opera => opera.statoLotto === "APPROVATO").slice(-3);
     })
   }
 
+  // Per recuperare gli ultimi 3 lotti in scadenza
   getLottiInScadenza() {
     this.os.getOpere().subscribe(opere => {
       this.listaOpereInScadenza = opere.filter(opera => opera.statoLotto === "APPROVATO" && new Date(opera.scadenzaTimer) > this.oggi && new Date(opera.scadenzaTimer) < this.traUnOra).slice(-3);
     })
   }
 
-  convertiLocalDateTimeInDate(localDateTime: any): Date {
+  // Per convertire la data nel tipo Date
+  convertiInDate(localDateTime: any): Date {
     return new Date(localDateTime);
   }
 

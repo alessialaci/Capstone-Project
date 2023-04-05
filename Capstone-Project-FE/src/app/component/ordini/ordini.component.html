@@ -21,13 +21,14 @@
           <p class="fw-bold m-0">{{ordine.valuta}} {{ordine.prezzo}}</p>
         </div>
       </div>
+
       <div *ngIf="listaOrdini.length == 0">
         <p>Qui potrai procedere al pagamento delle opere di cui avrai vinto l'asta.</p>
         <p class="mb-5">Esplora le nostre aste nella sezione <a class="a-link2" [routerLink]="['/lista-lotti']" title="Vai a lista lotti">'Aste'</a> per trovare qualcosa di speciale!</p>
         <p>L'asta è appena terminata e non trovi il tuo ordine? Attendi qualche minuto e poi ricarica.</p>
       </div>
-
     </div>
+
     <div class="col-12 col-lg-5 bg-light shadow p-5">
       <table class="table table-striped">
         <thead>
@@ -49,10 +50,12 @@
         </tbody>
       </table>
       <hr>
+
       <div class="d-flex justify-content-between mb-5">
         <h5 class="fw-bold">Totale</h5>
         <h5 class="fw-bold">{{valuta}} {{(prezzo + commissioni + speseTrasporto).toFixed(2)}}</h5>
       </div>
+
       <div id="paypal-button-container"></div>
     </div>
   </div>

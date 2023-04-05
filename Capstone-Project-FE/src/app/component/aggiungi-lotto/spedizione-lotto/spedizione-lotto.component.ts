@@ -16,7 +16,8 @@ export class SpedizioneLottoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  aggiornaDatiLotto(form: NgForm) {
+  // Per aggiornare il lotto che si sta salvando con i dati della spedizione inseriti nel form
+  aggiornaSpedizioneLotto(form: NgForm) {
     const operaSS = this.ss.getOpera();
 
     const operaAggiornata = {

@@ -25,10 +25,6 @@ export class OpereService {
     return this.http.get<Opera[]>(`http://localhost:8080/app/opere/cerca`, { params });
   }
 
-  deleteOpera(id: number): Observable<Object> {
-    return this.http.delete(`http://localhost:8080/app/opere/${id}`);
-  }
-
   addOpera(opera: any): Observable<Object> {
     return this.http.post('http://localhost:8080/app/opere', opera).pipe(
       tap((operaCompleta) => {
@@ -39,6 +35,10 @@ export class OpereService {
 
   updateOpera(opera: any, id: number): Observable<Object> {
     return this.http.put(`http://localhost:8080/app/opere/${id}`, opera);
+  }
+
+  deleteOpera(id: number): Observable<Object> {
+    return this.http.delete(`http://localhost:8080/app/opere/${id}`);
   }
 
 }

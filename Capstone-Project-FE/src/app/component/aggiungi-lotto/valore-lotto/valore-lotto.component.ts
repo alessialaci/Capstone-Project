@@ -16,7 +16,8 @@ export class ValoreLottoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  aggiornaDatiLotto(form: NgForm) {
+  // Per aggiornare i dati del lotto che si sta salvando con il valore e il prezzo minimo inseriti nel form
+  aggiornaValoreLotto(form: NgForm) {
     const operaSS = this.ss.getOpera();
 
     const operaAggiornata = {

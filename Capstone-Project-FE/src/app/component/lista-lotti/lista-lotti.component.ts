@@ -1,18 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StorageService } from 'src/app/auth/storage.service';
+import { Component, OnInit } from '@angular/core';
 import { TipoOpera } from 'src/app/enums/tipo-opera.enum';
 import { Notifica } from 'src/app/models/notifica.interface';
 import { Offerta } from 'src/app/models/offerta.interface';
 import { Opera } from 'src/app/models/opera.interface';
 import { Ordine } from 'src/app/models/ordine.interface';
 import { Utente } from 'src/app/models/utente.interface';
-import { FotoService } from 'src/app/services/foto.service';
+import { StorageService } from 'src/app/auth/storage.service';
 import { NotificheService } from 'src/app/services/notifiche.service';
 import { OfferteService } from 'src/app/services/offerte.service';
 import { OpereService } from 'src/app/services/opere.service';
 import { OrdiniService } from 'src/app/services/ordini.service';
-import { PreferitiService } from 'src/app/services/preferiti.service';
 import { UtentiService } from 'src/app/services/utenti.service';
 
 @Component({
@@ -22,20 +19,16 @@ import { UtentiService } from 'src/app/services/utenti.service';
 })
 export class ListaLottiComponent implements OnInit {
 
+  utente: any;
   listaOpere: Opera[] = [];
+  ultimaOfferta: Offerta | undefined;
+  ordine: Partial<Ordine> | undefined;
   termineRicerca = '';
   paginaCorrente: number = 1;
   traUnOra = new Date(new Date().getTime() + 3600000);
   oggi = new Date();
 
-  utente: any;
-  idOpera!: number;
-  opera: Opera | undefined;
-  ultimaOfferta: Offerta | undefined;
-  ordine: Partial<Ordine> | undefined;
-  listaOfferte: Offerta[] = [];
-
-  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private fs: FotoService, private ss: StorageService, private ar: ActivatedRoute, private ns: NotificheService, private ors: OrdiniService, private router: Router, private ps: PreferitiService) { }
+  constructor(private us: UtentiService, private os: OpereService, private ofs: OfferteService, private ss: StorageService, private ns: NotificheService, private ors: OrdiniService) { }
 
   ngOnInit(): void {
     this.getLotti();
@@ -49,23 +42,15 @@ export class ListaLottiComponent implements OnInit {
     }
   }
 
-  convertiLocalDateTimeInDate(localDateTime: any): Date {
-    return new Date(localDateTime);
-  }
-
+  // Per recuperare tutti i lotti con stato 'APPROVATO'
   getLotti() {
     this.os.getOpere().subscribe(opere => {
       this.listaOpere = opere.reverse().filter(opera => opera.statoLotto === "APPROVATO");
     })
   }
 
-  getLottiInScadenza() {
-    this.os.getOpere().subscribe(opere => {
-      this.listaOpere = opere.filter(opera => opera.statoLotto === "APPROVATO" && new Date(opera.scadenzaTimer) > this.oggi && new Date(opera.scadenzaTimer) < this.traUnOra);
-    })
-  }
-
-  filtrareOpere() {
+  // Per cercare le opere tramite titolo o autore
+  cercaOpere() {
     if (!this.termineRicerca || this.termineRicerca.trim() === '') {
       this.getLotti();
     } else {
@@ -75,58 +60,46 @@ export class ListaLottiComponent implements OnInit {
     }
   }
 
-  cercaDipinti() {
+  // --- Per filtrare le opere in base alla categoria
+  filtraDipinti() {
     this.os.getOpereByTipo(TipoOpera.DIPINTO).subscribe(dipinti => {
       this.listaOpere = dipinti.filter(dipinti => dipinti.statoLotto === 'APPROVATO');
     })
   }
 
-  cercaDisegni() {
+  filtraDisegni() {
     this.os.getOpereByTipo(TipoOpera.DISEGNO).subscribe(disegni => {
       this.listaOpere = disegni.filter(disegni => disegni.statoLotto === 'APPROVATO');
     })
   }
 
-  cercaFotografie() {
+  filtraFotografie() {
     this.os.getOpereByTipo(TipoOpera.FOTOGRAFIA).subscribe(foto => {
       this.listaOpere = foto.filter(foto => foto.statoLotto === 'APPROVATO');
     })
   }
 
-  cercaSculture() {
+  filtraSculture() {
     this.os.getOpereByTipo(TipoOpera.SCULTURA).subscribe(sculture => {
       this.listaOpere = sculture.filter(sculture => sculture.statoLotto === 'APPROVATO');
     })
   }
 
-  cercaFumetti() {
+  filtraFumetti() {
     this.os.getOpereByTipo(TipoOpera.FUMETTO).subscribe(fumetti => {
       this.listaOpere = fumetti.filter(fumetti => fumetti.statoLotto === 'APPROVATO');
     })
   }
+  // ---
 
-  //--------------------------------------------------------------
-
-  trovaOfferte(opera: Opera) {
-    this.ofs.getOfferteByOperaId(opera).subscribe(offerte => {
-      this.listaOfferte = offerte.reverse();
-      console.log("offerte", offerte);
-    });
-
-    this.trovaUltimaOfferta(opera);
+  // Per recuperare i lotti in scadenza tra un'ora
+  getLottiInScadenza() {
+    this.os.getOpere().subscribe(opere => {
+      this.listaOpere = opere.filter(opera => opera.statoLotto === "APPROVATO" && new Date(opera.scadenzaTimer) > this.oggi && new Date(opera.scadenzaTimer) < this.traUnOra);
+    })
   }
 
-  trovaUltimaOfferta(opera: Opera) {
-    this.ofs.getUltimaOfferta(opera).subscribe(offerta => {
-      if(offerta) {
-        this.ultimaOfferta = offerta;
-      } else {
-        this.ultimaOfferta = undefined;
-      }
-      console.log("ultima offerta", this.ultimaOfferta);
-    });
-  }
-
+  // Per aggiornare lo stato del lotto in 'SCADUTO' quando il countdown arriva a 0 e inviare la notifica all'utente
   timerScaduto(opera: Opera) {
     this.trovaUltimaOfferta(opera);
 
@@ -137,8 +110,6 @@ export class ListaLottiComponent implements OnInit {
       };
 
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-        console.log('Lotto scaduto');
-
         this.invioNotifiche(opera);
 
         if(this.ultimaOfferta && this.ultimaOfferta.offerta > 1) {
@@ -150,6 +121,18 @@ export class ListaLottiComponent implements OnInit {
     });
   }
 
+  // Per trovare l'ultima offerta legata all'opera passata
+  trovaUltimaOfferta(opera: Opera) {
+    this.ofs.getUltimaOfferta(opera).subscribe(offerta => {
+      if(offerta) {
+        this.ultimaOfferta = offerta;
+      } else {
+        this.ultimaOfferta = undefined;
+      }
+    });
+  }
+
+  // Per creare un ordine legato all'utente loggato
   creaOrdine(opera: Opera) {
     let prezzo = this.ultimaOfferta?.offerta;
     let speseTrasporto = 10.00;
@@ -168,10 +151,22 @@ export class ListaLottiComponent implements OnInit {
 
     this.ors.addOrdine(nuovoOrdine).subscribe(ordine => {
       this.ordine = ordine;
-      console.log(ordine);
     })
   }
 
+  // Per inviare le notifiche in base all'ultima offerta dell'opera passata
+  invioNotifiche(opera: Opera) {
+    if (this.ultimaOfferta == undefined || this.ultimaOfferta.offerta <= 1) {
+      this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma non hai ricevuto offerte per la tua opera');
+    } else if(this.ultimaOfferta.offerta < opera.prezzoMinimo) {
+      this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma le offerte effettuate dagli utenti non hanno raggiunto il prezzo minimo da te inserito. L\'asta è annullata');
+    } else {
+      this.creaNotifica(opera.autore, opera, 'Asta terminata! Il tuo lotto è stato venduto all\'utente ' + this.ultimaOfferta.utente.nome + ' ' + this.ultimaOfferta.utente.cognome + ' al prezzo di €' + this.ultimaOfferta.offerta + '. Il pacco deve essere spedito in: ' + this.ultimaOfferta.utente.via + ' - ' + this.ultimaOfferta.utente.cap + ' - ' + this.ultimaOfferta.utente.citta + ' ' + this.ultimaOfferta.utente.stato);
+      this.creaNotifica(this.ultimaOfferta.utente, opera, 'Complimenti! Ti sei aggiudicato l\'asta del lotto n. ' + opera.id + ". Per poter ricevere la tua opera il prima possibile, ti preghiamo di completare l'ultimo passaggio nella sezione 'Ordini'.")
+    }
+  }
+
+  // Per creare una notifica
   creaNotifica(destinatario: Utente, opera: Opera, messaggio: string) {
     const nuovaNotifica: Partial<Notifica> = {
       utente: destinatario,
@@ -184,15 +179,9 @@ export class ListaLottiComponent implements OnInit {
     });
   }
 
-  invioNotifiche(opera: Opera) {
-    if (this.ultimaOfferta == undefined || this.ultimaOfferta.offerta <= 1) {
-      this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma non hai ricevuto offerte per la tua opera');
-    } else if(this.ultimaOfferta.offerta < opera.prezzoMinimo) {
-      this.creaNotifica(opera.autore, opera, 'Ci dispiace, ma le offerte effettuate dagli utenti non hanno raggiunto il prezzo minimo da te inserito. L\'asta è annullata');
-    } else {
-      this.creaNotifica(opera.autore, opera, 'Asta terminata! Il tuo lotto è stato venduto all\'utente ' + this.ultimaOfferta.utente.nome + ' ' + this.ultimaOfferta.utente.cognome + ' al prezzo di €' + this.ultimaOfferta.offerta + '. Il pacco deve essere spedito in: ' + this.ultimaOfferta.utente.via + ' - ' + this.ultimaOfferta.utente.cap + ' - ' + this.ultimaOfferta.utente.citta + ' ' + this.ultimaOfferta.utente.stato);
-      this.creaNotifica(this.ultimaOfferta.utente, opera, 'Complimenti! Ti sei aggiudicato l\'asta del lotto n. ' + opera.id + ". Per poter ricevere la tua opera il prima possibile, ti preghiamo di completare l'ultimo passaggio nella sezione 'Ordini'.")
-    }
+  // Per convertire la data nel tipo Date
+  convertiInDate(localDateTime: any): Date {
+    return new Date(localDateTime);
   }
 
 }

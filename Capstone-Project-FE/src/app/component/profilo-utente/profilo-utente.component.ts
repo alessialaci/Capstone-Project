@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingBarService } from '@ngx-loading-bar/core';
 import { of, switchMap } from 'rxjs';
-import { StorageService } from 'src/app/auth/storage.service';
-import { Opera } from 'src/app/models/opera.interface';
 import { Utente } from 'src/app/models/utente.interface';
+import { StorageService } from 'src/app/auth/storage.service';
 import { FotoService } from 'src/app/services/foto.service';
 import { UtentiService } from 'src/app/services/utenti.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-profilo-utente',
@@ -17,13 +16,11 @@ import { UtentiService } from 'src/app/services/utenti.service';
 export class ProfiloUtenteComponent implements OnInit {
 
   utente: Utente | undefined;
-  id!: number;
   utenteSS: any;
   files: File[] = [];
   modificaDati = false;
-  preferiti: Opera[] | undefined;
-  errore = '';
   mostraModifica = false;
+  errore = '';
 
   constructor(private us: UtentiService, private ss: StorageService, private fs: FotoService, private ar: ActivatedRoute, private loadingBar: LoadingBarService) { }
 
@@ -32,16 +29,14 @@ export class ProfiloUtenteComponent implements OnInit {
     this.checkUtente();
   }
 
+  // Per recuperare l'utente che è loggato
   getUtente() {
     this.utenteSS = this.ss.getUser();
-
-    this.id = this.ar.snapshot.params["id"];
-    console.log(this.id);
-
+    let id = this.ar.snapshot.params["id"];
 
     this.us.getUtenti().subscribe((utenti: Utente[]) => {
       this.utente = utenti.find((utenteTrovato) => {
-        if (this.id == utenteTrovato.id) {
+        if (id == utenteTrovato.id) {
           return true;
         } else {
           return false;
@@ -50,26 +45,17 @@ export class ProfiloUtenteComponent implements OnInit {
     })
   }
 
-  checkUtente() {
-    this.utenteSS = this.ss.getUser();
-    let id = this.ar.snapshot.params["id"];
-
-    if(this.utenteSS.id == id) {
-      this.mostraModifica = true;
-    } else {
-      this.mostraModifica = false;
-    }
-
-  }
-
+  // Per aggiungere l'immagine all'array files quando l'utente le seleziona
   onSelect(event: any) {
     this.files.push(...event.addedFiles);
   }
 
+  // Per rimuovere l'immagine dall'array files quando l'utente le elimina
   onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  // Per salvare su Cloudinary le immagini inserite dall'utente e il link di queste nel DB
   aggiornaFotoUtente() {
     if(this.files.length < 1) {
       this.errore = 'Non hai inserito nessuna foto';
@@ -111,6 +97,7 @@ export class ProfiloUtenteComponent implements OnInit {
     });
   }
 
+  // Per aggiornare sul DB i dati dell'utente
   aggiornaDatiUtente(form: NgForm) {
     const utenteAggiornato = {
       ...this.utente,
@@ -128,6 +115,18 @@ export class ProfiloUtenteComponent implements OnInit {
     this.us.updateUtente(utenteAggiornato).subscribe(res => {
       console.log("Utente aggiornato correttamente", res);
     });
+  }
+
+  // Per mostrare o no i pulsanti di modifica dati in base all'utente loggato
+  checkUtente() {
+    this.utenteSS = this.ss.getUser();
+    let id = this.ar.snapshot.params["id"];
+
+    if(this.utenteSS.id == id) {
+      this.mostraModifica = true;
+    } else {
+      this.mostraModifica = false;
+    }
   }
 
   modifica() {

@@ -30,21 +30,23 @@ export class FotoService {
     return this.http.get<Foto[]>(`http://localhost:8080/app/foto/cerca`, { params });
   }
 
-  deleteFoto(id: number): Observable<Object> {
-    return this.http.delete(`http://localhost:8080/app/foto/${id}`);
+  addFoto(foto: Partial<Foto>): Observable<Object> {
+    return this.http.post('http://localhost:8080/app/foto', foto);
   }
 
+  // Per salvare immagini su Cloudinary
   uploadImage(vals: any): Observable<any> {
     let data = vals;
     return this.http.post('https://api.cloudinary.com/v1_1/dwe3fc2iq/image/upload', data, httpOptions);
   }
 
-  addFoto(foto: Partial<Foto>): Observable<Object> {
-    return this.http.post('http://localhost:8080/app/foto', foto);
-  }
-
+  // Per salvare foto di tipo Foto sul DB
   updateFoto(foto: Foto, id: number): Observable<Object> {
     return this.http.put(`http://localhost:8080/app/foto/${id}`, foto);
+  }
+
+  deleteFoto(id: number): Observable<Object> {
+    return this.http.delete(`http://localhost:8080/app/foto/${id}`);
   }
 
 }

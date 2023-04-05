@@ -1,9 +1,7 @@
 export enum TipoOpera {
-
   DIPINTO = "DIPINTO",
   DISEGNO = "DISEGNO",
   FOTOGRAFIA = "FOTOGRAFIA",
   SCULTURA = "SCULTURA",
   FUMETTO = "FUMETTO"
-
 }

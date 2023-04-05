@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-<!-- Modal -->
+<!-- Modale per modificare i dati dell'utente -->
 <div class="modal fade" id="modificaUtente" tabindex="-1" aria-labelledby="modaleModificaUtente" aria-hidden="true" *ngIf="utente && mostraModifica">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -70,7 +70,7 @@
 
         <!-- Sezione per aggiungere immagine del profilo -->
         <div *ngIf="modificaDati && mostraModifica" class="px-5">
-          <ngx-dropzone class="rounded-5 px-5" (change)="onSelect($event)">
+          <ngx-dropzone class="rounded-4 px-5" (change)="onSelect($event)">
             <ngx-dropzone-label>Trascina le immagini oppure clicca</ngx-dropzone-label>
             <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
               <ngx-dropzone-label class="text-dark">({{ f.name }})</ngx-dropzone-label>
@@ -91,9 +91,9 @@
 
         <p><span class="fw-bold">Nome:</span> {{utente?.nome}}</p>
         <p><span class="fw-bold">Cognome:</span> {{utente?.cognome}}</p>
-        <p><span class="fw-bold">Bio:</span> {{utente?.bio || '...'}}</p>
         <p><span class="fw-bold">Username:</span> {{utente?.username}}</p>
         <p><span class="fw-bold">Email:</span> {{utente?.email}}</p>
+        <div class="bg-panna p-4 mt-5"><span class="fw-bold">Bio:</span> {{utente?.bio || '...'}}</div>
     </div>
 
     <div class="text-center rounded-4 p-5 m-5 bg-light shadow">
@@ -103,7 +103,7 @@
       <p><span class="fw-bold">Città:</span> {{utente?.citta || '...'}}</p>
       <p><span class="fw-bold">Stato:</span> {{utente?.stato || '...'}}</p>
 
-      <!-- Bottone modale per modificare i dati -->
+      <!-- Bottone per modale di modifica dati -->
       <div class="text-end" *ngIf="mostraModifica">
         <button type="button" class="btn btn-warning rounded-0 shadow" data-bs-toggle="modal" data-bs-target="#modificaUtente">
           Modifica dati

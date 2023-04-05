@@ -24,8 +24,12 @@ export class OfferteService {
     return this.http.get<Offerta[]>(`http://localhost:8080/app/offerte/cerca`, { params });
   }
 
-  deleteOfferta(id: number): Observable<Object> {
-    return this.http.delete(`http://localhost:8080/app/offerte/${id}`);
+  // Per recuperare l'ultima offerta effettuata da un utente ad un'opera specifica
+  getUltimaOfferta(opera: Opera): Observable<Offerta> {
+    const params = new HttpParams().set('opera', opera.id).set('_sort', 'data').set('_order', 'desc').set('_limit', '1');
+    return this.http.get<Offerta[]>('http://localhost:8080/app/offerte/cerca', { params }).pipe(
+      map(offerte => offerte[offerte.length - 1])
+    );
   }
 
   addOfferta(offerta: Partial<Offerta>): Observable<Object> {
@@ -36,11 +40,8 @@ export class OfferteService {
     return this.http.put(`http://localhost:8080/app/offerte/${id}`, offerta);
   }
 
-  getUltimaOfferta(opera: Opera): Observable<Offerta> {
-    const params = new HttpParams().set('opera', opera.id).set('_sort', 'data').set('_order', 'desc').set('_limit', '1');
-    return this.http.get<Offerta[]>('http://localhost:8080/app/offerte/cerca', { params }).pipe(
-      map(offerte => offerte[offerte.length - 1])
-    );
+  deleteOfferta(id: number): Observable<Object> {
+    return this.http.delete(`http://localhost:8080/app/offerte/${id}`);
   }
 
 }

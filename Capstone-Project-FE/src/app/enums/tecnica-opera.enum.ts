@@ -1,5 +1,4 @@
 export enum TecnicaOpera {
-
 	ACQUERELLO = "ACQUERELLO",
 	ACRILICO = "ACRILICO",
   OLIO = "OLIO",
@@ -10,5 +9,4 @@ export enum TecnicaOpera {
 	INCISIONE = "INCISIONE",
   TECNICA_MISTA = "TECNICA_MISTA",
 	ALTRO = "ALTRO"
-
 }

@@ -22,23 +22,35 @@ export class RiepilogoComponent implements OnInit {
   opera: Opera | undefined;
   listaFoto: Foto[] = [];
 
-  constructor(private us: UtentiService, private ns: NotificheService, private ss: StorageService, private fs: FotoService, private router: Router) { }
+  constructor(private us: UtentiService, private ss: StorageService, private fs: FotoService, private ns: NotificheService, private router: Router) { }
 
   ngOnInit(): void {
     let utenteId = this.ss.getUser().id;
+    this.opera = this.ss.getOpera();
 
+    // Per recuperare l'utente loggato
     this.us.getUtenteById(utenteId).subscribe(ut => {
       this.utente = ut;
     })
 
-    this.opera = this.ss.getOpera();
-
-    // Recupero l'admin
+    // Per recuperare l'admin dal DB
     this.us.getUtenteById(1).subscribe(admin => {
       this.admin = admin;
     })
+
+    if(this.opera) {
+      this.trovaFoto(this.opera);
+    }
   }
 
+  // Per recuperare tutte le immagini legate all'opera passata
+  trovaFoto(opera: Opera) {
+    this.fs.getFotoByOperaId(opera).subscribe(foto => {
+      this.listaFoto = foto;
+    });
+  }
+
+  // Per inviare la notifica del lotto creato all'admin
   inviaDati() {
     this.ss.removeOperaSS();
 

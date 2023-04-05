@@ -24,16 +24,16 @@ export class NotificheService {
     return this.http.get<Notifica[]>(`http://localhost:8080/app/notifiche/cerca`, { params });
   }
 
-  deleteNotifica(id: number): Observable<Object> {
-    return this.http.delete(`http://localhost:8080/app/notifiche/${id}`);
-  }
-
   addNotifica(notifica: Partial<Notifica>): Observable<Object> {
     return this.http.post('http://localhost:8080/app/notifiche', notifica);
   }
 
   updateNotifica(notifica: Partial<Notifica>): Observable<Object> {
     return this.http.put(`http://localhost:8080/app/notifiche/${notifica.id}`, notifica);
+  }
+
+  deleteNotifica(id: number): Observable<Object> {
+    return this.http.delete(`http://localhost:8080/app/notifiche/${id}`);
   }
 
 }

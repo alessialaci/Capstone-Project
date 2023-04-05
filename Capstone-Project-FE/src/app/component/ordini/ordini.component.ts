@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/auth/storage.service';
 import { Ordine } from 'src/app/models/ordine.interface';
+import { StorageService } from 'src/app/auth/storage.service';
 import { OrdiniService } from 'src/app/services/ordini.service';
 import Swal from 'sweetalert2';
-
 
 declare var paypal: any;
 
@@ -32,6 +31,7 @@ export class OrdiniComponent implements OnInit {
     }
   }
 
+  // Per recuperare tutti gli ordini dei lotti vinti dall'utente
   getOrdini() {
     this.ors.getOrdiniByUtente(this.utenteSS).subscribe(ordini => {
       this.listaOrdini = ordini;
@@ -39,6 +39,7 @@ export class OrdiniComponent implements OnInit {
     })
   }
 
+  // Per creare i bottoni di Paypal e pagare gli ordini
   async creaBottoni(ordini: Ordine[]) {
     let somma = 0;
 
@@ -83,6 +84,7 @@ export class OrdiniComponent implements OnInit {
     }
   }
 
+  // Per eliminare gli ordini dopo il pagamento
   eliminaOrdini() {
     for(let i = 0; i < this.listaOrdini.length; i++) {
       this.ors.deleteOrdine(this.listaOrdini[i].id).subscribe(response => {

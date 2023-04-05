@@ -69,7 +69,7 @@ export class DettagliLottoComponent implements OnInit {
     }
   }
 
-  // Per recuperare tutte le immagini legate all'opera presa in considerazione
+  // Per recuperare tutte le immagini legate all'opera passata
   trovaFoto(opera: Opera) {
     this.fs.getFotoByOperaId(opera).subscribe(foto => {
       this.listaFoto = foto;
@@ -80,7 +80,6 @@ export class DettagliLottoComponent implements OnInit {
   trovaOfferte(opera: Opera) {
     this.ofs.getOfferteByOperaId(opera).subscribe(offerte => {
       this.listaOfferte = offerte.reverse();
-      console.log("offerte", offerte);
     });
 
     this.trovaUltimaOfferta(opera);
@@ -94,7 +93,6 @@ export class DettagliLottoComponent implements OnInit {
       } else {
         this.ultimaOfferta = undefined;
       }
-      console.log("ultima offerta", this.ultimaOfferta);
     });
   }
 
@@ -177,7 +175,6 @@ export class DettagliLottoComponent implements OnInit {
 
           this.ps.deletePreferito(preferito.id).subscribe(res => {
             console.log("cancellato", res);
-
           });
         }));
       } else {
@@ -219,7 +216,6 @@ export class DettagliLottoComponent implements OnInit {
       };
 
       this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-        console.log('Lotto scaduto');
         this.invioNotifiche(opera);
 
         if(this.ultimaOfferta && this.ultimaOfferta.offerta > 1) {
@@ -229,7 +225,7 @@ export class DettagliLottoComponent implements OnInit {
     });
   }
 
-  // Per creare un ordine legato all'utente nel session storage
+  // Per creare un ordine legato all'utente loggato
   creaOrdine() {
     let prezzo = this.ultimaOfferta?.offerta;
     let speseTrasporto = 10.00;
@@ -248,7 +244,6 @@ export class DettagliLottoComponent implements OnInit {
 
     this.ors.addOrdine(nuovoOrdine).subscribe(ordine => {
       this.ordine = ordine;
-      console.log(ordine);
     })
   }
 

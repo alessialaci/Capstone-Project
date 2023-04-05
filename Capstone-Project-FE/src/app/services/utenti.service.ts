@@ -19,10 +19,6 @@ export class UtentiService {
     return this.http.get<Utente>(`http://localhost:8080/app/utenti/${id}`);
   }
 
-  deleteUtente(id: number): Observable<Object> {
-    return this.http.delete(`http://localhost:8080/app/utenti/${id}`);
-  }
-
   addUtente(utente: Utente): Observable<Object> {
     return this.http.post('http://localhost:8080/app/utenti', utente);
   }
@@ -31,9 +27,14 @@ export class UtentiService {
     return this.http.put(`http://localhost:8080/app/utenti/${utente.id}`, utente);
   }
 
+  // Per salvare sul DB le opere preferite di un utente
   updatePreferiti(utente: Partial<Utente>, preferiti: Opera[]): Observable<Partial<Utente>> {
     utente.preferiti = preferiti;
     return this.http.put(`http://localhost:8080/app/utenti/${utente.id}`, utente);
+  }
+
+  deleteUtente(id: number): Observable<Object> {
+    return this.http.delete(`http://localhost:8080/app/utenti/${id}`);
   }
 
 }

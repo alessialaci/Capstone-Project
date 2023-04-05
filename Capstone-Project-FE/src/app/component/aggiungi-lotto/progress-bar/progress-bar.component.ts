@@ -37,11 +37,9 @@ export class ProgressBarComponent implements OnInit {
           default:
             this.currentStep = 1;
             break;
-          }
         }
-      });
-      console.log(this.currentStep);
-
-    }
+      }
+    });
+  }
 
 }

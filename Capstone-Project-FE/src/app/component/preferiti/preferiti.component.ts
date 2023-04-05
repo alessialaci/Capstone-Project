@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from 'src/app/auth/storage.service';
 import { Preferito } from 'src/app/models/preferito.interface';
+import { StorageService } from 'src/app/auth/storage.service';
 import { PreferitiService } from 'src/app/services/preferiti.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class PreferitiComponent implements OnInit {
     this.getPreferiti();
   }
 
+  // Per recuperare tutti i preferiti dell'utente loggato
   getPreferiti() {
     let utenteSS = this.ss.getUser();
     this.ps.getPreferitiByUtenteId(utenteSS.id).subscribe(preferiti => {

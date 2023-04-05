@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 
+<!-- Modale per zoom foto -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
@@ -62,7 +63,7 @@
       </tbody>
     </table>
 
-    <div class="bg-light p-4 mb-5">
+    <div class="bg-giallino p-4 mb-5">
       <p class="fw-bold mb-2">Descrizione</p>
       <p class="m-0">{{notifica.opera.descrizione}}</p>
     </div>
@@ -108,8 +109,8 @@
     </table>
 
     <div class="btn-group" *ngIf="isAdmin && notifica.opera.statoLotto === 'IN_ATTESA'">
-      <button type="submit" (click)="confermaLotto(notifica.opera, notifica)" class="btn btn-warning rounded-0 px-5 me-3">Conferma</button>
-      <button type="submit" (click)="rifiutaLotto(notifica.opera, notifica)" class="btn btn-secondary rounded-0 px-5">Rifiuta</button>
+      <button type="submit" (click)="confermaLotto(notifica.opera)" class="btn btn-warning rounded-0 px-5 me-3">Conferma</button>
+      <button type="submit" (click)="rifiutaLotto(notifica.opera)" class="btn btn-secondary rounded-0 px-5">Rifiuta</button>
     </div>
   </div>
 </div>

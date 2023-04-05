@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { of, switchMap } from 'rxjs';
-import { StorageService } from 'src/app/auth/storage.service';
+import { Router } from '@angular/router';
 import { Foto } from 'src/app/models/foto.interface';
 import { Opera } from 'src/app/models/opera.interface';
+import { StorageService } from 'src/app/auth/storage.service';
 import { FotoService } from 'src/app/services/foto.service';
 import { OpereService } from 'src/app/services/opere.service';
 import { LoadingBarService } from '@ngx-loading-bar/core';
@@ -16,11 +16,9 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 export class FotoLottoComponent implements OnInit {
 
   files: File[] = [];
-  fotoOpere: Partial<Foto>[] = [];
-  errore = '';
   operaSS: Opera | undefined;
   opera: Opera | undefined;
-  opere: Opera[] = [];
+  errore = '';
 
   constructor(private ss: StorageService, private fs: FotoService, private os: OpereService, private router: Router, private loadingBar: LoadingBarService) { }
 
