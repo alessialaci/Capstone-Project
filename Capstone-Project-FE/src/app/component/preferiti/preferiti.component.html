@@ -5,22 +5,25 @@
   <hr class="mb-5">
 
   <div class="bg-giallino rounded-4 shadow p-5">
-    <div *ngFor="let preferito of listaPreferiti | paginate: {itemsPerPage: 9, currentPage: paginaCorrente}" class="card rounded-0 border-0 mb-3" [routerLink]="['/dettagli-lotto', preferito.opera.id]">
-      <div class="row g-0">
+    <div *ngFor="let preferito of listaPreferiti | paginate: {itemsPerPage: 9, currentPage: paginaCorrente}"
+      class="card rounded-0 border-0 mb-3" [routerLink]="['/dettagli-lotto', preferito.opera.id]">
+      <div class="row">
         <div class="col-12 col-md-5 col-lg-4 col-xl-3 col-xxl-2">
           <img src="{{preferito.opera.foto[0].file}}" class="img-fluid" alt="Immagine lotto">
         </div>
-        <div class="col-12 col-md-7 col-lg-8 col-xl-9 col-xxl-10">
+        <div class="col-12 col-md-7 col-lg-8 col-xl-9 col-xxl-10 d-flex flex-column">
           <div class="card-body">
             <h5 class="card-title">{{preferito.opera.titolo}}</h5>
             <p class="m-0">Autore: {{preferito.opera.autore.nome}} {{preferito.opera.autore.cognome}}</p>
-            <p class="m-0">Descrizione: {{preferito.opera.descrizione.length > 200 ? preferito.opera.descrizione.slice(0, 200) + '...' : preferito.opera.descrizione}}</p>
+            <p class="m-0">Descrizione: {{preferito.opera.descrizione.length > 100 ?
+              preferito.opera.descrizione.slice(0, 100) + '...' : preferito.opera.descrizione}}</p>
             <p class="m-0">Tipo: {{preferito.opera.tipo | capitalcase}}</p>
             <p class="m-0">Tecnica: {{preferito.opera.tecnica | capitalcase}}</p>
             <p class="m-0">Anno: {{preferito.opera.anno}}</p>
           </div>
-          <div class="card-footer text-end">
-            <a class="btn btn-warning rounded-0 text-end" [routerLink]="['/dettagli-lotto', preferito.opera.id]">Fai un'offerta</a>
+          <div class="text-end px-1 pb-1">
+            <a class="btn btn-warning rounded-0" [routerLink]="['/dettagli-lotto', preferito.opera.id]">Fai
+              un'offerta</a>
           </div>
         </div>
       </div>
@@ -28,7 +31,8 @@
 
     <div *ngIf="listaPreferiti.length == 0">
       <p>Non hai aggiunto nessun lotto ai preferiti.</p>
-      <p>Vai nella sezione <a class="a-link2" routerLink="/lista-lotti" title="Vai a lista lotti">'Aste'</a>, scegli un lotto e clicca sul cuoricino per aggiungerlo ai preferiti.</p>
+      <p>Vai nella sezione <a class="a-link2" routerLink="/lista-lotti" title="Vai a lista lotti">'Aste'</a>, scegli un
+        lotto e clicca sul cuoricino per aggiungerlo ai preferiti.</p>
     </div>
 
     <div class="text-center my-5">

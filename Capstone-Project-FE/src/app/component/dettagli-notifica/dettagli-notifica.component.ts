@@ -11,6 +11,7 @@ import { NotificheService } from 'src/app/services/notifiche.service';
 import { OpereService } from 'src/app/services/opere.service';
 import { UtentiService } from 'src/app/services/utenti.service';
 import Swal from 'sweetalert2';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-dettagli-notifica',
@@ -66,7 +67,7 @@ export class DettagliNotificaComponent implements OnInit {
   }
 
   // Per aggiornare lo stato del lotto in 'APPROVATO', far partire il timer di 7 giorni e inviare la notifica all'autore dell'opera
-  confermaLotto(opera: Opera) {
+  confermaLotto(opera: Opera, form: NgForm) {
     const oggi = new Date();
 
     // Scadenza a 7 giorni --> scadenzaTimer: new Date(oggi.getTime() + 7 * 24 * 60 * 60 * 1000)
@@ -77,7 +78,7 @@ export class DettagliNotificaComponent implements OnInit {
     };
 
     this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-      this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato confermato!");
+      this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato confermato!", form.value.messaggioAdmin);
       this.getNotifica(this.id);
       Swal.fire({
         icon: 'success',
@@ -88,14 +89,14 @@ export class DettagliNotificaComponent implements OnInit {
   }
 
   // Per aggiornare lo stato del lotto in 'RIFIUTATO' e inviare la notifica all'autore dell'opera
-  rifiutaLotto(opera: Opera) {
+  rifiutaLotto(opera: Opera, form: NgForm) {
     const operaAggiornata = {
       ...opera,
       statoLotto: 'RIFIUTATO'
     };
 
     this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
-      this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato rifiutato");
+      this.creaNotifica(opera, "Il tuo lotto n. " + opera.id + " è stato rifiutato", form.value.messaggioAdmin);
       this.getNotifica(this.id);
       Swal.fire({
         icon: 'warning',
@@ -106,11 +107,12 @@ export class DettagliNotificaComponent implements OnInit {
   }
 
   // Per creare la notifica
-  creaNotifica(opera: Opera, messaggio: string) {
+  creaNotifica(opera: Opera, messaggio: string, messaggioAdmin: string) {
     const nuovaNotifica: Partial<Notifica> = {
       utente: opera.autore,
       opera: opera,
-      messaggio: messaggio
+      messaggio: messaggio,
+      messaggioAdmin: messaggioAdmin
     };
 
     this.ns.addNotifica(nuovaNotifica).subscribe(notifica => {

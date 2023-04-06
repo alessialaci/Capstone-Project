@@ -33,7 +33,6 @@ import { OrdiniComponent } from './component/ordini/ordini.component';
 import { CapitalcasePipe } from './pipes/capitalcase.pipe';
 import { TimerComponent } from './component/timer/timer.component';
 
-import { ProvaComponent } from './component/prova/prova.component';
 import { AsteUtenteComponent } from './component/aste-utente/aste-utente.component';
 import { PreferitiComponent } from './component/preferiti/preferiti.component';
 
@@ -59,10 +58,8 @@ import { PreferitiComponent } from './component/preferiti/preferiti.component';
     OrdiniComponent,
     CapitalcasePipe,
     TimerComponent,
-
-    ProvaComponent,
-     AsteUtenteComponent,
-     PreferitiComponent
+    AsteUtenteComponent,
+    PreferitiComponent
   ],
   imports: [
     BrowserModule,

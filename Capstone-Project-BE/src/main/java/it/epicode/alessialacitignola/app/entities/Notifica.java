@@ -1,5 +1,6 @@
 package it.epicode.alessialacitignola.app.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,6 +36,9 @@ public class Notifica {
 	private Opera opera;
 	
 	private String messaggio;
+	
+	@Column(length = 400)
+	private String messaggioAdmin;
 	
 	private boolean visualizzato = false;
 	

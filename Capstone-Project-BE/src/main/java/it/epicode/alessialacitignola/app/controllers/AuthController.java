@@ -69,6 +69,7 @@ public class AuthController {
 	public String update_user_pw() {
 		int id1 = 1;
 		int id2 = 2;
+		int id3 = 3;
 		
 		Utente u1 = us.getById(id1).get();
 		String pw1 = u1.getPassword();
@@ -79,6 +80,11 @@ public class AuthController {
 		String pw2 = u2.getPassword();
 		u2.setPassword( pwEncoder.encode(pw2) );
 		us.save(u2);
+		
+		Utente u3 = us.getById(id3).get();
+		String pw3 = u3.getPassword();
+		u3.setPassword( pwEncoder.encode(pw3) );
+		us.save(u3);
 		
 		return "Utenti aggiornati";
 	}

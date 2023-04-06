@@ -5,24 +5,26 @@
   <hr class="mb-5">
 
   <div class="bg-giallino rounded-4 shadow p-5">
-    <div *ngFor="let opera of listaOpere | paginate: {itemsPerPage: 9, currentPage: paginaCorrente}" class="card rounded-0 border-0 mb-3">
+    <div *ngFor="let opera of listaOpere | paginate: {itemsPerPage: 9, currentPage: paginaCorrente}"
+      class="card rounded-0 border-0 mb-3">
       <div class="row g-0">
-        <div class="col-12 col-md-4 col-xl-2">
-          <!-- col-12 col-md-5 col-lg-4 col-xl-3 col-xxl-2 -->
+        <div class="col-12 col-md-5 col-lg-4 col-xl-3 col-xxl-2">
           <img src="{{opera.foto[0].file}}" class="img-fluid" alt="Immagine lotto">
         </div>
-        <div class="col-12 col-md-8 col-xl-10">
-          <!-- col-12 col-md-7 col-lg-8 col-xl-9 col-xxl-10 -->
+        <div class="col-12 col-md-7 col-lg-8 col-xl-9 col-xxl-10 d-flex flex-column">
           <div class="card-body">
             <h5 class="card-title">{{opera.titolo}}</h5>
             <p class="m-0">Autore: {{opera.autore.nome}} {{opera.autore.cognome}}</p>
-            <p class="m-0">Descrizione: {{opera.descrizione.length > 200 ? opera.descrizione.slice(0, 200) + '...' : opera.descrizione}}</p>
+            <p class="m-0">Descrizione: {{opera.descrizione.length > 100 ? opera.descrizione.slice(0, 100) + '...' :
+              opera.descrizione}}</p>
             <p class="m-0">Tipo: {{opera.tipo | capitalcase}}</p>
             <p class="m-0">Tecnica: {{opera.tecnica | capitalcase}}</p>
             <p class="m-0">Anno: {{opera.anno}}</p>
-            <!-- <div class="card-footer text-end">
-              <button *ngIf="!haOfferte" class="btn-warning" (click)="eliminaLotto(opera.id)"><i class="bi bi-trash3"></i></button>
-            </div> -->
+            <p class="mb-1">Stato: {{opera.statoLotto | capitalcase}}</p>
+          </div>
+          <div class="text-end px-1 pb-1">
+            <a *ngIf="opera.statoLotto == 'APPROVATO'" class="btn btn-warning rounded-0"
+              [routerLink]="['/dettagli-lotto', opera.id]">Mostra</a>
           </div>
         </div>
       </div>
@@ -30,7 +32,8 @@
 
     <div *ngIf="listaOpere.length == 0">
       <p>Non hai aggiunto nessun lotto.</p>
-      <p>Vai nella sezione <a class="a-link2" routerLink="/aggiungi-lotto" title="Vai ad aggiungi lotto">'Vendi'</a> per pubblicare la tua prima opera!</p>
+      <p>Vai nella sezione <a class="a-link2" routerLink="/aggiungi-lotto" title="Vai ad aggiungi lotto">'Vendi'</a> per
+        pubblicare la tua prima opera!</p>
     </div>
 
     <div class="text-center my-5">

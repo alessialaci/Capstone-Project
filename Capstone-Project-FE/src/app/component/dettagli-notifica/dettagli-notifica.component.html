@@ -27,6 +27,11 @@
 
   <div class="container px-5">
     <p class="mt-5">{{notifica.messaggio}}</p>
+
+    <div *ngIf="!isAdmin && notifica.messaggioAdmin">
+      <small class="text-secondary">Messaggio Admin</small>
+      <p>{{notifica.messaggioAdmin}}</p>
+    </div>
     <div class="text-center my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <img class="my-3 me-3" *ngFor="let foto of listaFoto" src="{{foto.file}}" height="350px" alt="Immagine lotto">
     </div>
@@ -108,9 +113,17 @@
       </tbody>
     </table>
 
-    <div class="btn-group" *ngIf="isAdmin && notifica.opera.statoLotto === 'IN_ATTESA'">
-      <button type="submit" (click)="confermaLotto(notifica.opera)" class="btn btn-warning rounded-0 px-5 me-3">Conferma</button>
-      <button type="submit" (click)="rifiutaLotto(notifica.opera)" class="btn btn-secondary rounded-0 px-5">Rifiuta</button>
+    <div *ngIf="isAdmin && notifica.opera.statoLotto === 'IN_ATTESA'">
+      <form #formMessaggio="ngForm">
+        <div class="form-group mb-3">
+          <textarea class="form-control" placeholder="Aggiungi qualche appunto e/o consiglio per l'utente" id="messaggioAdmin" name="messaggioAdmin" rows="5" cols="3" maxlength="400" ngModel></textarea>
+        </div>
+      </form>
+
+      <div class="btn-group">
+        <button type="submit" (click)="confermaLotto(notifica.opera, formMessaggio)" class="btn btn-warning rounded-0 px-5 me-3">Conferma</button>
+        <button type="submit" (click)="rifiutaLotto(notifica.opera, formMessaggio)" class="btn btn-secondary rounded-0 px-5">Rifiuta</button>
+      </div>
     </div>
   </div>
 </div>

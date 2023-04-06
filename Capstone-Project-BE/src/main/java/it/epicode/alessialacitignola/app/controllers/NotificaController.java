@@ -74,6 +74,7 @@ public class NotificaController {
 		notifica.setUtente(_notifica.getUtente());
 		notifica.setOpera(_notifica.getOpera());
 		notifica.setMessaggio(_notifica.getMessaggio());
+		notifica.setMessaggioAdmin(_notifica.getMessaggioAdmin());
 		notifica.setVisualizzato(_notifica.isVisualizzato());
 		
 		ns.save(notifica);

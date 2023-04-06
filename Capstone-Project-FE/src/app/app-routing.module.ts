@@ -13,7 +13,6 @@ import { SpedizioneLottoComponent } from './component/aggiungi-lotto/spedizione-
 import { RiepilogoComponent } from './component/aggiungi-lotto/riepilogo/riepilogo.component';
 import { DettagliNotificaComponent } from './component/dettagli-notifica/dettagli-notifica.component';
 import { OrdiniComponent } from './component/ordini/ordini.component';
-import { ProvaComponent } from './component/prova/prova.component';
 import { ProgressBarComponent } from './component/aggiungi-lotto/progress-bar/progress-bar.component';
 import { AsteUtenteComponent } from './component/aste-utente/aste-utente.component';
 import { PreferitiComponent } from './component/preferiti/preferiti.component';
@@ -62,10 +61,6 @@ const routes: Routes = [
         component: RiepilogoComponent
       }
     ]
-  },
-  {
-    path: 'prova',
-    component: ProvaComponent
   },
   {
     path: 'dettagli-notifiche/:id',

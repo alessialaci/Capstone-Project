@@ -6,5 +6,6 @@ export interface Notifica {
   utente: Utente,
   opera: Opera,
   messaggio: string,
+  messaggioAdmin: string,
   visualizzato: boolean
 }

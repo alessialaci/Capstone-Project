@@ -24,7 +24,7 @@ public class Beans {
 	
 	@Bean
 	@Scope("prototype")
-	public Opera opera(TipoOpera tipo, String titolo, String descrizione, Utente autore, TecnicaOpera tecnica, CondizioniOpera condizioni, int anno, int altezza, int lunghezza, int larghezza, double peso, double stimaPrezzo, double prezzoMinimo) {
+	public Opera opera(TipoOpera tipo, String titolo, String descrizione, Utente autore, TecnicaOpera tecnica, CondizioniOpera condizioni, int anno, int altezza, int lunghezza, int larghezza, double peso, double stimaPrezzo, double prezzoMinimo, LocalDateTime scadenza) {
 		return Opera.builder()
 				.tipo(tipo)
 				.titolo(titolo)
@@ -40,7 +40,7 @@ public class Beans {
 				.stimaPrezzo(stimaPrezzo)
 				.prezzoMinimo(prezzoMinimo)
 				.statoLotto(StatoLotto.APPROVATO)
-				.scadenzaTimer(LocalDateTime.now().plusDays(7))
+				.scadenzaTimer(scadenza)
 				.build();
 	}
 	
