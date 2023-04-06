@@ -3,7 +3,7 @@ Progetto finale corso Epicode
 
 ## Sinossi
 ### Applicazione web per aste d’arte online
-Il mio progetto finale consiste nella creazione di un’applicazione web dedicata alle aste di opere d’arte online.  
+Il mio progetto finale del corso Epicode consiste nella creazione di un’applicazione web dedicata alle aste di opere d’arte online.  
   
 Ho inserito le seguenti funzionalità:
 <ul>
