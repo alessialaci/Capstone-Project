@@ -16,7 +16,7 @@ Ho inserito le seguenti funzionalità:
   
 L'obiettivo principale del progetto è quello di fornire una piattaforma online per gli appassionati di arte intuitiva e facile da utilizzare, aumentare la visibilità degli artisti emergenti creando aste delle proprie opere d’arte e permettere agli utenti di partecipare a questo genere di eventi, spesso difficili da trovare nella propria zona, comodamente da casa propria.  
   
-Per fare ciò utilizzerò le seguenti tecnologie:
+Per fare ciò ho utilizzato le seguenti tecnologie:
 <ul>
   <li>Angular per la parte grafica</li>
   <li>Spring Boot per la parte back-end</li>
