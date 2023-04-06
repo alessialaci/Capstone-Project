@@ -10,7 +10,7 @@ Ho inserito le seguenti funzionalità:
   <li>Homepage libera per tutti</li>
   <li>Login per gli utenti</li>
   <li>Possibilità per gli utenti di pubblicare le proprie opere, dopo conferma dell'admin</li>
-  <li>Possibilità per gli utenti di fare le proprie offerte</li>
+  <li>Possibilità per gli utenti di fare le proprie offerte ad un'opera</li>
   <li>Possibilità di pagare il lotto vinto con Paypal Sandbox</li>
 </ul>  
   
