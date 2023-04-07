@@ -5,7 +5,7 @@ Progetto finale corso Epicode
 ### Applicazione web per aste d’arte online
 Il mio progetto finale del corso Epicode consiste nella creazione di un’applicazione web dedicata alle aste di opere d’arte online.  
 
-![image](https://user-images.githubusercontent.com/80158378/230586342-bbac42aa-0808-45fa-97d8-fc8fccb85fe3.png)
+![image](https://user-images.githubusercontent.com/80158378/230586740-35bbe695-21b6-457f-a6d0-b7079d4cfe4c.png)
   
 Ho inserito le seguenti funzionalità:
 <ul>
@@ -52,4 +52,4 @@ Adesso siete pronti per pubblicare le vostre opere in Artìa!
   
 --------------------------------------------------------------------------------------------------------------------------------------
   
-<small>Le immagini sono libere da copyright (scaricate da Freepik o Unsplash) o, dove specificato, sono dell'artista Rebecca Lentini.</small>
+<small>Le immagini utilizzate sono di pubblico dominio (scaricate da Freepik o Unsplash). Altre immagini sono state gentilmente concesse in uso dall'artista Rebecca Lentini.</small>
