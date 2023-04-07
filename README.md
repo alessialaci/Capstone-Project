@@ -25,7 +25,7 @@ Per fare ciò ho utilizzato le seguenti tecnologie:
   <li>PostgreSQL come database</li>
 </ul>
   
-### Come avviare l'app
+## Come avviare l'app
 È necessario seguire i seguenti passaggi per avviare l'app:
 
 <ul>
