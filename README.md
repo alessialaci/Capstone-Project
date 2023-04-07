@@ -1,4 +1,4 @@
-# Artìa - Capstone-Project
+# Artìa - Capstone Project
 Progetto finale corso Epicode
 
 ## Sinossi
