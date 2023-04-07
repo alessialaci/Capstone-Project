@@ -29,7 +29,7 @@ Per fare ciò ho utilizzato le seguenti tecnologie:
 È necessario seguire i seguenti passaggi per avviare l'app:
 
 <ul>
-  <li>Dopo aver scaricato lo zip ed averlo estratto, aprire le due cartelle nei rispettivi editor</li>
+  <li>Clonare il progetto oppure scaricare lo zip, estrarlo ed aprire le cartelle</li>
   <li>Creare un database chiamato Capstone_Project</li>
 </ul>
   
