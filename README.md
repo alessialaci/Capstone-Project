@@ -39,6 +39,7 @@ Nella parte BE
   <li>Scommentare il metodo popolaDb nel file CapstoneProjectBeApplication</li>
   <li>Fare run</li>
   <li>Ricommentare il metodo e salvare</li>
+  <li>Copiare e incollare sul browser questo link http://localhost:8080/auth/update_pw_utente (comparirà la scritta "Utenti aggiornati")</li>
 </ul>
   
 Nella parte FE
