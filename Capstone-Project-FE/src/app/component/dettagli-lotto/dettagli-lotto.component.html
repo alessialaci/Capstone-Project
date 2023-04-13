@@ -19,7 +19,7 @@
 <div class="container my-5">
   <div class="d-flex justify-content-between">
     <h1 *ngIf="opera">{{opera.titolo}}</h1>
-    <button class="btn border-0 icona fs-4" (click)="aggiungiAiPreferiti($event)"><i class="bi bi-heart-fill"></i></button>
+    <button *ngIf="utente" class="btn border-0 icona fs-4" (click)="aggiungiAiPreferiti($event)"><i class="bi bi-heart-fill"></i></button>
   </div>
   <hr>
 
@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="col">
+          <div class="col p-4">
             <div class="mb-4">
               <p class="text-secondary m-0" style="font-size: 12px;">DIMENSIONI</p>
               <p>{{opera.altezza}} x {{opera.lunghezza}} x {{opera.larghezza}} cm</p>

@@ -74,7 +74,7 @@ export class DettagliNotificaComponent implements OnInit {
     const operaAggiornata = {
       ...opera,
       statoLotto: 'APPROVATO',
-      scadenzaTimer: new Date(oggi.getTime() + (120 * 60 * 1000) + (20 * 60 * 1000)).toISOString()
+      scadenzaTimer: new Date(oggi.getTime() + (1 * 60 * 1000) + (120 * 60 * 1000)).toISOString() // Scadenza ad 1 minuto per presenzione
     };
 
     this.os.updateOpera(operaAggiornata, opera.id).subscribe(() => {
